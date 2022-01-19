@@ -10,7 +10,8 @@
 	"imports": {
 		"#config": "./src/config.ts",
 		"#lib/*": "./src/lib/*.ts",
-		"#lib/env": "./src/lib/env/index.ts"
+		"#lib/env": "./src/lib/env/index.ts",
+		"#lib/extensions": "./src/lib/extensions/index.ts"
 	},
 	"scripts": {
 		"start": "cross-env NODE_ENV=production ts-node --project ./src/tsconfig.json --transpile-only --files ./src/bot.ts",

@@ -1,8 +1,8 @@
-import { CLIENT_OPTIONS } from "#config";
+import { DiscosinoClient } from "#lib/extensions";
 import "#lib/setup";
-import { container, SapphireClient } from "@sapphire/framework";
+import { container } from "@sapphire/framework";
 
-const client = new SapphireClient(CLIENT_OPTIONS);
+const client = new DiscosinoClient();
 
 client.login().catch((err) => {
 	container.logger.fatal(err);
