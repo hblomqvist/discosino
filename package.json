@@ -8,7 +8,7 @@
 	"private": true,
 	"main": "./src/bot.ts",
 	"imports": {
-		"#config": "./src/config.ts",
+		"#root/*": "./src/*.ts",
 		"#lib/*": "./src/lib/*.ts",
 		"#lib/env": "./src/lib/env/index.ts",
 		"#lib/extensions": "./src/lib/extensions/index.ts"
