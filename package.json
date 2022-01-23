@@ -8,10 +8,10 @@
 	"private": true,
 	"main": "./src/bot.ts",
 	"imports": {
-		"#root/*": "./src/*.ts",
 		"#lib/*": "./src/lib/*.ts",
 		"#lib/env": "./src/lib/env/index.ts",
-		"#lib/extensions": "./src/lib/extensions/index.ts"
+		"#lib/extensions": "./src/lib/extensions/index.ts",
+		"#root/*": "./src/*.ts"
 	},
 	"scripts": {
 		"start": "cross-env NODE_ENV=production ts-node --project ./src/tsconfig.json --transpile-only --files ./src/bot.ts",

@@ -1,5 +1,5 @@
+import { CLIENT_OPTIONS } from "#root/config";
 import { SapphireClient } from "@sapphire/framework";
-import { CLIENT_OPTIONS } from "config";
 
 export class DiscosinoClient extends SapphireClient {
 	public constructor() {
