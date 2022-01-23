@@ -20,6 +20,6 @@ export function envParseArray(key: DiscosinoEnvString, defaultValue?: string[]):
 export function envIsDefined(...keys: readonly DiscosinoEnvAny[]): boolean {
 	return keys.every((key) => {
 		const value = process.env[key];
-		return isNullishOrEmpty(value);
+		return !isNullishOrEmpty(value);
 	});
 }
