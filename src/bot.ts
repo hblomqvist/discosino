@@ -1,5 +1,4 @@
 require("#lib/setup");
-
 import { DiscosinoClient } from "#lib/extensions";
 import { container } from "@sapphire/framework";
 
