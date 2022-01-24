@@ -3,6 +3,7 @@ import { LogLevel } from "@sapphire/framework";
 import { ActivitiesOptions, ClientOptions, Intents } from "discord.js";
 
 export const PRODUCTION = envParseString("NODE_ENV") === "production";
+
 export const ADMIN_IDS = envParseArray("ADMIN_IDS", []);
 export const COMMAND_GUILD_IDS = envParseArray("COMMAND_GUILD_IDS", []);
 
