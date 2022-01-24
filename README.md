@@ -1,6 +1,6 @@
 <div align=center>
 
-<img height=128 src="https://cdn.discordapp.com/attachments/767916050128961537/930925510630989824/avatar_circle.png" alt="Discosino Logo">
+<img height=128 src="https://raw.githubusercontent.com/hblomqvist/discosino/main/assets/discosino-avatar-circle-512.png" alt="Discosino Logo">
 
 # Discosino
 
