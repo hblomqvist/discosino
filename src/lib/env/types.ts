@@ -1,7 +1,6 @@
-import type { ActivityType, ColorResolvable } from "discord.js";
+import type { ActivityType } from "discord.js";
 
 type ActivityTypeString = Exclude<ActivityType, "CUSTOM">;
-type ColorString = Extract<ColorResolvable, string>;
 
 export type DiscosinoEnvAny = keyof DiscosinoEnv;
 export type DiscosinoEnvString = {
@@ -13,8 +12,6 @@ export interface DiscosinoEnv {
 
 	ADMIN_IDS: string;
 	COMMAND_GUILD_IDS: string;
-
-	PRIMARY_COLOR: ColorString;
 
 	CLIENT_ACTIVITY_NAME: string;
 	CLIENT_ACTIVITY_TYPE: ActivityTypeString;
