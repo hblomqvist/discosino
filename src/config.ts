@@ -4,7 +4,7 @@ import { ActivitiesOptions, ClientOptions, Intents } from "discord.js";
 
 export const PRODUCTION = envParseString("NODE_ENV") === "production";
 
-export const ADMIN_IDS = envParseArray("ADMIN_IDS", []);
+export const BOT_ADMIN_IDS = envParseArray("BOT_ADMIN_IDS", []);
 export const COMMAND_GUILD_IDS = envParseArray("COMMAND_GUILD_IDS", []);
 
 export const CLIENT_OPTIONS: ClientOptions = {
