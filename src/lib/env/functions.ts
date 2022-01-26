@@ -1,4 +1,4 @@
-import type { DiscosinoEnv, DiscosinoEnvAny, DiscosinoEnvString } from "#lib/env";
+import { DiscosinoEnv, DiscosinoEnvAny, DiscosinoEnvError, DiscosinoEnvString } from "#lib/env";
 import { isNullishOrEmpty } from "@sapphire/utilities";
 
 export function envParseString<K extends DiscosinoEnvString>(key: K, defaultValue?: DiscosinoEnv[K]): DiscosinoEnv[K] {
@@ -6,7 +6,7 @@ export function envParseString<K extends DiscosinoEnvString>(key: K, defaultValu
 
 	if (value) return value;
 	if (defaultValue !== undefined) return defaultValue;
-	throw new Error(`[ENV]: ${key} is empty or undefined.`);
+	throw new DiscosinoEnvError(key);
 }
 
 export function envParseArray(key: DiscosinoEnvString, defaultValue?: string[]): string[] {
@@ -14,7 +14,7 @@ export function envParseArray(key: DiscosinoEnvString, defaultValue?: string[]):
 
 	if (value) return value.split(" ");
 	if (defaultValue !== undefined) return defaultValue;
-	throw new Error(`[ENV]: ${key} is empty or undefined.`);
+	throw new DiscosinoEnvError(key);
 }
 
 export function envIsDefined(...keys: readonly DiscosinoEnvAny[]): boolean {
