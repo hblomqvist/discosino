@@ -1,3 +1,3 @@
-export const enum Color {
+export const enum DiscosinoColor {
 	Primary = 0x5865f2
 }
