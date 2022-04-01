@@ -1,4 +1,4 @@
-import type { DiscosinoEnvAny } from "#lib/env";
+import type { DiscosinoEnvAny } from "./types";
 
 export class DiscosinoEnvError extends Error {
 	public constructor(key: DiscosinoEnvAny) {
