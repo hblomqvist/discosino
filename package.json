@@ -6,7 +6,7 @@
 	"license": "Apache-2.0",
 	"repository": "github:hblomqvist/discosino",
 	"private": true,
-	"main": "./src/bot.ts",
+	"main": "./src/discosino.ts",
 	"imports": {
 		"#lib/*": "./src/lib/*.ts",
 		"#lib/env": "./src/lib/env/index.ts",
@@ -18,8 +18,8 @@
 		"#root/*": "./src/*.ts"
 	},
 	"scripts": {
-		"start": "cross-env NODE_ENV=production ts-node --project ./src/tsconfig.json --transpile-only --files ./src/bot.ts",
-		"dev": "ts-node-dev --respawn --project ./src/tsconfig.json --files --clear --exit-child --require dotenv/config ./src/bot.ts",
+		"start": "cross-env NODE_ENV=production ts-node --project ./src/tsconfig.json --transpile-only --files ./src/discosino.ts",
+		"dev": "ts-node-dev --respawn --project ./src/tsconfig.json --files --clear --exit-child --require dotenv/config ./src/discosino.ts",
 		"lint": "eslint --fix --ext .ts src/",
 		"format": "prettier --write .",
 		"prepare": "husky install"
