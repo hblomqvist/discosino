@@ -5,7 +5,7 @@ import { ActivitiesOptions, ClientOptions, Intents } from "discord.js";
 export const PRODUCTION = envParseString("NODE_ENV") === "production";
 
 export const DEVELOPER_IDS = envParseArray("DEVELOPER_IDS", []);
-export const COMMAND_GUILD_IDS = envParseArray("COMMAND_GUILD_IDS", []);
+export const COMMAND_GUILD_IDS = PRODUCTION ? [] : envParseArray("DEV_GUILD_IDS");
 
 export const CLIENT_OPTIONS: ClientOptions = {
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],

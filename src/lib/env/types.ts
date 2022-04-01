@@ -11,12 +11,13 @@ export interface DiscosinoEnv {
 	NODE_ENV: "development" | "production";
 
 	DEVELOPER_IDS: string;
-	COMMAND_GUILD_IDS: string;
+	DEV_GUILD_IDS: string;
 
 	CLIENT_ACTIVITY_NAME: string;
 	CLIENT_ACTIVITY_TYPE: ActivityTypeString;
 
 	DISCORD_TOKEN: string;
+	PASTE_GG_TOKEN: string;
 }
 
 declare global {

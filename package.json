@@ -10,7 +10,11 @@
 	"imports": {
 		"#lib/*": "./src/lib/*.ts",
 		"#lib/env": "./src/lib/env/index.ts",
+		"#lib/eval": "./src/lib/eval/index.ts",
 		"#lib/extensions": "./src/lib/extensions/index.ts",
+		"#util/*": "./src/lib/util/*.ts",
+		"#util/sanitizer": "./src/lib/util/sanitizer/index.ts",
+		"#util/structures": "./src/lib/util/structures/index.ts",
 		"#root/*": "./src/*.ts"
 	},
 	"scripts": {
@@ -29,7 +33,6 @@
 		"@sapphire/ts-config": "^3.3.3",
 		"@sapphire/type": "^2.2.0",
 		"@sapphire/utilities": "^3.6.1",
-		"dayjs": "^1.11.0",
 		"discord.js": "^13.6.0",
 		"prettier": "^2.6.0",
 		"ts-node": "^10.7.0",
