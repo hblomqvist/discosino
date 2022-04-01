@@ -125,7 +125,7 @@ export class UserCommand extends Command {
 			setTimeout(options.timeout).then(() => ({
 				success: false,
 				input: options.code,
-				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}`,
+				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
 				type: "EvalTimeoutError",
 				time: options.timeout
 			})),
