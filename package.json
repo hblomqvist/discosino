@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Casino bot for Discord",
 	"author": "Henning Blomqvist (https://github.com/hblomqvist)",
-	"license": "AGPL-3.0-only",
+	"license": "Apache-2.0",
 	"repository": "github:hblomqvist/discosino",
 	"private": true,
 	"main": "./src/bot.ts",
