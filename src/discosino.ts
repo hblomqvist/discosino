@@ -2,7 +2,7 @@
 import "@sapphire/plugin-logger/register";
 import "#util/sanitizer/init";
 
-import { DiscosinoClient } from "#lib/extensions";
+import { DiscosinoClient } from "#lib/framework";
 import { ApplicationCommandRegistries, container, RegisterBehavior } from "@sapphire/framework";
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);

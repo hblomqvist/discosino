@@ -11,7 +11,7 @@
 		"#lib/*": "./src/lib/*.ts",
 		"#lib/env": "./src/lib/env/index.ts",
 		"#lib/eval": "./src/lib/eval/index.ts",
-		"#lib/extensions": "./src/lib/extensions/index.ts",
+		"#lib/framework": "./src/lib/framework/index.ts",
 		"#util/*": "./src/lib/util/*.ts",
 		"#util/sanitizer": "./src/lib/util/sanitizer/index.ts",
 		"#util/structures": "./src/lib/util/structures/index.ts",
