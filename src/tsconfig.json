@@ -4,6 +4,7 @@
 		"rootDir": ".",
 		"baseUrl": ".",
 		"paths": {
+			"#util/*": ["lib/util/*"],
 			"#lib/*": ["lib/*"],
 			"#root/*": ["*"]
 		}
