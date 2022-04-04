@@ -62,6 +62,9 @@
 	"engines": {
 		"node": ">=16.9.0"
 	},
+	"volta": {
+		"node": "16.14.2"
+	},
 	"lint-staged": {
 		"*.ts": "eslint --fix --ext .ts"
 	},
