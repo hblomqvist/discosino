@@ -3,15 +3,15 @@ lockfileVersion: 5.3
 specifiers:
   '@commitlint/cli': ^16.2.3
   '@commitlint/config-conventional': ^16.2.1
-  '@sapphire/decorators': ^4.3.3
-  '@sapphire/eslint-config': ^4.3.2
-  '@sapphire/fetch': ^2.3.0
+  '@sapphire/decorators': ^4.3.4
+  '@sapphire/eslint-config': ^4.3.3
+  '@sapphire/fetch': ^2.3.1
   '@sapphire/framework': next
-  '@sapphire/plugin-logger': ^2.2.0
-  '@sapphire/stopwatch': ^1.4.0
-  '@sapphire/ts-config': ^3.3.3
+  '@sapphire/plugin-logger': ^2.2.1
+  '@sapphire/stopwatch': ^1.4.1
+  '@sapphire/ts-config': ^3.3.4
   '@sapphire/type': ^2.2.0
-  '@sapphire/utilities': ^3.6.1
+  '@sapphire/utilities': ^3.6.2
   '@types/node': ^17.0.23
   '@types/prettier': ^2.4.4
   cross-env: ^7.0.3
@@ -20,10 +20,10 @@ specifiers:
   dotenv: ^16.0.0
   husky: ^7.0.4
   lint-staged: ^12.3.7
-  prettier: ^2.6.1
+  prettier: ^2.6.2
   prettier-plugin-organize-imports: ^2.3.4
-  prettier-plugin-prisma: ^3.11.0
-  prettier-plugin-sh: ^0.8.2
+  prettier-plugin-prisma: ^3.12.0
+  prettier-plugin-sh: ^0.10.0
   pretty-quick: ^3.1.3
   ts-node: ^10.7.0
   ts-node-dev: ^1.1.8
@@ -58,7 +58,7 @@ devDependencies:
   lint-staged: 12.3.7
   prettier-plugin-organize-imports: 2.3.4_prettier@2.6.2+typescript@4.6.3
   prettier-plugin-prisma: 3.12.0_prettier@2.6.2
-  prettier-plugin-sh: 0.8.2_prettier@2.6.2
+  prettier-plugin-sh: 0.10.0_prettier@2.6.2
   pretty-quick: 3.1.3_prettier@2.6.2
   ts-node-dev: 1.1.8_typescript@4.6.3
 
@@ -2371,13 +2371,15 @@ packages:
     resolution: {integrity: sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=}
     dev: true
 
-  /mvdan-sh/0.5.0:
-    resolution: {integrity: sha512-UWbdl4LHd2fUnaEcOUFVWRdWGLkNoV12cKVIPiirYd8qM5VkCoCTXErlDubevrkEG7kGohvjRxAlTQmOqG80tw==}
-    dev: true
-
   /nan/2.15.0:
     resolution: {integrity: sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==}
     dev: false
+
+  /nanoid/3.3.2:
+    resolution: {integrity: sha512-CuHBogktKwpm5g2sRgv83jEy2ijFzBwMoYA60orPDR7ynsLijJDqgsi4RDGj3OJpy3Ieb+LYwiRmIOGyytgITA==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: true
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
@@ -2616,13 +2618,15 @@ packages:
       prettier: 2.6.2
     dev: true
 
-  /prettier-plugin-sh/0.8.2_prettier@2.6.2:
-    resolution: {integrity: sha512-M8D4G5OqgZtoVKx+U/J/B/gVA4xUKmWflOjayxiDjCQbxz3HOv0zlpYeb6DXd5xMFl7jW2UY1fJjmDzI9pDBFA==}
+  /prettier-plugin-sh/0.10.0_prettier@2.6.2:
+    resolution: {integrity: sha512-sRxd+GH9xYD9EXuuEGpJSKJBBLKDQY6Fw1TViHEpF1Ce2Oo7CYKQ3fktDBwEDhnXQmo65y/+yovaJGIVR8zaAg==}
+    engines: {node: '>=12.20'}
     peerDependencies:
       prettier: ^2.0.0
     dependencies:
-      mvdan-sh: 0.5.0
       prettier: 2.6.2
+      sh-syntax: 0.1.3
+      synckit: 0.6.2
     dev: true
 
   /prettier/2.6.2:
@@ -2848,6 +2852,14 @@ packages:
     resolution: {integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=}
     dev: false
 
+  /sh-syntax/0.1.3:
+    resolution: {integrity: sha512-h7PHRWnFzzIam5yFNON7deCoRb3DQBOlkP0cWXW7mTytNcDGDF3P0i1BDMmxmzuK6UxbVyANgiaQ73z4eDv2XQ==}
+    engines: {node: '>=v12.20'}
+    dependencies:
+      nanoid: 3.3.2
+      tslib: 2.3.1
+    dev: true
+
   /shebang-command/2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -3055,6 +3067,13 @@ packages:
   /supports-preserve-symlinks-flag/1.0.0:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
+    dev: true
+
+  /synckit/0.6.2:
+    resolution: {integrity: sha512-Vhf+bUa//YSTYKseDiiEuQmhGCoIF3CVBhunm3r/DQnYiGT4JssmnKQc44BIyOZRK2pKjXXAgbhfmbeoC9CJpA==}
+    engines: {node: '>=12.20'}
+    dependencies:
+      tslib: 2.3.1
     dev: true
 
   /tar/6.1.11:
