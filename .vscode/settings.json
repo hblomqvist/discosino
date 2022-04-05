@@ -3,7 +3,8 @@
 	"editor.detectIndentation": true,
 	"files.encoding": "utf8",
 	"files.eol": "\n",
-	"npm.packageManager": "npm",
+	"npm.packageManager": "pnpm",
+	"npm.validate.enable": false,
 	"typescript.preferences.importModuleSpecifier": "non-relative",
 	"typescript.preferences.quoteStyle": "double",
 	"[typescript][json][jsonc]": {
