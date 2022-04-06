@@ -1,0 +1,15 @@
+{
+	"bundle": false,
+	"clean": true,
+	"dts": false,
+	"entry": ["src/**/*.ts", "!src/**/*.d.ts"],
+	"format": ["esm"],
+	"keepNames": true,
+	"platform": "node",
+	"skipNodeModulesBundle": true,
+	"shims": false,
+	"sourcemap": true,
+	"splitting": false,
+	"target": "esnext",
+	"tsconfig": "./tsconfig.json"
+}
