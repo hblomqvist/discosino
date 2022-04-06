@@ -22,7 +22,7 @@
 		"dev": "ts-node-dev --respawn --project ./src/tsconfig.json --files --clear --exit-child --require dotenv/config ./src/discosino.ts",
 		"lint": "eslint --fix --ext .ts src/",
 		"format": "prettier --write .",
-		"prepare": "husky install"
+		"postinstall": "husky install"
 	},
 	"dependencies": {
 		"@sapphire/decorators": "^4.3.4",
@@ -48,6 +48,7 @@
 		"cross-env": "^7.0.3",
 		"cz-conventional-changelog": "^3.3.0",
 		"dotenv": "^16.0.0",
+		"eslint": "^8.12.0",
 		"husky": "^7.0.4",
 		"lint-staged": "^12.3.7",
 		"prettier-plugin-organize-imports": "^2.3.4",
@@ -57,15 +58,14 @@
 		"ts-node-dev": "^1.1.8"
 	},
 	"engines": {
-		"node": ">=16.9.0",
-		"pnpm": ">=7.0.0-rc.2"
+		"node": ">=16.9.0"
 	},
-	"packageManager": "pnpm@7.0.0-rc.2",
 	"volta": {
-		"node": "16.14.2"
+		"node": "16.14.2",
+		"yarn": "1.22.18"
 	},
 	"lint-staged": {
-		"*.ts": "eslint --fix --ext .ts"
+		"*.ts": "eslint --fix"
 	},
 	"commitlint": {
 		"extends": [
@@ -76,5 +76,6 @@
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"
 		}
-	}
+	},
+	"packageManager": "yarn@3.2.0"
 }
