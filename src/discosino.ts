@@ -9,8 +9,10 @@ ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior
 
 const client = new DiscosinoClient();
 
-client.login().catch((err) => {
-	container.logger.fatal(err);
+try {
+	await client.login();
+} catch (error) {
+	container.logger.fatal(error);
 	client.destroy();
 	process.exit(1);
-});
+}
