@@ -24,7 +24,7 @@
 		"watch": "tsup --watch --onSuccess \"yarn dev\"",
 		"build": "tsup",
 		"typecheck": "tsc -b",
-		"lint": "eslint --fix --ext .ts src/",
+		"lint": "eslint --fix .",
 		"format": "prettier --write .",
 		"postinstall": "husky install"
 	},
