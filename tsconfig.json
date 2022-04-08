@@ -13,9 +13,9 @@
 		"rootDir": "src",
 		"baseUrl": "src",
 		"paths": {
-			"#root/*": ["*"],
-			"#lib/*": ["lib/*"],
-			"#util/*": ["lib/util/*"]
+			"#config": ["config"],
+			"#util/*": ["lib/util/*"],
+			"#lib/*": ["lib/*"]
 		}
 	},
 	"include": ["src"]

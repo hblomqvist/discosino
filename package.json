@@ -9,14 +9,14 @@
 	"type": "module",
 	"main": "./dist/discosino.js",
 	"imports": {
-		"#lib/*": "./dist/lib/*.js",
+		"#config": "./dist/config.js",
+		"#util/sanitizer": "./dist/lib/util/sanitizer/index.js",
+		"#util/structures": "./dist/lib/util/structures/index.js",
+		"#util/*": "./dist/lib/util/*.js",
 		"#lib/env": "./dist/lib/env/index.js",
 		"#lib/eval": "./dist/lib/eval/index.js",
 		"#lib/framework": "./dist/lib/framework/index.js",
-		"#util/*": "./dist/lib/util/*.js",
-		"#util/sanitizer": "./dist/lib/util/sanitizer/index.js",
-		"#util/structures": "./dist/lib/util/structures/index.js",
-		"#root/*": "./dist/*.js"
+		"#lib/*": "./dist/lib/*.js"
 	},
 	"scripts": {
 		"start": "node --enable-source-maps --experimental-specifier-resolution=node .",

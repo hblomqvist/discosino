@@ -1,3 +1,4 @@
+import { COMMAND_GUILD_IDS } from "#config";
 import { DiscosinoColor, ZERO_WIDTH_SPACE } from "#lib/constants";
 import {
 	ChatOutputHandler,
@@ -8,7 +9,6 @@ import {
 	FileOutputHandler,
 	PastebinOutputHandler
 } from "#lib/eval";
-import { COMMAND_GUILD_IDS } from "#root/config";
 import { sanitize } from "#util/sanitizer";
 import { HandlerChain } from "#util/structures";
 import { formatDurationShort } from "#util/time";

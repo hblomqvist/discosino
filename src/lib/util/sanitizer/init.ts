@@ -1,4 +1,4 @@
-import { initSanitizer } from "./index";
+import { initSanitizer } from ".";
 
 const secrets = new Set<string>();
 const suffixes = ["PASSWORD", "TOKEN", "SECRET", "KEY"];

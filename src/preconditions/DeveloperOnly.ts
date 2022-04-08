@@ -1,4 +1,4 @@
-import { DEVELOPER_IDS } from "#root/config";
+import { DEVELOPER_IDS } from "#config";
 import { ChatInputCommand, ContextMenuCommand, Precondition } from "@sapphire/framework";
 import type { Snowflake } from "discord.js";
 

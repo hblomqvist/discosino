@@ -4,7 +4,7 @@
 	"files.encoding": "utf8",
 	"files.eol": "\n",
 	"npm.packageManager": "yarn",
-	"typescript.preferences.importModuleSpecifier": "non-relative",
+	"typescript.preferences.importModuleSpecifier": "shortest",
 	"typescript.preferences.quoteStyle": "double",
 	"[typescript][json][jsonc]": {
 		"editor.detectIndentation": false,
