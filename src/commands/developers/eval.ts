@@ -18,7 +18,7 @@ import { Stopwatch } from "@sapphire/stopwatch";
 import { Type } from "@sapphire/type";
 import { isThenable } from "@sapphire/utilities";
 import { Message, MessageEmbed } from "discord.js";
-import { setTimeout } from "timers/promises";
+import { setTimeout as sleep } from "timers/promises";
 import { inspect } from "util";
 
 @ApplyOptions<ChatInputCommand.Options>({
@@ -122,7 +122,7 @@ export class UserCommand extends Command {
 
 	private timeoutEval(options: EvalOptions, util: EvalUtil) {
 		return Promise.race<EvalPayload>([
-			setTimeout(options.timeout).then(() => ({
+			sleep(options.timeout).then(() => ({
 				success: false,
 				input: options.code,
 				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
@@ -134,10 +134,8 @@ export class UserCommand extends Command {
 	}
 
 	private async eval({ code, depth, showHidden }: EvalOptions, util: EvalUtil): Promise<EvalPayload> {
-		/* eslint-disable @typescript-eslint/no-unused-vars */
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { interaction, message } = util;
-		const sleep = setTimeout;
-		/* eslint-enable @typescript-eslint/no-unused-vars */
 
 		let success = true;
 		let result: unknown;
