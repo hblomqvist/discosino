@@ -3,18 +3,18 @@ import { ChatInputCommand, ContextMenuCommand, Precondition } from "@sapphire/fr
 import type { Snowflake } from "discord.js";
 
 export class UserPrecondition extends Precondition {
-	public override chatInputRun({ user }: ChatInputCommand.Interaction, command: ChatInputCommand) {
-		return this.verify(user.id, command.name);
+	public override chatInputRun({ user }: ChatInputCommand.Interaction) {
+		return this.verify(user.id);
 	}
 
-	public override contextMenuRun({ user }: ContextMenuCommand.Interaction, command: ContextMenuCommand) {
-		return this.verify(user.id, command.name);
+	public override contextMenuRun({ user }: ContextMenuCommand.Interaction) {
+		return this.verify(user.id);
 	}
 
-	private verify(userId: Snowflake, commandName: string) {
+	private verify(userId: Snowflake) {
 		return DEVELOPER_IDS.includes(userId)
 			? this.ok()
-			: this.error({ message: `The \`${commandName}\` command can only be used by developers.` });
+			: this.error({ message: "This command can only be used by developers." });
 	}
 }
 
