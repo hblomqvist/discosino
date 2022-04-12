@@ -3,16 +3,18 @@ import "@sapphire/plugin-logger/register";
 import "#util/sanitizer/init";
 
 import { DiscosinoClient } from "#lib/framework";
-import { ApplicationCommandRegistries, container, RegisterBehavior } from "@sapphire/framework";
+import { ApplicationCommandRegistries, RegisterBehavior } from "@sapphire/framework";
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.Overwrite);
 
 const client = new DiscosinoClient();
 
+client.logger.info("Logging in to discord...");
+
 try {
 	await client.login();
 } catch (error) {
-	container.logger.fatal(error);
+	client.logger.fatal(error);
 	client.destroy();
 	process.exit(1);
 }
