@@ -9,14 +9,15 @@
 		"noEmit": true,
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
-		"outDir": "../dist",
+		"outDir": "dist",
+		"tsBuildInfoFile": "dist/.tsbuildinfo",
 		"rootDir": "src",
 		"baseUrl": "src",
 		"paths": {
-			"#config": ["config"],
 			"#util/*": ["lib/util/*"],
-			"#lib/*": ["lib/*"]
+			"#lib/*": ["lib/*"],
+			"#config": ["config.ts"]
 		}
 	},
-	"include": ["src"]
+	"include": ["src/**/*"]
 }
