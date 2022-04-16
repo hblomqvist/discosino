@@ -20,12 +20,12 @@
 	},
 	"scripts": {
 		"start": "node --enable-source-maps --experimental-specifier-resolution=node .",
-		"dev": "node --enable-source-maps --experimental-specifier-resolution=node --require dotenv/config .",
-		"watch": "tsup --watch --onSuccess \"yarn dev\"",
+		"start:dev": "node --enable-source-maps --experimental-specifier-resolution=node --require dotenv/config .",
 		"build": "tsup",
+		"watch": "tsup --watch --onSuccess \"yarn start:dev\"",
 		"typecheck": "tsc",
 		"clean": "rimraf dist",
-		"lint": "eslint --fix .",
+		"lint": "eslint --ext .ts --fix .",
 		"format": "prettier --write .",
 		"postinstall": "husky install"
 	},
