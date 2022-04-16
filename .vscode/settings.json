@@ -18,7 +18,6 @@
 	"npm.packageManager": "yarn",
 	"search.exclude": {
 		"**/.husky/_": true,
-		"**/.git": true,
 		"**/.yarn": true,
 		"**/dist": true,
 		"**/node_modules": true
