@@ -3,9 +3,9 @@ import { DiscosinoColor, ZERO_WIDTH_SPACE } from "#lib/constants";
 import {
 	ChatOutputHandler,
 	ConsoleOutputHandler,
-	EvalOutput,
 	EvalOutputHandler,
 	EvalPayload,
+	EvalResponse,
 	FileOutputHandler,
 	PastebinOutputHandler
 } from "#lib/eval";
@@ -193,7 +193,7 @@ export class UserCommand extends Command {
 			.add(outputs.file)
 			.add(outputs.console);
 
-		return new HandlerChain<EvalPayload, EvalOutput>(...outputSet);
+		return new HandlerChain<EvalPayload, EvalResponse>(...outputSet);
 	}
 }
 

@@ -9,7 +9,7 @@ export interface EvalPayload {
 	message?: string;
 }
 
-export interface EvalOutput {
+export interface EvalResponse {
 	content: string;
 	files?: FileOptions[];
 }
