@@ -40,7 +40,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 				method: FetchMethods.Post,
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Key ${this.token}`
+					"Authorization": `Key ${this.token}`
 				},
 				body: JSON.stringify({
 					name: `Discosino Eval`,
