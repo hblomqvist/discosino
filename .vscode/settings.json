@@ -1,22 +1,28 @@
 {
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.detectIndentation": true,
-	"files.encoding": "utf8",
-	"files.eol": "\n",
-	"npm.packageManager": "yarn",
-	"typescript.preferences.importModuleSpecifier": "shortest",
-	"typescript.preferences.quoteStyle": "double",
-	"[typescript][json][jsonc]": {
-		"editor.detectIndentation": false,
-		"editor.insertSpaces": false
-	},
-	"[prisma]": {
-		"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"[yaml]": {
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
+	"[markdown]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 4
+	},
+	"files.encoding": "utf8",
+	"files.eol": "\n",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"files.trimTrailingWhitespace": true,
+	"npm.packageManager": "yarn",
 	"search.exclude": {
+		"**/.husky/_": true,
 		"**/.git": true,
+		"**/.yarn": true,
+		"**/dist": true,
 		"**/node_modules": true
-	}
+	},
+	"typescript.preferences.importModuleSpecifier": "shortest",
+	"typescript.preferences.quoteStyle": "double"
 }

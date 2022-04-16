@@ -2,19 +2,5 @@
 	"printWidth": 120,
 	"quoteProps": "consistent",
 	"trailingComma": "none",
-	"overrides": [
-		{
-			"files": ["*.ts", "*.json"],
-			"options": {
-				"useTabs": true
-			}
-		},
-		{
-			"files": "*.prisma",
-			"options": {
-				"useTabs": false,
-				"tabWidth": 2
-			}
-		}
-	]
+	"useTabs": true
 }

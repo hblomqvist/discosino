@@ -2,3 +2,5 @@
 .yarn/
 dist/
 node_modules/
+LICENSE
+yarn.lock
