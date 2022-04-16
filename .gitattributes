@@ -1,3 +1,8 @@
 * text=auto eol=lf
 
-.yarn/**/*.cjs linguist-generated
+LICENSE linguist-documentation
+README.md linguist-documentation
+THIRD_PARTY_NOTICES.md linguist-documentation
+
+.yarn/** linguist-generated
+yarn.lock linguist-generated
