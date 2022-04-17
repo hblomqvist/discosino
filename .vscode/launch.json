@@ -1,0 +1,17 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "pwa-node",
+			"request": "launch",
+			"name": "Watch",
+			"runtimeExecutable": "yarn",
+			"runtimeArgs": ["watch"],
+			"skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"],
+			"outFiles": ["${workspaceFolder}/dist/**/*.js"],
+			"outputCapture": "std",
+			"console": "internalConsole",
+			"internalConsoleOptions": "openOnSessionStart"
+		}
+	]
+}
