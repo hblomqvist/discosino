@@ -1,6 +1,5 @@
 import { COMMAND_GUILD_IDS } from "#config";
 import { DiscosinoColor } from "#lib/constants";
-import { formatDurationShort } from "#util/time";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
 import { Message, MessageEmbed } from "discord.js";
@@ -33,13 +32,9 @@ export class UserCommand extends Command {
 
 		const embed = new MessageEmbed() //
 			.setColor(DiscosinoColor.Primary)
-			.addField("Round Trip", this.format(rtt))
-			.addField("Client", this.format(ping));
+			.addField("Round Trip", `\`⏱️ ${rtt} ms\``)
+			.addField("Client", `\`⏱️ ${ping} ms\``);
 
 		return interaction.editReply({ embeds: [embed] });
-	}
-
-	private format(ms: number) {
-		return `\`⏱️ ${formatDurationShort(ms, 0)}\``;
 	}
 }
