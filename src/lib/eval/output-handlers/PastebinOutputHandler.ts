@@ -43,7 +43,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 					"Authorization": `Key ${this.token}`
 				},
 				body: JSON.stringify({
-					name: `Discosino Eval`,
+					name: "Eval",
 					visibility: "unlisted",
 					files: [
 						{
