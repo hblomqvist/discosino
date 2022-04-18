@@ -7,7 +7,7 @@
 			"name": "Watch",
 			"runtimeExecutable": "yarn",
 			"runtimeArgs": ["watch"],
-			"skipFiles": ["<node_internals>/**", "${workspaceFolder}/node_modules/**"],
+			"skipFiles": ["<node_internals>/**"],
 			"outFiles": ["${workspaceFolder}/dist/**/*.js"],
 			"outputCapture": "std",
 			"console": "internalConsole",
