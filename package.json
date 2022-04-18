@@ -27,7 +27,7 @@
 		"clean": "rimraf dist",
 		"lint": "eslint --ext .ts --fix .",
 		"format": "prettier --write .",
-		"postinstall": "husky install"
+		"postinstall": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\""
 	},
 	"dependencies": {
 		"@sapphire/decorators": "^4.3.4",
