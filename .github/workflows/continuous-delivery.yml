@@ -18,7 +18,7 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to container registry
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
