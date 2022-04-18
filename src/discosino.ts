@@ -9,8 +9,6 @@ ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior
 
 const client = new DiscosinoClient();
 
-client.logger.info("Logging in to discord...");
-
 try {
 	await client.login();
 } catch (error) {
