@@ -16,7 +16,7 @@ export class UserCommand extends Command {
 					.setDescription(this.description),
 			{
 				guildIds: COMMAND_GUILD_IDS,
-				idHints: ["965065317254574110"]
+				idHints: ["965065317254574110", "965999137004879922"]
 			}
 		);
 	}

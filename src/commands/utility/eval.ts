@@ -77,7 +77,7 @@ export class UserCommand extends Command {
 					),
 			{
 				guildIds: COMMAND_GUILD_IDS,
-				idHints: ["936007780874199040"]
+				idHints: ["936007780874199040", "965999137889865838"]
 			}
 		);
 	}
