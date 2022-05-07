@@ -46,7 +46,6 @@
 		"@commitlint/config-conventional": "^16.2.4",
 		"@sapphire/eslint-config": "next",
 		"@sapphire/ts-config": "^3.3.4",
-		"@types/is-ci": "^3",
 		"@types/node": "^17.0.31",
 		"@types/prettier": "^2.6.0",
 		"cz-conventional-changelog": "^3.3.0",
