@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY --chown=node:node .yarn/ .yarn/
+COPY --chown=node:node scripts/ scripts/
 COPY --chown=node:node \
 	.yarnrc.yml \
 	package.json \
