@@ -3,7 +3,7 @@ FROM node:16-bullseye-slim AS base
 
 WORKDIR /usr/src/bot
 
-ENV CI=true
+ENV HUSKY=0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	build-essential \

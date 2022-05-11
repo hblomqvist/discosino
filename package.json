@@ -27,7 +27,7 @@
 		"clean": "rimraf dist",
 		"lint": "eslint --ext .ts --fix .",
 		"format": "prettier --write .",
-		"postinstall": "is-ci || husky install"
+		"postinstall": "node scripts/postinstall.js"
 	},
 	"dependencies": {
 		"@sapphire/decorators": "^4.3.4",
@@ -38,7 +38,6 @@
 		"@sapphire/type": "^2.2.4",
 		"@sapphire/utilities": "^3.6.2",
 		"discord.js": "^13.6.0",
-		"is-ci": "^3.0.1",
 		"prettier": "^2.6.2"
 	},
 	"devDependencies": {
