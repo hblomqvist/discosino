@@ -1,9 +1,8 @@
-import { install } from "husky";
-
 if (process.env.CI !== "true") {
 	try {
-		install();
+		const husky = await import("husky");
+		husky.install();
 	} catch (error) {
-		if (error.code !== "MODULE_NOT_FOUND") throw error;
+		if (error.code !== "ERR_MODULE_NOT_FOUND") throw error;
 	}
 }
