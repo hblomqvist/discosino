@@ -63,12 +63,12 @@ export class UserCommand extends Command {
 						option //
 							.setName("output_to")
 							.setDescription("Where the result should be outputted. Default: Chat")
-							.setChoices([
-								["Chat", "chat"],
-								["Pastebin", "pastebin"],
-								["File", "file"],
-								["Console", "console"]
-							])
+							.setChoices(
+								{ name: "Chat", value: "chat" },
+								{ name: "Pastebin", value: "pastebin" },
+								{ name: "File", value: "file" },
+								{ name: "Console", value: "console" }
+							)
 					)
 					.addBooleanOption((option) =>
 						option //
