@@ -23,10 +23,10 @@
 		"start:dev": "node --enable-source-maps --experimental-specifier-resolution=node --require dotenv/config .",
 		"build": "tsup",
 		"watch": "tsup --watch --onSuccess \"yarn start:dev\"",
-		"typecheck": "tsc",
-		"clean": "rimraf dist",
-		"lint": "eslint --ext .ts --fix .",
+		"typecheck": "tsc -p tsconfig.json --noEmit",
+		"lint": "eslint --fix .",
 		"format": "prettier --write .",
+		"clean": "rimraf dist",
 		"postinstall": "node scripts/postinstall.js"
 	},
 	"dependencies": {
@@ -71,11 +71,6 @@
 	"volta": {
 		"node": "16.15.0",
 		"yarn": "1.22.18"
-	},
-	"lint-staged": {
-		"**/*.ts": [
-			"eslint --fix"
-		]
 	},
 	"commitlint": {
 		"extends": [
