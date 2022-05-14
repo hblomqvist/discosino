@@ -28,10 +28,12 @@ let sensitivePattern: RegExp;
 
 export function sanitize(text: string) {
 	if (!sensitivePattern) throw new Error("The sanitizer must be initialized before it can be used.");
+
 	return text.replace(sensitivePattern, "[REDACTED]");
 }
 
 export function initSanitizer(secrets: readonly string[]) {
 	if (!secrets.length) return;
+
 	sensitivePattern = new RegExp(secrets.map(regExpEsc).join("|"), "gi");
 }
