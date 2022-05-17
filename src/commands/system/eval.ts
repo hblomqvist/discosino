@@ -184,14 +184,13 @@ export class UserCommand extends Command {
 			console: new ConsoleOutputHandler()
 		};
 
-		const outputSet = new Set<EvalOutputHandler>();
-
-		outputSet //
-			.add(outputs[outputTo])
-			.add(outputs.chat)
-			.add(outputs.pastebin)
-			.add(outputs.file)
-			.add(outputs.console);
+		const outputSet = new Set<EvalOutputHandler>([
+			outputs[outputTo],
+			outputs.chat,
+			outputs.pastebin,
+			outputs.file,
+			outputs.console
+		]);
 
 		return new HandlerChain<EvalPayload, EvalResponse>(...outputSet);
 	}
