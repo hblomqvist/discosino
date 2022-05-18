@@ -1,4 +1,5 @@
 .husky/_/
+.yarn/
 dist/
 LICENSE
 yarn.lock
