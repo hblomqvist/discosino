@@ -1,4 +1,4 @@
 {
 	"extends": "./tsconfig.json",
-	"include": ["src/**/*", "scripts/**/*", "lint-staged.config.js"]
+	"include": ["src/**/*.ts", "**/*.js"]
 }
