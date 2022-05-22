@@ -24,14 +24,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Lint
+      - name: Lint source
         run: yarn lint --fix=false
 
-      - name: Format
+      - name: Format source
         run: yarn format --write=false
 
   build:
-    name: Build
+    name: Build source
     runs-on: ubuntu-latest
 
     steps:
@@ -47,8 +47,32 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Typecheck
+      - name: Typecheck source
         run: yarn typecheck
 
-      - name: Build
+      - name: Build source
         run: yarn build
+
+  docker:
+    name: Build image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          tags: ghcr.io/${{ github.repository }}:latest
+          outputs: type=docker,dest=/tmp/discosino.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: discosino
+          path: /tmp/discosino.tar
