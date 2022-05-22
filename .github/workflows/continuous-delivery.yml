@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Wait for checks to succeed
+      - name: Wait for other checks to succeed
         uses: lewagon/wait-on-check-action@v1.0.0
         with:
           ref: ${{ github.ref }}
-          running-workflow-name: CD
+          running-workflow-name: Publish image
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Docker Buildx
