@@ -7,7 +7,7 @@
 **A work in progress casino bot for Discord**
 
 <a href="https://github.com/hblomqvist/discosino/search?l=typescript" alt="Top Language"><img src="https://img.shields.io/github/languages/top/hblomqvist/discosino?style=flat-square"></a>
-<a href="https://github.com/hblomqvist/discosino/actions/workflows/ci-cd.yml" alt="CI Status"><img src="https://img.shields.io/github/workflow/status/hblomqvist/discosino/CI%20CD/main?style=flat-square"></a>
+<a href="https://github.com/hblomqvist/discosino/actions/workflows/ci-cd.yml" alt="CI Status"><img src="https://img.shields.io/github/workflow/status/hblomqvist/discosino/CI%20CD/main?label=status&style=flat-square"></a>
 <a href="https://codeclimate.com/github/hblomqvist/discosino" alt="Maintainability"><img src="https://img.shields.io/codeclimate/maintainability/hblomqvist/discosino?style=flat-square"></a>
 <a href="https://github.com/hblomqvist/discosino/blob/main/LICENSE" alt="License"><img src="https://img.shields.io/github/license/hblomqvist/discosino?style=flat-square"></a>
 
