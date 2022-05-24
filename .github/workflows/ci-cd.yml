@@ -28,7 +28,7 @@ jobs:
         run: yarn lint --fix=false
 
       - name: Format source
-        run: yarn format --write=false
+        run: yarn format --check --write=false
 
   build:
     name: Build
