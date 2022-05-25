@@ -39,7 +39,6 @@ RUN yarn install --immutable \
 FROM prebuild AS prod
 
 ENV NODE_ENV=production
-ENV NODE_OPTIONS="--enable-source-maps --experimental-specifier-resolution=node"
 
 COPY --chown=node:node --from=build /usr/src/bot/dist/ dist/
 
@@ -48,4 +47,4 @@ RUN yarn workspaces focus --all --production \
 
 USER node
 
-CMD [ "node", "." ]
+CMD [ "yarn", "start" ]
