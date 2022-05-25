@@ -1,5 +1,5 @@
 # Base stage
-FROM node:16-bullseye-slim AS base
+FROM node:18-bullseye-slim AS base
 
 WORKDIR /usr/src/bot
 
