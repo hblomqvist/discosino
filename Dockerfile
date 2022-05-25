@@ -1,12 +1,11 @@
 # Base stage
-FROM node:18-bullseye-slim AS base
+FROM node:18-alpine AS base
 
-WORKDIR /usr/src/bot
+WORKDIR /bot
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apk add --no-cache \
 	dumb-init \
-	procps \
-	&& rm -rf /var/lib/apt/lists/*
+	procps
 
 ENTRYPOINT [ "dumb-init", "--" ]
 
@@ -40,10 +39,10 @@ FROM prebuild AS prod
 
 ENV NODE_ENV=production
 
-COPY --chown=node:node --from=build /usr/src/bot/dist/ dist/
+COPY --chown=node:node --from=build /bot/dist/ dist/
 
 RUN yarn workspaces focus --all --production \
-	&& chown node:node /usr/src/bot/
+	&& chown node:node /bot/
 
 USER node
 
