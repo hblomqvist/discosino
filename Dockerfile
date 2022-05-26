@@ -3,14 +3,10 @@ FROM node:18-alpine AS base
 
 WORKDIR /bot
 
-RUN apk add --no-cache \
-	dumb-init \
-	procps
+RUN apk add --no-cache dumb-init \
+	&& chown node:node /bot
 
-ENTRYPOINT [ "dumb-init", "--" ]
-
-# Pre-build stage
-FROM base as prebuild
+USER node
 
 COPY --chown=node:node .yarn/ .yarn/
 COPY --chown=node:node scripts/ scripts/
@@ -20,30 +16,36 @@ COPY --chown=node:node \
 	yarn.lock \
 	./
 
-# Build stage
-FROM prebuild AS build
+ENTRYPOINT [ "dumb-init", "--" ]
+
+# Pre-build stage
+FROM base as prebuild
 
 ENV HUSKY=0
 
-COPY --chown=node:node src/ src/
 COPY --chown=node:node \
 	tsconfig.json \
 	tsup.config.json \
 	./
 
 RUN yarn install --immutable \
-	&& yarn build
+	&& yarn cache clean --all
+
+# Build stage
+FROM prebuild AS build
+
+COPY --chown=node:node src/ src/
+
+RUN yarn build
 
 # Production stage
-FROM prebuild AS prod
+FROM base AS prod
 
 ENV NODE_ENV=production
 
 COPY --chown=node:node --from=build /bot/dist/ dist/
 
 RUN yarn workspaces focus --all --production \
-	&& chown node:node /bot/
-
-USER node
+	&& yarn cache clean --all
 
 CMD [ "yarn", "start" ]

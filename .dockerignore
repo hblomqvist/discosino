@@ -1,18 +1,10 @@
-.git/
-.github/
-.husky/
-.vscode/
-assets/
-dist/
-node_modules/
+{.,}**
 
-.env*
-.eslint*
-.git*
-.prettier*
-*.md
-
-.editorconfig
-LICENSE
-lint-staged.config.js
-tsconfig.eslint.json
+!.yarn/
+!scripts/
+!src/
+!.yarnrc.yml
+!package.json
+!tsconfig.json
+!tsup.config.json
+!yarn.lock
