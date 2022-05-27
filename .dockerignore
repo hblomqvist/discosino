@@ -1,7 +1,6 @@
 {.,}**
 
 !.yarn/
-!scripts/
 !src/
 !.yarnrc.yml
 !package.json
