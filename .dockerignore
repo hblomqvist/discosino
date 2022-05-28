@@ -1,6 +1,5 @@
 **
 
-!.yarn/cache/
 !.yarn/patches/
 !.yarn/plugins/
 !.yarn/releases/
