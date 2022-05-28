@@ -1,4 +1,5 @@
 // organize-imports-ignore
+import "dotenv/config";
 import "@sapphire/plugin-logger/register";
 import "#util/sanitizer/init";
 
