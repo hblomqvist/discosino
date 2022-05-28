@@ -28,8 +28,7 @@ COPY --chown=node:node \
 	tsup.config.json \
 	./
 
-RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000,gid=1000 \
-	yarn install --immutable
+RUN yarn install --immutable
 
 # Build stage
 FROM prebuild AS build
@@ -45,7 +44,7 @@ ENV NODE_ENV=production
 
 COPY --chown=node:node --from=build /bot/dist/ dist/
 
-RUN --mount=type=cache,target=/home/node/.yarn/berry/cache,uid=1000,gid=1000 \
-	yarn workspaces focus --all --production
+RUN yarn workspaces focus --all --production \
+	&& yarn cache clean --all
 
 CMD [ "yarn", "start" ]
