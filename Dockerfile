@@ -44,6 +44,7 @@ ENV NODE_ENV=production
 
 COPY --chown=node:node --from=build /bot/dist/ dist/
 
-RUN yarn workspaces focus --all --production
+RUN yarn workspaces focus --all --production \
+	&& yarn cache clean --all
 
 CMD [ "yarn", "start" ]
