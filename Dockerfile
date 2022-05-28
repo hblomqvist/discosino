@@ -16,6 +16,8 @@ COPY --chown=node:node \
 	yarn.lock \
 	./
 
+RUN yarn config set enableMirror false
+
 ENTRYPOINT [ "dumb-init", "--" ]
 
 # Pre-build stage
@@ -45,6 +47,6 @@ ENV NODE_ENV=production
 COPY --chown=node:node --from=build /bot/dist/ dist/
 
 RUN yarn workspaces focus --all --production \
-	&& yarn cache clean --all
+	&& yarn cache clean
 
 CMD [ "yarn", "start" ]
