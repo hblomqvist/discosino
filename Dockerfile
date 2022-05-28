@@ -9,18 +9,19 @@ RUN apk add --no-cache dumb-init \
 USER node
 
 COPY --chown=node:node .yarn/ .yarn/
+COPY --chown=node:node scripts/ scripts/
 COPY --chown=node:node \
 	.yarnrc.yml \
 	package.json \
 	yarn.lock \
 	./
 
-RUN yarn config set enableScripts false
-
 ENTRYPOINT [ "dumb-init", "--" ]
 
 # Pre-build stage
 FROM base as prebuild
+
+ENV HUSKY=0
 
 COPY --chown=node:node \
 	tsconfig.json \
