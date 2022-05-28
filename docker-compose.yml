@@ -1,0 +1,11 @@
+services:
+  bot:
+    build:
+      context: .
+      target: prebuild
+    command: yarn watch
+    container_name: discosino
+    tty: true
+    volumes:
+      - ./src:/bot/src
+      - ./.env:/bot/.env
