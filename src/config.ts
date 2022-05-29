@@ -12,7 +12,8 @@ export const CLIENT_OPTIONS: ClientOptions = {
 	logger: {
 		level: PRODUCTION ? LogLevel.Info : LogLevel.Debug
 	},
-	presence: { activities: parseActivity() }
+	presence: { activities: parseActivity() },
+	partials: ["CHANNEL"]
 };
 
 function parseActivity(): ActivitiesOptions[] {
