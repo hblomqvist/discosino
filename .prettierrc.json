@@ -1,13 +1,6 @@
 {
 	"printWidth": 120,
-	"singleQuote": false,
 	"quoteProps": "consistent",
 	"trailingComma": "none",
-	"useTabs": true,
-	"overrides": [
-		{
-			"files": "**/*.yml",
-			"options": { "singleQuote": true }
-		}
-	]
+	"useTabs": true
 }
