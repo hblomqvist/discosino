@@ -32,5 +32,6 @@
 		"**/node_modules": true
 	},
 	"typescript.preferences.importModuleSpecifier": "shortest",
-	"typescript.preferences.quoteStyle": "double"
+	"typescript.preferences.quoteStyle": "double",
+	"typescript.tsdk": "node_modules/typescript/lib"
 }
