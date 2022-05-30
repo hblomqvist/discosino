@@ -32,9 +32,13 @@ export class UserCommand extends Command {
 
 		const embed = new MessageEmbed() //
 			.setColor(DiscosinoColor.Primary)
-			.addField("Round Trip", `\`⏱️ ${rtt} ms\``)
-			.addField("Client", `\`⏱️ ${ping} ms\``);
+			.addField("Round Trip", this.formatPing(rtt))
+			.addField("Heartbeat", this.formatPing(ping));
 
 		return interaction.editReply({ embeds: [embed] });
+	}
+
+	private formatPing(ms: number) {
+		return `\`⏱️ ${ms} ms\``;
 	}
 }
