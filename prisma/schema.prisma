@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id      Int      @id @default(autoincrement())
+  guildId String   @map("guild_id")
+  userId  String   @map("user_id")
+  account Account?
+
+  @@unique([guildId, userId])
+  @@map("members")
+}
+
+model Account {
+  ownerId     Int    @id @map("owner_id")
+  moneyAmount String @default("0") @map("money_amount")
+  tokenAmount String @default("0") @map("token_amount")
+  owner       Member @relation(fields: [ownerId], references: [id])
+
+  @@map("accounts")
+}

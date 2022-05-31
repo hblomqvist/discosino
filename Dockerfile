@@ -9,6 +9,7 @@ RUN apk add --no-cache dumb-init \
 USER node
 
 COPY --chown=node:node .yarn/ .yarn/
+COPY --chown=node:node prisma/ prisma/
 COPY --chown=node:node scripts/ scripts/
 COPY --chown=node:node \
 	.yarnrc.yml \
@@ -46,4 +47,4 @@ COPY --chown=node:node --from=build /bot/dist/ dist/
 
 RUN yarn workspaces focus --all --production
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start:migrate" ]

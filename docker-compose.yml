@@ -6,7 +6,25 @@ services:
       target: prebuild
     command: yarn watch
     container_name: discosino
+    depends_on:
+      - database
     tty: true
     volumes:
       - ./src:/bot/src
       - ./.env:/bot/.env
+
+  database:
+    container_name: postgres
+    environment:
+      POSTGRES_DB: discosino
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - discosino-data:/var/lib/postgresql/data
+
+volumes:
+  discosino-data:
+    external: true

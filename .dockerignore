@@ -5,6 +5,7 @@
 !.yarn/releases/
 !.yarn/sdks/
 !.yarn/versions/
+!prisma/
 !scripts/
 !src/
 !.yarnrc.yml

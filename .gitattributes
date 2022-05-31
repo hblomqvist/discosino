@@ -4,4 +4,5 @@ LICENSE linguist-documentation
 *.md linguist-documentation
 
 .yarn/** linguist-generated
+prisma/migrations/** linguist-generated
 yarn.lock linguist-generated

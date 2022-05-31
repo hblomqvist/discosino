@@ -13,6 +13,7 @@
 		"#util/sanitizer": "./dist/lib/util/sanitizer/index.js",
 		"#util/structures": "./dist/lib/util/structures/index.js",
 		"#lib/*": "./dist/lib/*.js",
+		"#lib/database": "./dist/lib/database/index.js",
 		"#lib/env": "./dist/lib/env/index.js",
 		"#lib/eval": "./dist/lib/eval/index.js",
 		"#lib/framework": "./dist/lib/framework/index.js",
@@ -20,6 +21,7 @@
 	},
 	"scripts": {
 		"start": "node --enable-source-maps --experimental-specifier-resolution=node .",
+		"start:migrate": "prisma migrate deploy && yarn start",
 		"dev": "tsup --onSuccess \"yarn start\"",
 		"watch": "tsup --watch --onSuccess \"yarn start\"",
 		"build": "tsup",
@@ -31,6 +33,7 @@
 		"postinstall": "node scripts/postinstall.js"
 	},
 	"dependencies": {
+		"@prisma/client": "^3.14.0",
 		"@sapphire/decorators": "^4.3.4",
 		"@sapphire/fetch": "^2.3.1",
 		"@sapphire/framework": "next",
@@ -40,7 +43,8 @@
 		"@sapphire/utilities": "^3.6.2",
 		"discord.js": "^13.7.0",
 		"dotenv": "^16.0.1",
-		"prettier": "^2.6.2"
+		"prettier": "^2.6.2",
+		"prisma": "^3.14.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^17.0.1",

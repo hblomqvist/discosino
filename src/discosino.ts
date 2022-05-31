@@ -14,6 +14,6 @@ try {
 	await client.login();
 } catch (error) {
 	client.logger.fatal(error);
-	client.destroy();
+	await client.destroy();
 	process.exit(1);
 }
