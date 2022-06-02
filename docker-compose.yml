@@ -8,6 +8,7 @@ services:
     container_name: discosino
     depends_on:
       - database
+    network_mode: host
     tty: true
     volumes:
       - ./src:/bot/src
