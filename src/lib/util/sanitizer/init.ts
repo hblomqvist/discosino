@@ -1,7 +1,7 @@
 import { initSanitizer } from ".";
 
 const secrets = new Set<string>();
-const suffixes = ["PASSWORD", "TOKEN", "SECRET", "KEY"];
+const suffixes = ["PASSWORD", "TOKEN", "SECRET", "KEY", "URL"];
 
 for (const [key, value] of Object.entries(process.env)) {
 	if (!value) continue;
