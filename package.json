@@ -23,7 +23,7 @@
 		"start": "node --enable-source-maps --experimental-specifier-resolution=node .",
 		"start:migrate": "prisma migrate deploy && yarn start",
 		"dev": "tsup --onSuccess \"yarn start\"",
-		"watch": "tsup --watch --onSuccess \"yarn start\"",
+		"watch": "yarn dev --watch",
 		"build": "tsup",
 		"typecheck": "tsc -p tsconfig.json --noEmit",
 		"lint": "eslint --fix .",
