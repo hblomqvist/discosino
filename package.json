@@ -29,7 +29,7 @@
 		"lint": "eslint --fix .",
 		"format": "prettier --write .",
 		"clean": "rimraf dist",
-		"nuke": "rimraf node_modules yarn.lock",
+		"reinstall": "rimraf node_modules yarn.lock && yarn install",
 		"postinstall": "node scripts/postinstall.js"
 	},
 	"dependencies": {
