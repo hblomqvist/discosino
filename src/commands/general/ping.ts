@@ -1,4 +1,3 @@
-import { COMMAND_GUILD_IDS } from "#config";
 import { DiscosinoColor } from "#lib/constants";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
@@ -14,10 +13,7 @@ export class UserCommand extends Command {
 				builder //
 					.setName(this.name)
 					.setDescription(this.description),
-			{
-				guildIds: COMMAND_GUILD_IDS,
-				idHints: ["965065317254574110", "965999137004879922"]
-			}
+			{ idHints: ["984436199408160839", "965999137004879922"] }
 		);
 	}
 

@@ -1,4 +1,3 @@
-import { COMMAND_GUILD_IDS } from "#config";
 import { DiscosinoColor, ZERO_WIDTH_SPACE } from "#lib/constants";
 import {
 	ChatOutputHandler,
@@ -75,10 +74,7 @@ export class UserCommand extends Command {
 							.setName("ephemeral")
 							.setDescription("Hides the response from everyone except you. Default: True")
 					),
-			{
-				guildIds: COMMAND_GUILD_IDS,
-				idHints: ["936007780874199040", "965999137889865838"]
-			}
+			{ idHints: ["984436198833524756", "965999137889865838"] }
 		);
 	}
 
