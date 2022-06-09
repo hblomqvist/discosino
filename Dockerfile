@@ -3,7 +3,10 @@ FROM node:18-alpine AS base
 
 WORKDIR /bot
 
-RUN apk add --no-cache dumb-init \
+RUN apk add --no-cache \
+	build-base \
+	dumb-init \
+	python3 \
 	&& chown node:node /bot
 
 USER node
