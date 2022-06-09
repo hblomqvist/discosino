@@ -10,11 +10,12 @@ export type DiscosinoEnvString = {
 export interface DiscosinoEnv {
 	NODE_ENV: "development" | "production";
 
-	DEVELOPER_IDS: string;
-	DEV_GUILD_IDS: string;
-
 	CLIENT_ACTIVITY_NAME: string;
 	CLIENT_ACTIVITY_TYPE: ActivityTypeString;
+
+	DEVELOPER_IDS: string;
+
+	DATABASE_URL: string;
 
 	DISCORD_TOKEN: string;
 	PASTE_GG_TOKEN: string;
