@@ -9,6 +9,5 @@ async function removeIgnoredFiles(files) {
 }
 
 export default {
-	"**/*.ts": () => "yarn typecheck",
 	"**/*.{ts,js}": async (files) => `eslint --fix --max-warnings=0 ${await removeIgnoredFiles(files)}`
 };
