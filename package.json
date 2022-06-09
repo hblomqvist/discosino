@@ -75,7 +75,7 @@
 	},
 	"volta": {
 		"node": "18.3.0",
-		"yarn": "1.22.18"
+		"yarn": "1.22.19"
 	},
 	"commitlint": {
 		"extends": [
