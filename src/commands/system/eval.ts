@@ -27,8 +27,8 @@ import { inspect } from "util";
 export class UserCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
-			(command) =>
-				command //
+			(builder) =>
+				builder //
 					.setName(this.name)
 					.setDescription(this.description)
 					.setDefaultPermission(false)
