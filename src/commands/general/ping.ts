@@ -9,8 +9,8 @@ import { Message, MessageEmbed } from "discord.js";
 export class UserCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
-			(builder) =>
-				builder //
+			(command) =>
+				command //
 					.setName(this.name)
 					.setDescription(this.description),
 			{ idHints: ["984436199408160839", "965999137004879922"] }
