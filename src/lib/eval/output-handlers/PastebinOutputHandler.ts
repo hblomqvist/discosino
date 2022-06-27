@@ -1,4 +1,4 @@
-import { envParseString } from "#lib/env";
+import { ENV } from "#config";
 import { formatCode } from "#util/formatters";
 import { fetch, FetchMethods, FetchResultTypes, QueryError } from "@sapphire/fetch";
 import { container } from "@sapphire/framework";
@@ -6,7 +6,7 @@ import type { EvalPayload } from "../types";
 import { EvalOutputHandler } from "./EvalOutputHandler";
 
 export class PastebinOutputHandler extends EvalOutputHandler {
-	private readonly token = envParseString("PASTE_GG_TOKEN", "");
+	private readonly token = ENV.PASTE_GG_TOKEN;
 
 	public override async handle(payload: EvalPayload) {
 		if (!this.token) {

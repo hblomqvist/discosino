@@ -1,26 +1,32 @@
-import { envIsDefined, envParseArray, envParseString } from "#lib/env";
 import { LogLevel } from "@sapphire/framework";
-import { ActivitiesOptions, ClientOptions, Intents } from "discord.js";
+import { ClientOptions, Intents } from "discord.js";
+import { cleanEnv, makeValidator, str, url } from "envalid";
 
-export const PRODUCTION = envParseString("NODE_ENV", "development") === "production";
-export const DEVELOPER_IDS = envParseArray("DEVELOPER_IDS", []);
+const strArray = makeValidator((value) => value.split(" "));
+
+export const ENV = cleanEnv(process.env, {
+	NODE_ENV: str({
+		choices: ["development", "production"],
+		default: "development"
+	}),
+	CLIENT_ACTIVITY_NAME: str({ default: "" }),
+	CLIENT_ACTIVITY_TYPE: str({
+		choices: ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "COMPETING"],
+		default: "PLAYING"
+	}),
+	DEVELOPER_IDS: strArray({ default: [] }),
+	DATABASE_URL: url(),
+	DISCORD_TOKEN: str(),
+	PASTE_GG_TOKEN: str({ default: "" })
+});
 
 export const CLIENT_OPTIONS: ClientOptions = {
 	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 	logger: {
-		level: PRODUCTION ? LogLevel.Info : LogLevel.Debug
+		level: ENV.isProd ? LogLevel.Info : LogLevel.Debug
 	},
 	partials: ["CHANNEL"],
-	presence: { activities: parseActivity() }
+	presence: {
+		activities: [{ name: ENV.CLIENT_ACTIVITY_NAME, type: ENV.CLIENT_ACTIVITY_TYPE }]
+	}
 };
-
-function parseActivity(): ActivitiesOptions[] {
-	if (!envIsDefined("CLIENT_ACTIVITY_NAME")) return [];
-
-	return [
-		{
-			name: envParseString("CLIENT_ACTIVITY_NAME"),
-			type: envParseString("CLIENT_ACTIVITY_TYPE", "PLAYING")
-		}
-	];
-}
