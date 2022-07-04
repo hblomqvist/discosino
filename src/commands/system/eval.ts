@@ -74,7 +74,7 @@ export class UserCommand extends Command {
 							.setName("ephemeral")
 							.setDescription("Hides the response from everyone except you. Default: True")
 					),
-			{ idHints: ["984436198833524756", "965999137889865838"] }
+			{ idHints: ["991133581730652210", "965999137889865838"] }
 		);
 	}
 

@@ -13,7 +13,7 @@ export class UserCommand extends Command {
 				builder //
 					.setName(this.name)
 					.setDescription(this.description),
-			{ idHints: ["984436199408160839", "965999137004879922"] }
+			{ idHints: ["991133582653407355", "965999137004879922"] }
 		);
 	}
 
