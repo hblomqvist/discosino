@@ -13,7 +13,6 @@
 		"#util/sanitizer": "./dist/lib/util/sanitizer/index.js",
 		"#util/structures": "./dist/lib/util/structures/index.js",
 		"#lib/*": "./dist/lib/*.js",
-		"#lib/database": "./dist/lib/database/index.js",
 		"#lib/eval": "./dist/lib/eval/index.js",
 		"#lib/framework": "./dist/lib/framework/index.js",
 		"#config": "./dist/config.js"
