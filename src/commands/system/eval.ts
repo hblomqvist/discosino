@@ -16,7 +16,15 @@ import { ChatInputCommand, Command } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
 import { Type } from "@sapphire/type";
 import { isThenable } from "@sapphire/utilities";
-import { Message, MessageEmbed } from "discord.js";
+import {
+	Message,
+	MessageActionRow,
+	MessageEmbed,
+	Modal,
+	ModalActionRowComponent,
+	ModalSubmitInteraction,
+	TextInputComponent
+} from "discord.js";
 import { setTimeout as sleep } from "timers/promises";
 import { inspect } from "util";
 
@@ -25,6 +33,15 @@ import { inspect } from "util";
 	preconditions: ["DeveloperOnly"]
 })
 export class UserCommand extends Command {
+	private readonly defaultOptions: EvalOptions = {
+		depth: 0,
+		showHidden: false,
+		async: false,
+		timeout: 60000,
+		outputTo: "chat",
+		ephemeral: true
+	};
+
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand(
 			(builder) =>
@@ -32,36 +49,32 @@ export class UserCommand extends Command {
 					.setName(this.name)
 					.setDescription(this.description)
 					.setDefaultPermission(false)
-					.addStringOption((option) =>
-						option //
-							.setName("code")
-							.setDescription("The expression, statement, or sequence of statements to be evaluated.")
-							.setRequired(true)
-					)
 					.addIntegerOption((option) =>
 						option //
 							.setName("depth")
-							.setDescription("The number of times to recurse while formatting an object. Default: 0")
+							.setDescription(
+								`The number of times to recurse while formatting an object. Default: ${this.defaultOptions.depth}`
+							)
 					)
 					.addBooleanOption((option) =>
 						option //
 							.setName("show_hidden")
-							.setDescription("Shows non-enumerable object properties. Default: False")
+							.setDescription(`Shows non-enumerable object properties. Default: ${this.defaultOptions.showHidden}`)
 					)
 					.addBooleanOption((option) =>
 						option //
 							.setName("async")
-							.setDescription("Wraps the code in an async arrow function. Default: False")
+							.setDescription(`Wraps the code in an async arrow function. Default: ${this.defaultOptions.async}`)
 					)
 					.addIntegerOption((option) =>
 						option //
 							.setName("timeout")
-							.setDescription("How long to wait for a result in milliseconds. Default: 60000")
+							.setDescription(`How long to wait for a result in milliseconds. Default: ${this.defaultOptions.timeout}`)
 					)
 					.addStringOption((option) =>
 						option //
 							.setName("output_to")
-							.setDescription("Where the result should be outputted. Default: Chat")
+							.setDescription(`Where the result should be outputted. Default: ${this.defaultOptions.outputTo}`)
 							.setChoices(
 								{ name: "Chat", value: "chat" },
 								{ name: "Pastebin", value: "pastebin" },
@@ -72,21 +85,65 @@ export class UserCommand extends Command {
 					.addBooleanOption((option) =>
 						option //
 							.setName("ephemeral")
-							.setDescription("Hides the response from everyone except you. Default: True")
+							.setDescription(`Hides the response from everyone except you. Default: ${this.defaultOptions.ephemeral}`)
 					),
 			{ idHints: ["991133581730652210", "965999137889865838"] }
 		);
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction) {
+		const modalCustomId = `eval-modal-${interaction.id}`;
+
+		const modal = new Modal() //
+			.setCustomId(modalCustomId)
+			.setTitle("Eval")
+			.setComponents(
+				new MessageActionRow<ModalActionRowComponent>().addComponents(
+					new TextInputComponent() //
+						.setCustomId("code-input")
+						.setLabel("Code")
+						.setStyle("PARAGRAPH")
+				)
+			);
+
+		await interaction.showModal(modal);
+
+		const modalInteraction = await interaction.awaitModalSubmit({
+			filter: (interaction) => interaction.customId === modalCustomId,
+			time: 900000
+		});
+
 		const options = this.getOptions(interaction);
 
+		return this.modalSubmitRun(modalInteraction, options);
+	}
+
+	private getOptions(interaction: ChatInputCommand.Interaction) {
+		const options: EvalOptions = {
+			depth: interaction.options.getInteger("depth") ?? this.defaultOptions.depth,
+			showHidden: interaction.options.getBoolean("show_hidden") ?? this.defaultOptions.showHidden,
+			async: interaction.options.getBoolean("async") ?? this.defaultOptions.async,
+			timeout: interaction.options.getInteger("timeout") ?? this.defaultOptions.timeout,
+			outputTo: interaction.options.getString("output_to") ?? this.defaultOptions.outputTo,
+			ephemeral: interaction.options.getBoolean("ephemeral") ?? this.defaultOptions.ephemeral
+		};
+
+		if (options.depth <= -1) options.depth = Infinity;
+		if (options.timeout <= 0) options.timeout = 900000;
+
+		return options;
+	}
+
+	private async modalSubmitRun(interaction: ModalSubmitInteraction, options: EvalOptions) {
 		const message = (await interaction.deferReply({
 			ephemeral: options.ephemeral,
 			fetchReply: true
 		})) as Message;
 
-		const payload = await this.timeoutEval(options, { interaction, message });
+		const modalInput = interaction.fields.getTextInputValue("code-input");
+		const code = options.async ? `(async () => {\n${modalInput}\n})();` : modalInput;
+
+		const payload = await this.timeoutEval(code, options, { interaction, message });
 		const outputHandler = this.buildOutputChain(options.outputTo);
 		const { content, files } = await outputHandler.handle(payload);
 
@@ -98,38 +155,20 @@ export class UserCommand extends Command {
 		return interaction.editReply({ embeds: [embed], files });
 	}
 
-	private getOptions(interaction: ChatInputCommand.Interaction) {
-		const options: EvalOptions = {
-			code: interaction.options.getString("code", true),
-			depth: interaction.options.getInteger("depth") ?? 0,
-			showHidden: interaction.options.getBoolean("show_hidden") ?? false,
-			async: interaction.options.getBoolean("async") ?? false,
-			timeout: interaction.options.getInteger("timeout") ?? 60000,
-			outputTo: interaction.options.getString("output_to") ?? "chat",
-			ephemeral: interaction.options.getBoolean("ephemeral") ?? true
-		};
-
-		if (options.async) options.code = `(async () => {\n${options.code}\n})();`;
-		if (options.depth <= -1) options.depth = Infinity;
-		if (options.timeout <= 0) options.timeout = 900000;
-
-		return options;
-	}
-
-	private timeoutEval(options: EvalOptions, util: EvalUtil) {
+	private timeoutEval(code: string, options: EvalOptions, util: EvalUtil) {
 		return Promise.race<EvalPayload>([
 			sleep(options.timeout).then(() => ({
 				success: false,
-				input: options.code,
+				input: code,
 				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
 				type: "EvalTimeoutError",
 				time: options.timeout
 			})),
-			this.eval(options, util)
+			this.eval(code, options, util)
 		]);
 	}
 
-	private async eval({ code, depth, showHidden }: EvalOptions, util: EvalUtil): Promise<EvalPayload> {
+	private async eval(code: string, { depth, showHidden }: EvalOptions, util: EvalUtil): Promise<EvalPayload> {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { interaction, message } = util;
 
@@ -193,7 +232,6 @@ export class UserCommand extends Command {
 }
 
 interface EvalOptions {
-	code: string;
 	depth: number;
 	showHidden: boolean;
 	async: boolean;
@@ -203,6 +241,6 @@ interface EvalOptions {
 }
 
 interface EvalUtil {
-	interaction: ChatInputCommand.Interaction;
+	interaction: ModalSubmitInteraction;
 	message: Message;
 }
