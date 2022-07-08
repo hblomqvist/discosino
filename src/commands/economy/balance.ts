@@ -38,10 +38,10 @@ export class UserCommand extends Command {
 
 		const embed = new MessageEmbed() //
 			.setColor(DiscosinoColor.Primary)
+			.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
 			.addField("Money", this.formatCurrency(DiscosinoEmoji.MoneySymbol, moneyAmount))
 			.addField("Tokens", this.formatCurrency(DiscosinoEmoji.TokenSymbol, tokenAmount))
-			.addField("Net Worth", this.formatCurrency(DiscosinoEmoji.MixedSymbol, totalAmount))
-			.setFooter({ text: user.tag, iconURL: user.displayAvatarURL() });
+			.addField("Net Worth", this.formatCurrency(DiscosinoEmoji.MixedSymbol, totalAmount));
 
 		return interaction.editReply({ embeds: [embed] });
 	}
