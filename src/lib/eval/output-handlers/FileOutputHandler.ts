@@ -8,11 +8,11 @@ export class FileOutputHandler extends EvalOutputHandler {
 		const files: File[] = [
 			{
 				name: "input.js",
-				attachment: Buffer.from(formatCode(payload.input))
+				attachment: Buffer.from(formatCode(payload.code))
 			},
 			{
 				name: "output.js",
-				attachment: Buffer.from(payload.output)
+				attachment: Buffer.from(payload.result)
 			},
 			{
 				name: "type.ts",

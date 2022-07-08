@@ -2,8 +2,8 @@ import type { FileOptions } from "discord.js";
 
 export interface EvalPayload {
 	success: boolean;
-	input: string;
-	output: string;
+	code: string;
+	result: string;
 	type: string;
 	time: number;
 	message?: string;

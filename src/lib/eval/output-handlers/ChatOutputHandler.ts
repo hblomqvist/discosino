@@ -6,9 +6,9 @@ export class ChatOutputHandler extends EvalOutputHandler {
 	public override handle(payload: EvalPayload) {
 		const body = [
 			"**Input**",
-			codeBlock(formatCode(payload.input, { printWidth: 60 }), "js"),
+			codeBlock(formatCode(payload.code, { printWidth: 60 }), "js"),
 			"**Output**",
-			codeBlock(payload.output, "js"),
+			codeBlock(payload.result, "js"),
 			"**Type**",
 			codeBlock(payload.type, "ts")
 		].join("\n");

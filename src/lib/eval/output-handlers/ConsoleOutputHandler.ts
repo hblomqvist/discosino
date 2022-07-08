@@ -8,10 +8,10 @@ export class ConsoleOutputHandler extends EvalOutputHandler {
 		const output = [
 			"[EVAL]",
 			indent("Input:", 2),
-			indent(formatCode(payload.input), 4),
+			indent(formatCode(payload.code), 4),
 			"",
 			indent("Output:", 2),
-			indent(payload.output, 4),
+			indent(payload.result, 4),
 			"",
 			indent("Type:", 2),
 			indent(payload.type, 4)

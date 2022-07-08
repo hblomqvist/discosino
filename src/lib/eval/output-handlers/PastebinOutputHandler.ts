@@ -50,7 +50,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 							name: "Input",
 							content: {
 								format: "text",
-								value: formatCode(payload.input)
+								value: formatCode(payload.code)
 							},
 							highlight_language: "javascript"
 						},
@@ -58,7 +58,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 							name: "Output",
 							content: {
 								format: "text",
-								value: payload.output
+								value: payload.result
 							},
 							highlight_language: "typescript"
 						},

@@ -159,8 +159,8 @@ export class UserCommand extends Command {
 		return Promise.race<EvalPayload>([
 			sleep(options.timeout).then(() => ({
 				success: false,
-				input: code,
-				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
+				code,
+				result: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
 				type: "EvalTimeoutError",
 				time: options.timeout
 			})),
@@ -204,8 +204,8 @@ export class UserCommand extends Command {
 
 		return {
 			success,
-			input: code,
-			output: sanitize(result as string) || ZERO_WIDTH_SPACE,
+			code,
+			result: sanitize(result as string) || ZERO_WIDTH_SPACE,
 			type: type.toString(),
 			time: timer.duration
 		};
