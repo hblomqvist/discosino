@@ -1,3 +1,4 @@
+import type { MemberIdentifier } from "#util/types";
 import type { Member } from "@prisma/client";
 import { container } from "@sapphire/framework";
 
@@ -15,13 +16,8 @@ export async function ensureAccount(identifier: MemberIdentifier) {
 	const { id } = await ensureMember(identifier);
 
 	return container.database.account.upsert({
-		where: { ownerId: id },
-		create: { ownerId: id },
+		where: { id },
+		create: { id },
 		update: {}
 	});
-}
-
-interface MemberIdentifier {
-	guildId: string;
-	userId: string;
 }

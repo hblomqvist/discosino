@@ -18,10 +18,10 @@ model Member {
 }
 
 model Account {
-  ownerId     Int    @id @map("owner_id")
-  moneyAmount String @default("0") @map("money_amount")
-  tokenAmount String @default("0") @map("token_amount")
-  owner       Member @relation(fields: [ownerId], references: [id])
+  id          Int    @id
+  moneyString String @default("0") @map("money_string")
+  tokenString String @default("0") @map("token_string")
+  owner       Member @relation(fields: [id], references: [id])
 
   @@map("accounts")
 }
