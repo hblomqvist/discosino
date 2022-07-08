@@ -36,7 +36,7 @@ export class UserCommand extends Command {
 	private readonly defaultOptions: EvalOptions = {
 		depth: 0,
 		showHidden: false,
-		async: false,
+		wrapAsync: false,
 		timeout: 60000,
 		outputTo: "chat",
 		ephemeral: true
@@ -63,8 +63,8 @@ export class UserCommand extends Command {
 					)
 					.addBooleanOption((option) =>
 						option //
-							.setName("async")
-							.setDescription(`Wraps the code in an async arrow function. Default: ${this.defaultOptions.async}`)
+							.setName("wrap_async")
+							.setDescription(`Wraps the code in an async arrow function. Default: ${this.defaultOptions.wrapAsync}`)
 					)
 					.addIntegerOption((option) =>
 						option //
@@ -122,7 +122,7 @@ export class UserCommand extends Command {
 		const options: EvalOptions = {
 			depth: interaction.options.getInteger("depth") ?? this.defaultOptions.depth,
 			showHidden: interaction.options.getBoolean("show_hidden") ?? this.defaultOptions.showHidden,
-			async: interaction.options.getBoolean("async") ?? this.defaultOptions.async,
+			wrapAsync: interaction.options.getBoolean("wrap_async") ?? this.defaultOptions.wrapAsync,
 			timeout: interaction.options.getInteger("timeout") ?? this.defaultOptions.timeout,
 			outputTo: interaction.options.getString("output_to") ?? this.defaultOptions.outputTo,
 			ephemeral: interaction.options.getBoolean("ephemeral") ?? this.defaultOptions.ephemeral
@@ -141,7 +141,7 @@ export class UserCommand extends Command {
 		})) as Message;
 
 		const modalInput = interaction.fields.getTextInputValue("code-input");
-		const code = options.async ? `(async () => {\n${modalInput}\n})();` : modalInput;
+		const code = options.wrapAsync ? `(async () => {\n${modalInput}\n})();` : modalInput;
 
 		const payload = await this.timeoutEval(code, options, { interaction, message });
 		const outputHandler = this.buildOutputChain(options.outputTo);
@@ -234,7 +234,7 @@ export class UserCommand extends Command {
 interface EvalOptions {
 	depth: number;
 	showHidden: boolean;
-	async: boolean;
+	wrapAsync: boolean;
 	timeout: number;
 	outputTo: string;
 	ephemeral: boolean;
