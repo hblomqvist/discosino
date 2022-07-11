@@ -1,13 +1,20 @@
 import type { MemberIdentifier } from "#util/types";
-import { ensureAccount } from "./database";
+import { findAccount } from "./database";
 
 export async function getBalance(identifier: MemberIdentifier): Promise<AccountBalance> {
-	const { moneyString, tokenString } = await ensureAccount(identifier);
+	try {
+		const { moneyString, tokenString } = await findAccount(identifier);
 
-	return {
-		moneyAmount: BigInt(moneyString),
-		tokenAmount: BigInt(tokenString)
-	};
+		return {
+			moneyAmount: BigInt(moneyString),
+			tokenAmount: BigInt(tokenString)
+		};
+	} catch {
+		return {
+			moneyAmount: 0n,
+			tokenAmount: 0n
+		};
+	}
 }
 
 interface AccountBalance {
