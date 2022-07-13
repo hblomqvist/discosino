@@ -21,7 +21,7 @@ export const ENV = cleanEnv(process.env, {
 });
 
 export const CLIENT_OPTIONS: ClientOptions = {
-	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+	intents: [Intents.FLAGS.GUILDS],
 	logger: {
 		level: ENV.isProd ? LogLevel.Info : LogLevel.Debug
 	},
