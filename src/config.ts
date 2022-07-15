@@ -35,3 +35,5 @@ export const CLIENT_OPTIONS: ClientOptions = {
 		activities: [{ name: ENV.ACTIVITY_NAME, type: ENV.ACTIVITY_TYPE }]
 	}
 };
+
+export const SANITIZER_SUFFIXES = ["DATABASE_URL", "TOKEN"];
