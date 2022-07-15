@@ -6,7 +6,8 @@ export class DiscosinoClient extends SapphireClient {
 	public constructor() {
 		super(CLIENT_OPTIONS);
 
-		container.database = new PrismaClient();
+		this.database = new PrismaClient();
+		container.database = this.database;
 	}
 
 	public override login(token?: string) {
@@ -21,6 +22,12 @@ export class DiscosinoClient extends SapphireClient {
 		} catch {}
 
 		return super.destroy();
+	}
+}
+
+declare module "@sapphire/framework" {
+	interface SapphireClient {
+		database: PrismaClient;
 	}
 }
 
