@@ -434,9 +434,9 @@ __metadata:
   linkType: hard
 
 "@sapphire/discord-utilities@npm:^2.11.2, @sapphire/discord-utilities@npm:^2.11.4":
-  version: 2.11.4
-  resolution: "@sapphire/discord-utilities@npm:2.11.4"
-  checksum: 3c79c0a83f028c44d3a0020209a8e0502a4d0dfba1fe9720bfe4f433d37cdb280c72d5529f08e361ae06ce19d6fab59a3d92992a7216af4e4920166e9b1502cb
+  version: 2.11.5
+  resolution: "@sapphire/discord-utilities@npm:2.11.5"
+  checksum: 5a507d845372f51012486d5bb6ec82fa4ac7e305b49d336517539d05267f82603ce4c0add3d7903afd19f0046efc6986f1837c041d0ec1edecd77cad48d27061
   languageName: node
   linkType: hard
 
@@ -5092,7 +5092,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.6.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=7ad353"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
