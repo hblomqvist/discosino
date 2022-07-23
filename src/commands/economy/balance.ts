@@ -15,12 +15,13 @@ export class UserCommand extends Command {
 				builder //
 					.setName(this.name)
 					.setDescription(this.description)
+					.setDMPermission(false)
 					.addUserOption((option) =>
 						option //
 							.setName("user")
 							.setDescription("The user whose balance shall be displayed.")
 					),
-			{ idHints: ["994784896490938490", "994995243323768842"] }
+			{ idHints: ["1000113997363810365"] }
 		);
 	}
 

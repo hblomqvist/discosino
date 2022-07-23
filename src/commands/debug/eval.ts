@@ -48,7 +48,7 @@ export class UserCommand extends Command {
 				builder //
 					.setName(this.name)
 					.setDescription(this.description)
-					.setDefaultPermission(false)
+					.setDefaultMemberPermissions(0)
 					.addIntegerOption((option) =>
 						option //
 							.setName("depth")
@@ -87,7 +87,7 @@ export class UserCommand extends Command {
 							.setName("ephemeral")
 							.setDescription(`Hides the response from everyone except you. Default: ${this.defaultOptions.ephemeral}`)
 					),
-			{ idHints: ["991133581730652210", "965999137889865838"] }
+			{ idHints: ["1000113999590990046"] }
 		);
 	}
 
