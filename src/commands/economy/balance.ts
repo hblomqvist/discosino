@@ -21,7 +21,7 @@ export class UserCommand extends Command {
 							.setName("user")
 							.setDescription("The user whose balance shall be displayed.")
 					),
-			{ idHints: ["1000113997363810365"] }
+			{ idHints: ["1000113997363810365", "1000212137655947346"] }
 		);
 	}
 
