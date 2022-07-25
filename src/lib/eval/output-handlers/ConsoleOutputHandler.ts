@@ -1,4 +1,4 @@
-import { formatCode, indent } from "#util/formatters";
+import { indent } from "#util/formatters";
 import { container } from "@sapphire/framework";
 import type { EvalPayload } from "../types";
 import { EvalOutputHandler } from "./EvalOutputHandler";
@@ -8,7 +8,7 @@ export class ConsoleOutputHandler extends EvalOutputHandler {
 		const output = [
 			"[EVAL]",
 			indent("Input:", 2),
-			indent(formatCode(payload.code), 4),
+			indent(this.formatCode(payload.code), 4),
 			"",
 			indent("Output:", 2),
 			indent(payload.result, 4),

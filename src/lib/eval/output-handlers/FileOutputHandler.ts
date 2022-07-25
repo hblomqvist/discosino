@@ -1,4 +1,3 @@
-import { formatCode } from "#util/formatters";
 import type { BufferResolvable } from "discord.js";
 import type { EvalPayload } from "../types";
 import { EvalOutputHandler } from "./EvalOutputHandler";
@@ -8,7 +7,7 @@ export class FileOutputHandler extends EvalOutputHandler {
 		const files: File[] = [
 			{
 				name: "input.js",
-				attachment: Buffer.from(formatCode(payload.code))
+				attachment: Buffer.from(this.formatCode(payload.code))
 			},
 			{
 				name: "output.js",

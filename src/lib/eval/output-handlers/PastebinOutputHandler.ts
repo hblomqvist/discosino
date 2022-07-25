@@ -1,5 +1,4 @@
 import { ENV } from "#config";
-import { formatCode } from "#util/formatters";
 import { fetch, FetchMethods, FetchResultTypes, QueryError } from "@sapphire/fetch";
 import { container } from "@sapphire/framework";
 import type { EvalPayload } from "../types";
@@ -50,7 +49,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 							name: "Input",
 							content: {
 								format: "text",
-								value: formatCode(payload.code)
+								value: this.formatCode(payload.code)
 							},
 							highlight_language: "javascript"
 						},

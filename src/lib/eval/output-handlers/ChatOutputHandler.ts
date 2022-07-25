@@ -1,4 +1,4 @@
-import { codeBlock, formatCode } from "#util/formatters";
+import { codeBlock } from "#util/formatters";
 import type { EvalPayload } from "../types";
 import { EvalOutputHandler } from "./EvalOutputHandler";
 
@@ -6,7 +6,7 @@ export class ChatOutputHandler extends EvalOutputHandler {
 	public override handle(payload: EvalPayload) {
 		const body = [
 			"**Input**",
-			codeBlock(formatCode(payload.code, { printWidth: 60 }), "js"),
+			codeBlock(this.formatCode(payload.code, { printWidth: 60 }), "js"),
 			"**Output**",
 			codeBlock(payload.result, "js"),
 			"**Type**",
