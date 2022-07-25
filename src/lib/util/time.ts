@@ -1,30 +1,32 @@
+import { Time } from "@sapphire/time-utilities";
+
 export function formatDurationShort(ms: number, decimals = 2) {
 	let value: number;
 	let unit: string;
 
 	switch (true) {
-		case ms >= 31536000000:
-			value = ms / 31536000000;
+		case ms >= Time.Year:
+			value = ms / Time.Year;
 			unit = "y";
 			break;
-		case ms >= 2628000000:
-			value = ms / 2628000000;
+		case ms >= Time.Month:
+			value = ms / Time.Month;
 			unit = "mo";
 			break;
-		case ms >= 86400000:
-			value = ms / 86400000;
+		case ms >= Time.Day:
+			value = ms / Time.Day;
 			unit = "d";
 			break;
-		case ms >= 360000:
-			value = ms / 360000;
+		case ms >= Time.Hour:
+			value = ms / Time.Hour;
 			unit = "h";
 			break;
-		case ms >= 60000:
-			value = ms / 60000;
+		case ms >= Time.Minute:
+			value = ms / Time.Minute;
 			unit = "min";
 			break;
-		case ms >= 1000:
-			value = ms / 1000;
+		case ms >= Time.Second:
+			value = ms / Time.Second;
 			unit = "s";
 			break;
 		case ms >= 1:

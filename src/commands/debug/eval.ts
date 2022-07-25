@@ -14,6 +14,7 @@ import { formatDurationShort } from "#util/time";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
+import { Time } from "@sapphire/time-utilities";
 import { Type } from "@sapphire/type";
 import { isThenable } from "@sapphire/utilities";
 import {
@@ -37,7 +38,7 @@ export class UserCommand extends Command {
 		depth: 0,
 		showHidden: false,
 		wrapAsync: false,
-		timeout: 60000,
+		timeout: Time.Minute,
 		outputTo: "chat",
 		ephemeral: true
 	};
