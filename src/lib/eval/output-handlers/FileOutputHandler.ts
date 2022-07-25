@@ -20,7 +20,7 @@ export class FileOutputHandler extends EvalOutputHandler {
 		];
 
 		for (const { attachment } of files) {
-			if (attachment.length > 8000000) {
+			if (attachment.length > 8e6) {
 				payload.message ??= "One or more files exceeded the 8 MB size limit.";
 
 				return super.handle(payload);
