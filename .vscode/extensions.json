@@ -2,7 +2,6 @@
 	"recommendations": [
 		"mikestead.dotenv",
 		"dbaeumer.vscode-eslint",
-		"eg2.vscode-npm-script",
 		"esbenp.prettier-vscode",
 		"ms-azuretools.vscode-docker",
 		"Prisma.prisma"
