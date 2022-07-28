@@ -40,9 +40,11 @@ export class UserCommand extends Command {
 		const embed = new MessageEmbed() //
 			.setColor(DiscosinoColor.Primary)
 			.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
-			.addField("Money", this.formatCurrency(DiscosinoEmoji.MoneySymbol, moneyAmount))
-			.addField("Tokens", this.formatCurrency(DiscosinoEmoji.TokenSymbol, tokenAmount))
-			.addField("Net Worth", this.formatCurrency(DiscosinoEmoji.MixedSymbol, totalAmount));
+			.addFields([
+				{ name: "Money", value: this.formatCurrency(DiscosinoEmoji.MoneySymbol, moneyAmount) },
+				{ name: "Tokens", value: this.formatCurrency(DiscosinoEmoji.TokenSymbol, tokenAmount) },
+				{ name: "Net Worth", value: this.formatCurrency(DiscosinoEmoji.MixedSymbol, totalAmount) }
+			]);
 
 		return interaction.editReply({ embeds: [embed] });
 	}

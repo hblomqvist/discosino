@@ -23,13 +23,15 @@ export class UserCommand extends Command {
 			fetchReply: true
 		})) as Message;
 
-		const rtt = message.createdTimestamp - interaction.createdTimestamp;
+		const messageDiff = message.createdTimestamp - interaction.createdTimestamp;
 		const { ping } = this.container.client.ws;
 
 		const embed = new MessageEmbed() //
 			.setColor(DiscosinoColor.Primary)
-			.addField("Round Trip", this.formatPing(rtt))
-			.addField("Heartbeat", this.formatPing(ping));
+			.addFields([
+				{ name: "Round Trip", value: this.formatPing(messageDiff) },
+				{ name: "Heartbeat", value: this.formatPing(ping) }
+			]);
 
 		return interaction.editReply({ embeds: [embed] });
 	}
