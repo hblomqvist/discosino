@@ -27,7 +27,7 @@ jobs:
       - name: Lint source
         run: yarn lint --fix=false
 
-      - name: Format source
+      - name: Check formatting
         run: yarn format --check --write=false
 
   build:
