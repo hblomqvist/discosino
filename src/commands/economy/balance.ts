@@ -41,15 +41,15 @@ export class UserCommand extends Command {
 			.setColor(DiscosinoColor.Primary)
 			.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
 			.addFields([
-				{ name: "Money", value: this.formatCurrency(DiscosinoEmoji.MoneySymbol, moneyAmount) },
-				{ name: "Tokens", value: this.formatCurrency(DiscosinoEmoji.TokenSymbol, tokenAmount) },
-				{ name: "Net Worth", value: this.formatCurrency(DiscosinoEmoji.MixedSymbol, totalAmount) }
+				{ name: "Money", value: `${DiscosinoEmoji.MoneySymbol} ${this.formatAmount(moneyAmount)}` },
+				{ name: "Tokens", value: `${DiscosinoEmoji.TokenSymbol} ${this.formatAmount(tokenAmount)}` },
+				{ name: "Net Worth", value: `${DiscosinoEmoji.MixedSymbol} ${this.formatAmount(totalAmount)}` }
 			]);
 
 		return interaction.editReply({ embeds: [embed] });
 	}
 
-	private formatCurrency(symbol: string, amount: bigint) {
-		return `${symbol} ${amount.toLocaleString("en-US")}`;
+	private formatAmount(amount: bigint) {
+		return amount.toLocaleString("en-US");
 	}
 }
