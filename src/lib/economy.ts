@@ -40,6 +40,30 @@ export async function incrementBalance(identifier: MemberIdentifier, increments:
 	await setBalance(identifier, updatedBalance);
 }
 
+export function formatFunds(amount: number | bigint) {
+	if (amount > 1e18) return "Eternal Wealth";
+
+	const notations = [
+		{ exponent: 15, suffix: "Q" },
+		{ exponent: 12, suffix: "T" },
+		{ exponent: 9, suffix: "B" },
+		{ exponent: 6, suffix: "M" }
+	];
+
+	const amountString = (typeof amount === "number" ? Math.trunc(amount) : amount).toString();
+
+	for (const { exponent, suffix } of notations) {
+		if (amount >= 10 ** exponent) {
+			const integerPart = amountString.slice(0, -exponent);
+			const fractionPart = amountString.slice(-exponent, -exponent + 2);
+
+			return `${integerPart}.${fractionPart}${suffix}`;
+		}
+	}
+
+	return amount.toLocaleString("en-US");
+}
+
 interface AccountBalance {
 	moneyAmount: bigint;
 	tokenAmount: bigint;

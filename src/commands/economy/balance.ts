@@ -1,5 +1,5 @@
 import { DiscosinoColor, DiscosinoEmoji } from "#lib/constants";
-import { getBalance } from "#lib/economy";
+import { formatFunds, getBalance } from "#lib/economy";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
 import { MessageEmbed } from "discord.js";
@@ -41,15 +41,11 @@ export class UserCommand extends Command {
 			.setColor(DiscosinoColor.Primary)
 			.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
 			.addFields([
-				{ name: "Money", value: `${DiscosinoEmoji.MoneySymbol} ${this.formatAmount(moneyAmount)}` },
-				{ name: "Tokens", value: `${DiscosinoEmoji.TokenSymbol} ${this.formatAmount(tokenAmount)}` },
-				{ name: "Net Worth", value: `${DiscosinoEmoji.MixedSymbol} ${this.formatAmount(totalAmount)}` }
+				{ name: "Money", value: `${DiscosinoEmoji.MoneySymbol} ${formatFunds(moneyAmount)}` },
+				{ name: "Tokens", value: `${DiscosinoEmoji.TokenSymbol} ${formatFunds(tokenAmount)}` },
+				{ name: "Net Worth", value: `${DiscosinoEmoji.MixedSymbol} ${formatFunds(totalAmount)}` }
 			]);
 
 		return interaction.editReply({ embeds: [embed] });
-	}
-
-	private formatAmount(amount: bigint) {
-		return amount.toLocaleString("en-US");
 	}
 }
