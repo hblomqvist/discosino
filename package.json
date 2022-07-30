@@ -51,7 +51,7 @@
 		"@commitlint/config-conventional": "^17.0.3",
 		"@sapphire/eslint-config": "^4.3.7",
 		"@sapphire/ts-config": "^3.3.4",
-		"@types/node": "^18.6.2",
+		"@types/node": "^18.6.3",
 		"@types/prettier": "^2.6.4",
 		"@typescript-eslint/eslint-plugin": "^5.31.0",
 		"@typescript-eslint/parser": "^5.31.0",
@@ -68,10 +68,6 @@
 		"rimraf": "^3.0.2",
 		"tsup": "^6.2.1",
 		"typescript": "^4.7.4"
-	},
-	"resolutions": {
-		"@discordjs/builders": "0.16.0",
-		"discord-api-types": "0.33.3"
 	},
 	"engines": {
 		"node": ">=18"
