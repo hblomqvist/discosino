@@ -6,3 +6,9 @@ export function failureEmbed(message: string) {
 		.setColor(DiscosinoColor.Failure)
 		.setDescription(`${DiscosinoEmoji.Failure} ${message}`);
 }
+
+export function successEmbed(message: string) {
+	return new MessageEmbed() //
+		.setColor(DiscosinoColor.Success)
+		.setDescription(`${DiscosinoEmoji.Success} ${message}`);
+}
