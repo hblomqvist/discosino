@@ -57,7 +57,7 @@
 		"@typescript-eslint/parser": "^5.31.0",
 		"cz-conventional-changelog": "^3.3.0",
 		"discord-api-types": "^0.33.5",
-		"eslint": "^8.20.0",
+		"eslint": "^8.21.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"husky": "^8.0.1",
@@ -74,7 +74,7 @@
 		"node": ">=18"
 	},
 	"volta": {
-		"node": "18.6.0",
+		"node": "18.7.0",
 		"yarn": "1.22.19"
 	},
 	"commitlint": {
