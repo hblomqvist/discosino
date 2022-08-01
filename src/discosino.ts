@@ -4,6 +4,9 @@ import "@sapphire/plugin-logger/register";
 import "#util/sanitizer/init";
 
 import { DiscosinoClient } from "#lib/framework";
+import { ApplicationCommandRegistries, RegisterBehavior } from "@sapphire/framework";
+
+ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(RegisterBehavior.VerboseOverwrite);
 
 const client = new DiscosinoClient();
 
