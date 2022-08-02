@@ -1,4 +1,4 @@
-import { DiscosinoColor, DiscosinoEmoji } from "#lib/constants";
+import { DiscosinoColor, DiscosinoEmoji } from "#config";
 import { formatFunds, getBalance } from "#lib/economy";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";

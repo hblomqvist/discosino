@@ -1,4 +1,4 @@
-import { DiscosinoColor, DiscosinoEmoji } from "#lib/constants";
+import { DiscosinoColor, DiscosinoEmoji } from "#config";
 import { MessageEmbed } from "discord.js";
 
 export function failureEmbed(message: string) {

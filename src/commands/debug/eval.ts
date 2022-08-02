@@ -1,4 +1,4 @@
-import { DiscosinoColor, ZERO_WIDTH_SPACE } from "#lib/constants";
+import { DiscosinoColor } from "#config";
 import {
 	ChatOutputHandler,
 	ConsoleOutputHandler,
@@ -8,6 +8,7 @@ import {
 	FileOutputHandler,
 	PastebinOutputHandler
 } from "#lib/eval";
+import { ZERO_WIDTH_SPACE } from "#util/constants";
 import { sanitize } from "#util/sanitizer";
 import { HandlerChain } from "#util/structures";
 import { formatDurationShort } from "#util/time";

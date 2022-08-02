@@ -1,4 +1,4 @@
-import { DiscosinoColor } from "#lib/constants";
+import { DiscosinoColor } from "#config";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
 import { Message, MessageEmbed } from "discord.js";

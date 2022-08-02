@@ -1,4 +1,4 @@
-import { ZERO_WIDTH_SPACE } from "#lib/constants";
+import { ZERO_WIDTH_SPACE } from "#util/constants";
 
 export function codeBlock(code: string, language = ""): string {
 	if (!code || /^\n*$/.test(code)) return codeBlock(ZERO_WIDTH_SPACE);
