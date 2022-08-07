@@ -200,7 +200,9 @@ export class UserCommand extends Command {
 			type = new Type(error);
 		}
 
-		if (typeof result !== "string") {
+		if (typeof result === "string") {
+			result = `'${result}'`;
+		} else {
 			result = result instanceof Error ? result.stack : inspect(result, { depth, showHidden });
 		}
 
