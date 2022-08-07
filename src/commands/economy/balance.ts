@@ -1,4 +1,4 @@
-import { DiscosinoColor, DiscosinoEmoji } from "#config";
+import { DiscosinoColor } from "#config";
 import { formatFunds, getBalance } from "#lib/economy";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
@@ -41,9 +41,9 @@ export class UserCommand extends Command {
 			.setColor(DiscosinoColor.Primary)
 			.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
 			.addFields([
-				{ name: "Money", value: `${DiscosinoEmoji.MoneySymbol} ${formatFunds(moneyAmount)}` },
-				{ name: "Tokens", value: `${DiscosinoEmoji.TokenSymbol} ${formatFunds(tokenAmount)}` },
-				{ name: "Net Worth", value: `${DiscosinoEmoji.MixedSymbol} ${formatFunds(totalAmount)}` }
+				{ name: "Money", value: formatFunds("money", moneyAmount) },
+				{ name: "Tokens", value: formatFunds("tokens", tokenAmount) },
+				{ name: "Net Worth", value: formatFunds("total", totalAmount) }
 			]);
 
 		return interaction.editReply({ embeds: [embed] });

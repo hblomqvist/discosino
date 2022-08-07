@@ -1,3 +1,5 @@
+import { DiscosinoEmoji } from "#config";
+import { humanizeBigInteger } from "#util/numbers";
 import type { MemberIdentifier } from "#util/types";
 import { container } from "@sapphire/framework";
 import { ensureAccount } from "./database";
@@ -40,31 +42,27 @@ export async function incrementBalance(identifier: MemberIdentifier, increments:
 	await setBalance(identifier, updatedBalance);
 }
 
-export function formatFunds(amount: number | bigint) {
-	if (amount > 1e18) return "Eternal Wealth";
+export function formatFunds(type: FundsType, amount: bigint) {
+	let symbol: string;
 
-	const notations = [
-		{ exponent: 15, suffix: "Q" },
-		{ exponent: 12, suffix: "T" },
-		{ exponent: 9, suffix: "B" },
-		{ exponent: 6, suffix: "M" }
-	];
-
-	const amountString = (typeof amount === "number" ? Math.trunc(amount) : amount).toString();
-
-	for (const { exponent, suffix } of notations) {
-		if (amount >= 10 ** exponent) {
-			const integerPart = amountString.slice(0, -exponent);
-			const fractionPart = amountString.slice(-exponent, -exponent + 2);
-
-			return `${integerPart}.${fractionPart}${suffix}`;
-		}
+	switch (type) {
+		case "money":
+			symbol = DiscosinoEmoji.MoneySymbol;
+			break;
+		case "tokens":
+			symbol = DiscosinoEmoji.TokenSymbol;
+			break;
+		case "total":
+			symbol = DiscosinoEmoji.MixedSymbol;
+			break;
 	}
 
-	return amount.toLocaleString("en-US");
+	return `${symbol} ${humanizeBigInteger(amount)}`;
 }
 
 interface AccountBalance {
 	moneyAmount: bigint;
 	tokenAmount: bigint;
 }
+
+type FundsType = "money" | "tokens" | "total";
