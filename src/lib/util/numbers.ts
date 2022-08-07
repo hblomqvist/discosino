@@ -78,7 +78,7 @@ export function humanizeBigInteger(value: bigint) {
 	return `${sign}${whole}.${decimals} ${largeNumberNames[index]}`;
 }
 
-function generateLargeNumberNames() {
+function generateLargeNumberNames(): Readonly<string[]> {
 	const { numbers, units, tens, hundreds } = largeNumberDictionary;
 
 	const fullList: string[] = [...numbers];
