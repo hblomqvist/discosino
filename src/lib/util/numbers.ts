@@ -1,39 +1,39 @@
-const largeNumberDictionary: Record<string, readonly NameCharsTuple[]> = {
+const largeNumberDictionary = {
 	units: [
-		["", []],
-		["un", []],
-		["duo", []],
-		["tre", ["s"]],
-		["quattor", []],
-		["quinqua", []],
-		["se", ["s", "x"]],
-		["septe", ["m", "n"]],
-		["octo", []],
-		["nove", ["m", "n"]]
+		["", ""],
+		["un", ""],
+		["duo", ""],
+		["tre", "s"],
+		["quattor", ""],
+		["quinqua", ""],
+		["se", "sx"],
+		["septe", "mn"],
+		["octo", ""],
+		["nove", "mn"]
 	],
 	tens: [
-		["", []],
-		["deci", ["n"]],
-		["viginti", ["m", "s"]],
-		["triginta", ["n", "s"]],
-		["quadraginta", ["n", "s"]],
-		["quinquaginta", ["n", "s"]],
-		["sexaginta", ["n"]],
-		["septuaginta", ["n"]],
-		["octoginta", ["m", "x"]],
-		["nonaginta", []]
+		["", ""],
+		["deci", "n"],
+		["viginti", "ms"],
+		["triginta", "ns"],
+		["quadraginta", "ns"],
+		["quinquaginta", "ns"],
+		["sexaginta", "n"],
+		["septuaginta", "n"],
+		["octoginta", "mx"],
+		["nonaginta", ""]
 	],
 	hundreds: [
-		["", []],
-		["centi", ["n", "x"]],
-		["ducenti", ["n"]],
-		["trecenti", ["n", "s"]],
-		["quadringenti", ["n", "s"]],
-		["quingenti", ["n", "s"]],
-		["sescenti", ["n"]],
-		["septingenti", ["n"]],
-		["octingenti", ["m", "x"]],
-		["nongenti", []]
+		["", ""],
+		["centi", "nx"],
+		["ducenti", "n"],
+		["trecenti", "ns"],
+		["quadringenti", "ns"],
+		["quingenti", "ns"],
+		["sescenti", "n"],
+		["septingenti", "n"],
+		["octingenti", "mx"],
+		["nongenti", ""]
 	]
 };
 
@@ -94,7 +94,7 @@ function generateLargeNumberNames(): readonly string[] {
 					: tenName;
 
 			for (const [unitName, unitChars] of units) {
-				const matchedChar = unitChars.filter((char) => compareChars.includes(char))[0] ?? "";
+				const matchedChar = [...unitChars].filter((char) => [...compareChars].includes(char))[0] ?? "";
 
 				largeNumberNames.push(`${unitName}${matchedChar}${correctedTenName}${hundredName}llion`);
 			}
@@ -105,5 +105,3 @@ function generateLargeNumberNames(): readonly string[] {
 
 	return largeNumberNames;
 }
-
-type NameCharsTuple = readonly [name: string, chars: readonly string[]];
