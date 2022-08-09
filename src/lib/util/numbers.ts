@@ -1,52 +1,41 @@
-const largeNumberDictionary = {
-	numbers: [
-		"million",
-		"billion",
-		"trillion",
-		"quadrillion",
-		"quintillion",
-		"sextillion",
-		"septillion",
-		"octillion",
-		"nonillion"
-	],
+const largeNumberDictionary: Record<string, readonly NameCharsTuple[]> = {
 	units: [
-		{ name: "", flags: "" },
-		{ name: "un", flags: "" },
-		{ name: "duo", flags: "" },
-		{ name: "tre", flags: "s" },
-		{ name: "quattor", flags: "" },
-		{ name: "quinqua", flags: "" },
-		{ name: "se", flags: "sx" },
-		{ name: "septe", flags: "mn" },
-		{ name: "octo", flags: "" },
-		{ name: "nove", flags: "mn" }
+		["", []],
+		["un", []],
+		["duo", []],
+		["tre", ["s"]],
+		["quattor", []],
+		["quinqua", []],
+		["se", ["s", "x"]],
+		["septe", ["m", "n"]],
+		["octo", []],
+		["nove", ["m", "n"]]
 	],
 	tens: [
-		{ name: "", flags: "" },
-		{ name: "deci", flags: "n" },
-		{ name: "viginti", flags: "ms" },
-		{ name: "triginta", flags: "ns" },
-		{ name: "quadraginta", flags: "ns" },
-		{ name: "quinquaginta", flags: "ns" },
-		{ name: "sexaginta", flags: "n" },
-		{ name: "septuaginta", flags: "n" },
-		{ name: "octoginta", flags: "mx" },
-		{ name: "nonaginta", flags: "" }
+		["", []],
+		["deci", ["n"]],
+		["viginti", ["m", "s"]],
+		["triginta", ["n", "s"]],
+		["quadraginta", ["n", "s"]],
+		["quinquaginta", ["n", "s"]],
+		["sexaginta", ["n"]],
+		["septuaginta", ["n"]],
+		["octoginta", ["m", "x"]],
+		["nonaginta", []]
 	],
 	hundreds: [
-		{ name: "", flags: "" },
-		{ name: "centi", flags: "nx" },
-		{ name: "ducenti", flags: "n" },
-		{ name: "trecenti", flags: "ns" },
-		{ name: "quadringenti", flags: "ns" },
-		{ name: "quingenti", flags: "ns" },
-		{ name: "sescenti", flags: "n" },
-		{ name: "septingenti", flags: "n" },
-		{ name: "octingenti", flags: "mx" },
-		{ name: "nongenti", flags: "" }
+		["", []],
+		["centi", ["n", "x"]],
+		["ducenti", ["n"]],
+		["trecenti", ["n", "s"]],
+		["quadringenti", ["n", "s"]],
+		["quingenti", ["n", "s"]],
+		["sescenti", ["n"]],
+		["septingenti", ["n"]],
+		["octingenti", ["m", "x"]],
+		["nongenti", []]
 	]
-} as const;
+};
 
 const largeNumberNames = generateLargeNumberNames();
 
@@ -54,7 +43,7 @@ export function humanizeBigInteger(value: bigint) {
 	let sign = "";
 	let whole = value;
 
-	if (value < 0n) {
+	if (whole < 0n) {
 		sign = "-";
 		whole = -value;
 	}
@@ -78,32 +67,43 @@ export function humanizeBigInteger(value: bigint) {
 	return `${sign}${whole}.${decimals} ${largeNumberNames[index]}`;
 }
 
-function generateLargeNumberNames(): Readonly<string[]> {
-	const { numbers, units, tens, hundreds } = largeNumberDictionary;
+function generateLargeNumberNames(): readonly string[] {
+	const { units, tens, hundreds } = largeNumberDictionary;
 
-	const fullList: string[] = [...numbers];
+	const largeNumberNames = [
+		"million",
+		"billion",
+		"trillion",
+		"quadrillion",
+		"quintillion",
+		"sextillion",
+		"septillion",
+		"octillion",
+		"nonillion"
+	];
 
-	for (const hundred of hundreds) {
-		for (const ten of tens) {
-			const correctedTen =
-				!hundred.name && ten.name.endsWith("a") //
-					? ten.name.replace(/.$/, "i")
-					: ten.name;
+	for (const [hundredName, hundredChars] of hundreds) {
+		for (const [tenName, tenChars] of tens) {
+			if (!tenName && !hundredName) continue;
 
-			for (const unit of units) {
-				if (!ten.name && !hundred.name) continue;
+			const compareChars = tenChars.length ? tenChars : hundredChars;
 
-				const flagRegex = /s|x|m|n/g;
-				const unitFlags = unit.flags.match(flagRegex);
-				const compareFlags = (ten.flags ?? hundred.flags).match(flagRegex);
-				const matchedLetter = unitFlags?.filter((flag) => compareFlags?.includes(flag))[0] ?? "";
+			const correctedTenName =
+				!hundredName && tenName.endsWith("a") //
+					? tenName.replace(/.$/, "i")
+					: tenName;
 
-				fullList.push(`${unit.name}${matchedLetter}${correctedTen}${hundred.name}llion`);
+			for (const [unitName, unitChars] of units) {
+				const matchedChar = unitChars.filter((char) => compareChars.includes(char))[0] ?? "";
+
+				largeNumberNames.push(`${unitName}${matchedChar}${correctedTenName}${hundredName}llion`);
 			}
 		}
 	}
 
-	fullList.push("millinillion");
+	largeNumberNames.push("millinillion");
 
-	return fullList;
+	return largeNumberNames;
 }
+
+type NameCharsTuple = readonly [name: string, chars: readonly string[]];
