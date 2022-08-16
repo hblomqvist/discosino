@@ -23,6 +23,7 @@ const tens: LargeNumberSubset = [
 	["octoginta", "mx"],
 	["nonaginta", ""]
 ];
+
 const hundreds: LargeNumberSubset = [
 	["", ""],
 	["centi", "nx"],
