@@ -69,10 +69,7 @@ function extendLargeNumberNames(): readonly string[] {
 function concatenateEveryUnit([tenName, tenChars]: LargeNumberTuple, [hundredName, hundredChars]: LargeNumberTuple) {
 	const compareChars = tenChars.length ? tenChars : hundredChars;
 
-	const correctedTenName =
-		!hundredName && tenName.endsWith("a") //
-			? tenName.replace(/.$/, "i")
-			: tenName;
+	const correctedTenName = !hundredName && tenName.endsWith("a") ? tenName.replace(/.$/, "i") : tenName;
 
 	return units.map(([unitName, unitChars]) => {
 		const matchedChar = [...unitChars].filter((char) => [...compareChars].includes(char))[0] ?? "";
