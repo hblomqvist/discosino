@@ -56,8 +56,8 @@ function extendLargeNumberNames(): readonly string[] {
 	for (const hundred of hundreds) {
 		for (const ten of tens) {
 			if (!ten[0] && !hundred[0]) continue;
-
-			extendedNames.push(...concatenateEveryUnit(ten, hundred));
+			const numberNames = concatenateEveryUnit(ten, hundred);
+			extendedNames.push(...numberNames);
 		}
 	}
 
@@ -68,7 +68,6 @@ function extendLargeNumberNames(): readonly string[] {
 
 function concatenateEveryUnit([tenName, tenChars]: LargeNumberTuple, [hundredName, hundredChars]: LargeNumberTuple) {
 	const compareChars = tenChars.length ? tenChars : hundredChars;
-
 	const correctedTenName = !hundredName && tenName.endsWith("a") ? tenName.replace(/.$/, "i") : tenName;
 
 	return units.map(([unitName, unitChars]) => {
