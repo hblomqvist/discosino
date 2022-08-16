@@ -1,43 +1,84 @@
-const largeNumberDictionary = {
-	units: [
-		["", ""],
-		["un", ""],
-		["duo", ""],
-		["tre", "s"],
-		["quattor", ""],
-		["quinqua", ""],
-		["se", "sx"],
-		["septe", "mn"],
-		["octo", ""],
-		["nove", "mn"]
-	],
-	tens: [
-		["", ""],
-		["deci", "n"],
-		["viginti", "ms"],
-		["triginta", "ns"],
-		["quadraginta", "ns"],
-		["quinquaginta", "ns"],
-		["sexaginta", "n"],
-		["septuaginta", "n"],
-		["octoginta", "mx"],
-		["nonaginta", ""]
-	],
-	hundreds: [
-		["", ""],
-		["centi", "nx"],
-		["ducenti", "n"],
-		["trecenti", "ns"],
-		["quadringenti", "ns"],
-		["quingenti", "ns"],
-		["sescenti", "n"],
-		["septingenti", "n"],
-		["octingenti", "mx"],
-		["nongenti", ""]
-	]
-};
+const units: LargeNumberSubset = [
+	["", ""],
+	["un", ""],
+	["duo", ""],
+	["tre", "s"],
+	["quattor", ""],
+	["quinqua", ""],
+	["se", "sx"],
+	["septe", "mn"],
+	["octo", ""],
+	["nove", "mn"]
+];
 
-const largeNumberNames = generateLargeNumberNames();
+const tens: LargeNumberSubset = [
+	["", ""],
+	["deci", "n"],
+	["viginti", "ms"],
+	["triginta", "ns"],
+	["quadraginta", "ns"],
+	["quinquaginta", "ns"],
+	["sexaginta", "n"],
+	["septuaginta", "n"],
+	["octoginta", "mx"],
+	["nonaginta", ""]
+];
+const hundreds: LargeNumberSubset = [
+	["", ""],
+	["centi", "nx"],
+	["ducenti", "n"],
+	["trecenti", "ns"],
+	["quadringenti", "ns"],
+	["quingenti", "ns"],
+	["sescenti", "n"],
+	["septingenti", "n"],
+	["octingenti", "mx"],
+	["nongenti", ""]
+];
+
+const largeNumberNames: readonly string[] = [
+	"million",
+	"billion",
+	"trillion",
+	"quadrillion",
+	"quintillion",
+	"sextillion",
+	"septillion",
+	"octillion",
+	"nonillion",
+	...extendLargeNumberNames()
+];
+
+function extendLargeNumberNames(): readonly string[] {
+	const extendedNames = [];
+
+	for (const hundred of hundreds) {
+		for (const ten of tens) {
+			if (!ten[0] && !hundred[0]) continue;
+
+			extendedNames.push(...concatenateEveryUnit(ten, hundred));
+		}
+	}
+
+	extendedNames.push("millinillion");
+
+	return extendedNames;
+}
+
+function concatenateEveryUnit([tenName, tenChars]: LargeNumberTuple, [hundredName, hundredChars]: LargeNumberTuple) {
+	const compareChars = tenChars.length ? tenChars : hundredChars;
+
+	const correctedTenName =
+		!hundredName && tenName.endsWith("a") //
+			? tenName.replace(/.$/, "i")
+			: tenName;
+
+	return units.map(([unitName, unitChars]) => {
+		const matchedChar = [...unitChars].filter((char) => [...compareChars].includes(char))[0] ?? "";
+
+		return `${unitName}${matchedChar}${correctedTenName}${hundredName}llion`;
+	});
+}
 
 export function humanizeBigInteger(value: bigint) {
 	let sign = "";
@@ -67,41 +108,5 @@ export function humanizeBigInteger(value: bigint) {
 	return `${sign}${whole}.${decimals} ${largeNumberNames[index]}`;
 }
 
-function generateLargeNumberNames(): readonly string[] {
-	const { units, tens, hundreds } = largeNumberDictionary;
-
-	const largeNumberNames = [
-		"million",
-		"billion",
-		"trillion",
-		"quadrillion",
-		"quintillion",
-		"sextillion",
-		"septillion",
-		"octillion",
-		"nonillion"
-	];
-
-	for (const [hundredName, hundredChars] of hundreds) {
-		for (const [tenName, tenChars] of tens) {
-			if (!tenName && !hundredName) continue;
-
-			const compareChars = tenChars.length ? tenChars : hundredChars;
-
-			const correctedTenName =
-				!hundredName && tenName.endsWith("a") //
-					? tenName.replace(/.$/, "i")
-					: tenName;
-
-			for (const [unitName, unitChars] of units) {
-				const matchedChar = [...unitChars].filter((char) => [...compareChars].includes(char))[0] ?? "";
-
-				largeNumberNames.push(`${unitName}${matchedChar}${correctedTenName}${hundredName}llion`);
-			}
-		}
-	}
-
-	largeNumberNames.push("millinillion");
-
-	return largeNumberNames;
-}
+type LargeNumberTuple = readonly [name: string, chars: string];
+type LargeNumberSubset = readonly LargeNumberTuple[];
