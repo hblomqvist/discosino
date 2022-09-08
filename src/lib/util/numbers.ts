@@ -1,4 +1,4 @@
-const units: LargeNumberSubset = [
+const units: NumberComponent[] = [
 	["", ""],
 	["un", ""],
 	["duo", ""],
@@ -11,7 +11,7 @@ const units: LargeNumberSubset = [
 	["nove", "mn"]
 ];
 
-const tens: LargeNumberSubset = [
+const tens: NumberComponent[] = [
 	["", ""],
 	["deci", "n"],
 	["viginti", "ms"],
@@ -24,7 +24,7 @@ const tens: LargeNumberSubset = [
 	["nonaginta", ""]
 ];
 
-const hundreds: LargeNumberSubset = [
+const hundreds: NumberComponent[] = [
 	["", ""],
 	["centi", "nx"],
 	["ducenti", "n"],
@@ -37,7 +37,22 @@ const hundreds: LargeNumberSubset = [
 	["nongenti", ""]
 ];
 
-const largeNumberNames: readonly string[] = [
+function extendNumberNames() {
+	const extensions = [];
+
+	for (const hundred of hundreds) {
+		for (const ten of tens) {
+			if (!ten[0] && !hundred[0]) continue;
+			extensions.push(...concatenateEveryUnit(ten, hundred));
+		}
+	}
+
+	extensions.push("millinillion");
+
+	return extensions;
+}
+
+const numberNames = [
 	"million",
 	"billion",
 	"trillion",
@@ -47,31 +62,15 @@ const largeNumberNames: readonly string[] = [
 	"septillion",
 	"octillion",
 	"nonillion",
-	...extendLargeNumberNames()
+	...extendNumberNames()
 ];
 
-function extendLargeNumberNames(): readonly string[] {
-	const extendedNames = [];
-
-	for (const hundred of hundreds) {
-		for (const ten of tens) {
-			if (!ten[0] && !hundred[0]) continue;
-			const numberNames = concatenateEveryUnit(ten, hundred);
-			extendedNames.push(...numberNames);
-		}
-	}
-
-	extendedNames.push("millinillion");
-
-	return extendedNames;
-}
-
-function concatenateEveryUnit([tenName, tenChars]: LargeNumberTuple, [hundredName, hundredChars]: LargeNumberTuple) {
+function concatenateEveryUnit([tenName, tenChars]: NumberComponent, [hundredName, hundredChars]: NumberComponent) {
 	const compareChars = tenChars.length ? tenChars : hundredChars;
 	const correctedTenName = !hundredName && tenName.endsWith("a") ? tenName.replace(/.$/, "i") : tenName;
 
 	return units.map(([unitName, unitChars]) => {
-		const matchedChar = [...unitChars].filter((char) => [...compareChars].includes(char))[0] ?? "";
+		const matchedChar = [...unitChars].find((char) => [...compareChars].includes(char)) ?? "";
 
 		return `${unitName}${matchedChar}${correctedTenName}${hundredName}llion`;
 	});
@@ -97,13 +96,12 @@ export function humanizeBigInteger(value: bigint) {
 		index++;
 	}
 
-	if (index >= largeNumberNames.length) return `${sign}∞`;
-	if (!remainder) return `${sign}${whole} ${largeNumberNames[index]}`;
+	if (index >= numberNames.length) return `${sign}∞`;
+	if (!remainder) return `${sign}${whole} ${numberNames[index]}`;
 
 	const decimals = remainder.toString().slice(0, -1);
 
-	return `${sign}${whole}.${decimals} ${largeNumberNames[index]}`;
+	return `${sign}${whole}.${decimals} ${numberNames[index]}`;
 }
 
-type LargeNumberTuple = readonly [name: string, chars: string];
-type LargeNumberSubset = readonly LargeNumberTuple[];
+type NumberComponent = [name: string, chars: string];
