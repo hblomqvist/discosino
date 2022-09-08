@@ -2,16 +2,19 @@ import { DiscosinoColor } from "#config";
 import {
 	ChatOutputHandler,
 	ConsoleOutputHandler,
+	EvalOutput,
 	EvalOutputHandler,
 	EvalPayload,
-	EvalResponse,
+	EvalResult,
 	FileOutputHandler,
 	PastebinOutputHandler
 } from "#lib/eval";
 import { ZERO_WIDTH_SPACE } from "#util/constants";
+import { failureEmbed } from "#util/embeds";
 import { sanitize } from "#util/sanitizer";
 import { HandlerChain } from "#util/structures";
 import { formatDurationShort } from "#util/time";
+import type { NodeError } from "#util/types";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
@@ -27,11 +30,12 @@ import {
 	ModalSubmitInteraction,
 	TextInputComponent
 } from "discord.js";
+import { format } from "prettier";
 import { setTimeout as sleep } from "timers/promises";
 import { inspect } from "util";
 
 @ApplyOptions<ChatInputCommand.Options>({
-	description: "Evaluates JavaScript code. Can only be used by developers.",
+	description: "Evaluate JavaScript code. Can only be used by developers.",
 	preconditions: ["DeveloperOnly"]
 })
 export class UserCommand extends Command {
@@ -50,33 +54,35 @@ export class UserCommand extends Command {
 				builder //
 					.setName(this.name)
 					.setDescription(this.description)
-					.setDefaultMemberPermissions(0)
+					.setDefaultMemberPermissions("0")
 					.addIntegerOption((option) =>
 						option //
 							.setName("depth")
 							.setDescription(
 								`The number of times to recurse while formatting an object. Default: ${this.defaultOptions.depth}`
 							)
+							.setMinValue(-1)
 					)
 					.addBooleanOption((option) =>
 						option //
 							.setName("show_hidden")
-							.setDescription(`Shows non-enumerable object properties. Default: ${this.defaultOptions.showHidden}`)
+							.setDescription(`Show non-enumerable object properties. Default: ${this.defaultOptions.showHidden}`)
 					)
 					.addBooleanOption((option) =>
 						option //
 							.setName("wrap_async")
-							.setDescription(`Wraps the code in an async arrow function. Default: ${this.defaultOptions.wrapAsync}`)
+							.setDescription(`Wrap the code in an async arrow function. Default: ${this.defaultOptions.wrapAsync}`)
 					)
 					.addIntegerOption((option) =>
 						option //
 							.setName("timeout")
 							.setDescription(`How long to wait for a result in milliseconds. Default: ${this.defaultOptions.timeout}`)
+							.setMinValue(-1)
 					)
 					.addStringOption((option) =>
 						option //
 							.setName("output_to")
-							.setDescription(`Where the result should be outputted. Default: ${this.defaultOptions.outputTo}`)
+							.setDescription(`How the result should be outputted. Default: ${this.defaultOptions.outputTo}`)
 							.setChoices(
 								{ name: "Chat", value: "chat" },
 								{ name: "Pastebin", value: "pastebin" },
@@ -87,7 +93,7 @@ export class UserCommand extends Command {
 					.addBooleanOption((option) =>
 						option //
 							.setName("ephemeral")
-							.setDescription(`Hides the response from everyone except you. Default: ${this.defaultOptions.ephemeral}`)
+							.setDescription(`Hide the response from everyone except you. Default: ${this.defaultOptions.ephemeral}`)
 					),
 			{ idHints: ["1000113999590990046", "1000212138960363600"] }
 		);
@@ -102,18 +108,28 @@ export class UserCommand extends Command {
 			.setComponents(
 				new MessageActionRow<ModalActionRowComponent>().addComponents(
 					new TextInputComponent() //
-						.setCustomId("code-input")
+						.setCustomId("codeInput")
 						.setLabel("Code")
 						.setStyle("PARAGRAPH")
+						.setRequired(true)
 				)
 			);
 
 		await interaction.showModal(modal);
 
-		const modalInteraction = await interaction.awaitModalSubmit({
-			filter: (interaction) => interaction.customId === modalCustomId,
-			time: 900000
-		});
+		let modalInteraction: ModalSubmitInteraction;
+
+		try {
+			modalInteraction = await interaction.awaitModalSubmit({
+				filter: (interaction) => interaction.customId === modalCustomId,
+				time: 30 * Time.Minute
+			});
+		} catch (error) {
+			if ((error as NodeError).code !== "INTERACTION_COLLECTOR_ERROR") throw error;
+			const embed = failureEmbed("The session has expired, please try again.");
+
+			return interaction.followUp({ ephemeral: true, embeds: [embed] });
+		}
 
 		const options = this.getOptions(interaction);
 
@@ -131,7 +147,7 @@ export class UserCommand extends Command {
 		};
 
 		if (options.depth <= -1) options.depth = Infinity;
-		if (options.timeout <= 0) options.timeout = 900000;
+		if (options.timeout <= -1) options.timeout = 10 * Time.Minute;
 
 		return options;
 	}
@@ -142,27 +158,27 @@ export class UserCommand extends Command {
 			fetchReply: true
 		})) as Message;
 
-		const modalInput = interaction.fields.getTextInputValue("code-input");
+		const modalInput = interaction.fields.getTextInputValue("codeInput");
 		const code = options.wrapAsync ? `(async () => {\n${modalInput}\n})();` : modalInput;
 
-		const payload = await this.timeoutEval(code, options, { interaction, message });
+		const payload: EvalPayload = {
+			prettyInput: this.formatCode(code),
+			result: await this.timeoutEval(code, options, { interaction, message })
+		};
+
 		const outputHandler = this.buildOutputChain(options.outputTo);
 		const { content, files } = await outputHandler.handle(payload);
-
-		const embed = new MessageEmbed() //
-			.setColor(payload.success ? DiscosinoColor.Primary : DiscosinoColor.Failure)
-			.setDescription(content)
-			.setFooter({ text: `⏱️ ${formatDurationShort(payload.time)}` });
+		const embed = this.buildEmbed(content, payload);
 
 		return interaction.editReply({ embeds: [embed], files });
 	}
 
-	private timeoutEval(code: string, options: EvalOptions, util: EvalUtil) {
-		return Promise.race<EvalPayload>([
+	private timeoutEval(code: string, options: EvalOptions, util: EvalUtil): Promise<EvalResult> {
+		return Promise.race<EvalResult>([
 			sleep(options.timeout).then(() => ({
 				success: false,
-				code,
-				result: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
+				isError: true,
+				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
 				type: "EvalTimeoutError",
 				time: options.timeout
 			})),
@@ -170,11 +186,12 @@ export class UserCommand extends Command {
 		]);
 	}
 
-	private async eval(code: string, { depth, showHidden }: EvalOptions, util: EvalUtil): Promise<EvalPayload> {
+	private async eval(code: string, { depth, showHidden }: EvalOptions, util: EvalUtil): Promise<EvalResult> {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { interaction, message } = util;
 
 		let success = true;
+		let isError = false;
 		let result: unknown;
 		let type: Type;
 
@@ -197,22 +214,41 @@ export class UserCommand extends Command {
 			timer.stop();
 			success = false;
 			result = error;
-			type = new Type(error);
 		}
+
+		type ??= new Type(result);
 
 		if (typeof result === "string") {
 			result = `'${result}'`;
+		} else if (result instanceof Error) {
+			isError = true;
+			result = result.stack;
 		} else {
-			result = result instanceof Error ? result.stack : inspect(result, { depth, showHidden });
+			result = inspect(result, { depth, showHidden });
 		}
 
 		return {
 			success,
-			code,
-			result: sanitize(result as string) || ZERO_WIDTH_SPACE,
+			isError,
+			output: sanitize(result as string) || ZERO_WIDTH_SPACE,
 			type: type.toString(),
 			time: timer.duration
 		};
+	}
+
+	private formatCode(code: string) {
+		try {
+			const prettyCode = format(code, {
+				parser: "babel",
+				singleQuote: true,
+				trailingComma: "none",
+				semi: true
+			}).replace(/\n$/, "");
+
+			return prettyCode || code;
+		} catch {
+			return code;
+		}
 	}
 
 	private buildOutputChain(outputTo: string) {
@@ -223,9 +259,16 @@ export class UserCommand extends Command {
 			console: new ConsoleOutputHandler()
 		};
 
-		return new HandlerChain<EvalPayload, EvalResponse>(
-			new Set([outputs[outputTo], outputs.chat, outputs.pastebin, outputs.file, outputs.console])
-		);
+		const outputSet = new Set([outputs[outputTo], outputs.chat, outputs.pastebin, outputs.file, outputs.console]);
+
+		return new HandlerChain<EvalPayload, EvalOutput>(outputSet);
+	}
+
+	private buildEmbed(content: string, { result }: EvalPayload) {
+		return new MessageEmbed() //
+			.setColor(result.success ? DiscosinoColor.Primary : DiscosinoColor.Failure)
+			.setDescription(content)
+			.setFooter({ text: `⏱️ ${formatDurationShort(result.time)}` });
 	}
 }
 

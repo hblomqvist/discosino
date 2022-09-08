@@ -4,15 +4,7 @@ import { EvalOutputHandler } from "./EvalOutputHandler";
 
 export class ChatOutputHandler extends EvalOutputHandler {
 	public override handle(payload: EvalPayload) {
-		const body = [
-			"**Input**",
-			codeBlock(this.formatCode(payload.code, { printWidth: 60 }), "js"),
-			"**Output**",
-			codeBlock(payload.result, "js"),
-			"**Type**",
-			codeBlock(payload.type, "ts")
-		].join("\n");
-
+		const body = this.createBody(payload);
 		const content = this.buildContent(body, payload.message);
 
 		if (content.length < 4096) return { content };
@@ -20,5 +12,16 @@ export class ChatOutputHandler extends EvalOutputHandler {
 		payload.message ??= "The message content exceeded the 4096 character limit.";
 
 		return super.handle(payload);
+	}
+
+	private createBody({ prettyInput, result }: EvalPayload) {
+		return [
+			"**Input**",
+			codeBlock(prettyInput, "js"),
+			"**Output**",
+			codeBlock(result.output, result.isError ? "" : "js"),
+			"**Type**",
+			codeBlock(result.type, "ts")
+		].join("\n");
 	}
 }

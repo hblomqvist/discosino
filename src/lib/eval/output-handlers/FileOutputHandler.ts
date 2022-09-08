@@ -4,20 +4,7 @@ import { EvalOutputHandler } from "./EvalOutputHandler";
 
 export class FileOutputHandler extends EvalOutputHandler {
 	public override handle(payload: EvalPayload) {
-		const files: File[] = [
-			{
-				name: "input.js",
-				attachment: Buffer.from(this.formatCode(payload.code))
-			},
-			{
-				name: "output.js",
-				attachment: Buffer.from(payload.result)
-			},
-			{
-				name: "type.ts",
-				attachment: Buffer.from(payload.type)
-			}
-		];
+		const files = this.createFiles(payload);
 
 		for (const { attachment } of files) {
 			if (attachment.length > 8e6) {
@@ -30,6 +17,23 @@ export class FileOutputHandler extends EvalOutputHandler {
 		const body = "I've sent the output as files.";
 
 		return { content: this.buildContent(body, payload.message), files };
+	}
+
+	private createFiles({ prettyInput, result }: EvalPayload): File[] {
+		return [
+			{
+				name: "input.js",
+				attachment: Buffer.from(prettyInput)
+			},
+			{
+				name: "output.js",
+				attachment: Buffer.from(result.output)
+			},
+			{
+				name: "type.ts",
+				attachment: Buffer.from(result.type)
+			}
+		];
 	}
 }
 

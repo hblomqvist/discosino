@@ -1,8 +1,8 @@
 import { ChainableHandler } from "#util/structures";
 import { format, Options } from "prettier";
-import type { EvalPayload, EvalResponse } from "../types";
+import type { EvalOutput, EvalPayload } from "../types";
 
-export abstract class EvalOutputHandler extends ChainableHandler<EvalPayload, EvalResponse> {
+export abstract class EvalOutputHandler extends ChainableHandler<EvalPayload, EvalOutput> {
 	protected buildContent(body: string, message: string | undefined) {
 		return message ? `${message}\n\n${body}` : body;
 	}

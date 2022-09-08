@@ -1,15 +1,20 @@
 import type { FileOptions } from "discord.js";
 
-export interface EvalPayload {
+export interface EvalResult {
 	success: boolean;
-	code: string;
-	result: string;
+	isError: boolean;
+	output: string;
 	type: string;
 	time: number;
+}
+
+export interface EvalPayload {
+	prettyInput: string;
+	result: EvalResult;
 	message?: string;
 }
 
-export interface EvalResponse {
+export interface EvalOutput {
 	content: string;
 	files?: FileOptions[];
 }

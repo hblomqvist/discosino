@@ -32,7 +32,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 		return { content: this.buildContent(body, payload.message) };
 	}
 
-	private uploadPaste(payload: EvalPayload) {
+	private uploadPaste({ prettyInput, result }: EvalPayload) {
 		return fetch<PasteResponse>(
 			"https://api.paste.gg/v1/pastes",
 			{
@@ -49,7 +49,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 							name: "Input",
 							content: {
 								format: "text",
-								value: this.formatCode(payload.code)
+								value: prettyInput
 							},
 							highlight_language: "javascript"
 						},
@@ -57,7 +57,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 							name: "Output",
 							content: {
 								format: "text",
-								value: payload.result
+								value: result.output
 							},
 							highlight_language: "typescript"
 						},
@@ -65,7 +65,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 							name: "Type",
 							content: {
 								format: "text",
-								value: payload.type
+								value: result.type
 							},
 							highlight_language: "typescript"
 						}
