@@ -1,5 +1,5 @@
 import { LogLevel } from "@sapphire/framework";
-import { ClientOptions, Intents } from "discord.js";
+import { ActivityType, ClientOptions, Intents } from "discord.js";
 import { cleanEnv, EnvMissingError, makeValidator, str, url } from "envalid";
 
 const strArray = makeValidator((value) => value.split(",").map((value) => value.trim()));
@@ -32,7 +32,12 @@ export const CLIENT_OPTIONS: ClientOptions = {
 	},
 	partials: ["CHANNEL"],
 	presence: {
-		activities: [{ name: ENV.ACTIVITY_NAME, type: ENV.ACTIVITY_TYPE }]
+		activities: [
+			{
+				name: ENV.ACTIVITY_NAME,
+				type: ENV.ACTIVITY_TYPE as BotActivityType
+			}
+		]
 	}
 };
 
@@ -51,3 +56,5 @@ export const enum DiscosinoEmoji {
 	TokenSymbol = "<:chips:967883373689339926>",
 	MixedSymbol = "<:chip_coin:967883068591456256>"
 }
+
+type BotActivityType = Exclude<ActivityType, "CUSTOM">;
