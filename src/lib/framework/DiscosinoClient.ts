@@ -18,7 +18,7 @@ export class DiscosinoClient extends SapphireClient {
 
 	public override async destroy() {
 		try {
-			await container.database.$disconnect();
+			await this.database.$disconnect();
 		} catch {}
 
 		return super.destroy();
