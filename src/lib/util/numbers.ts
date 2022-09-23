@@ -77,9 +77,7 @@ function concatenateEveryUnit([tenName, tenChars]: NumberComponent, [hundredName
 }
 
 export function humanizeBigInteger(value: bigint) {
-	const isPositive = value >= 0n;
-	const sign = isPositive ? "" : "-";
-	let whole = isPositive ? value : -value;
+	let [sign, whole] = value >= 0n ? ["", value] : ["-", -value];
 
 	if (whole < BigInt(1e6)) return value.toLocaleString("en-US");
 
