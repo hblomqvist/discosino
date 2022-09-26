@@ -1,7 +1,7 @@
 import type { ChainableHandler } from "./ChainableHandler";
 
 export class HandlerChain<TRequest, TResponse> {
-	private handlers: ChainableHandler<TRequest, TResponse>[];
+	private readonly handlers: ChainableHandler<TRequest, TResponse>[];
 
 	public constructor(handlers: Iterable<ChainableHandler<TRequest, TResponse>>) {
 		this.handlers = [...handlers];

@@ -10,6 +10,7 @@
 				"variables": true,
 				"allowNamedExports": false
 			}
-		]
+		],
+		"@typescript-eslint/prefer-readonly": "error"
 	}
 }
