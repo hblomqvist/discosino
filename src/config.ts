@@ -1,13 +1,8 @@
+import { strArray, strNotEmpty } from "#util/env";
+import type { BotActivityType } from "#util/types";
 import { LogLevel } from "@sapphire/framework";
-import { ActivityType, ClientOptions, Intents } from "discord.js";
-import { cleanEnv, EnvMissingError, makeValidator, str, url } from "envalid";
-
-const strArray = makeValidator((value) => value.split(",").map((value) => value.trim()));
-const strNotEmpty = makeValidator((value) => {
-	if (!value) throw new EnvMissingError();
-
-	return value;
-});
+import { ClientOptions, Intents } from "discord.js";
+import { cleanEnv, str, url } from "envalid";
 
 export const ENV = cleanEnv(process.env, {
 	NODE_ENV: str({
@@ -56,5 +51,3 @@ export const enum DiscosinoEmoji {
 	TokenSymbol = "<:chips:967883373689339926>",
 	MixedSymbol = "<:chip_coin:967883068591456256>"
 }
-
-type BotActivityType = Exclude<ActivityType, "CUSTOM">;
