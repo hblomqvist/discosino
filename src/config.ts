@@ -36,7 +36,7 @@ export const CLIENT_OPTIONS: ClientOptions = {
 	}
 };
 
-export const SANITIZER_SUFFIXES = ["DATABASE_URL", "TOKEN"];
+export const SANITIZER_SUFFIXES = ["DATABASE_URL", "TOKEN"] as const;
 
 export const enum DiscosinoColor {
 	Primary = 0x5865f2,
