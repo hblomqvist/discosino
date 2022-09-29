@@ -231,7 +231,7 @@ export class UserCommand extends Command {
 			success,
 			isError,
 			output: sanitize(result as string) || ZERO_WIDTH_SPACE,
-			type: type.toString(),
+			type: type.toString() || ZERO_WIDTH_SPACE,
 			time: timer.duration
 		};
 	}
