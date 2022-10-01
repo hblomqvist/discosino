@@ -1,5 +1,5 @@
+import type { BotActivityType } from "#util/discord";
 import { strArray, strNotEmpty } from "#util/env";
-import type { BotActivityType } from "#util/types";
 import { LogLevel } from "@sapphire/framework";
 import { ClientOptions, Intents } from "discord.js";
 import { cleanEnv, str, url } from "envalid";

@@ -1,4 +1,4 @@
-import { failureEmbed } from "#util/embeds";
+import { failureEmbed } from "#util/discord";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommandDeniedPayload, Events, Listener, UserError } from "@sapphire/framework";
 

@@ -1,6 +1,6 @@
 import { DiscosinoEmoji } from "#config";
-import { humanizeBigInteger } from "#util/numbers";
-import type { MemberIdentifier } from "#util/types";
+import type { MemberIdentifier } from "#util/discord";
+import { humanizeBigInteger } from "#util/large-numbers";
 import { container } from "@sapphire/framework";
 import { ensureAccount } from "./database";
 

@@ -10,7 +10,7 @@ import {
 	PastebinOutputHandler
 } from "#lib/eval";
 import { ZERO_WIDTH_SPACE } from "#util/constants";
-import { failureEmbed } from "#util/embeds";
+import { failureEmbed } from "#util/discord";
 import { sanitize } from "#util/sanitizer";
 import { HandlerChain } from "#util/structures";
 import { formatDurationShort } from "#util/time";

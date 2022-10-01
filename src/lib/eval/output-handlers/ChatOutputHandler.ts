@@ -1,4 +1,4 @@
-import { codeBlock } from "#util/formatters";
+import { codeBlock } from "#util/discord";
 import type { EvalPayload } from "../types";
 import { EvalOutputHandler } from "./EvalOutputHandler";
 

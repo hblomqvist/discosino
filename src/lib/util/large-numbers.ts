@@ -1,4 +1,4 @@
-const units: NumberComponent[] = [
+const units: readonly NumberComponent[] = [
 	["", ""],
 	["un", ""],
 	["duo", ""],
@@ -11,7 +11,7 @@ const units: NumberComponent[] = [
 	["nove", "mn"]
 ];
 
-const tens: NumberComponent[] = [
+const tens: readonly NumberComponent[] = [
 	["", ""],
 	["deci", "n"],
 	["viginti", "ms"],
@@ -37,22 +37,7 @@ const hundreds: NumberComponent[] = [
 	["nongenti", ""]
 ];
 
-function extendNumberNames() {
-	const extensions = [];
-
-	for (const hundred of hundreds) {
-		for (const ten of tens) {
-			if (!ten[0] && !hundred[0]) continue;
-			extensions.push(...concatenateEveryUnit(ten, hundred));
-		}
-	}
-
-	extensions.push("millinillion");
-
-	return extensions;
-}
-
-const numberNames = [
+const numberNames: readonly string[] = [
 	"million",
 	"billion",
 	"trillion",
@@ -62,10 +47,23 @@ const numberNames = [
 	"septillion",
 	"octillion",
 	"nonillion",
-	...extendNumberNames()
+	...extendNumberNames(),
+	"millinillion"
 ];
 
-function concatenateEveryUnit([tenName, tenChars]: NumberComponent, [hundredName, hundredChars]: NumberComponent) {
+function extendNumberNames(): readonly string[] {
+	return hundreds.flatMap((hundred) =>
+		tens.reduce((extensions: string[], ten) => {
+			if (!hundred[0] && !ten[0]) return extensions;
+			return extensions.concat(...concatenateEveryUnit(ten, hundred));
+		}, [])
+	);
+}
+
+function concatenateEveryUnit(
+	[tenName, tenChars]: NumberComponent,
+	[hundredName, hundredChars]: NumberComponent
+): readonly string[] {
 	const compareChars = tenChars.length ? tenChars : hundredChars;
 	const correctedTenName = !hundredName && tenName.endsWith("a") ? tenName.replace(/.$/, "i") : tenName;
 
@@ -76,10 +74,8 @@ function concatenateEveryUnit([tenName, tenChars]: NumberComponent, [hundredName
 	});
 }
 
-export function humanizeBigInteger(value: bigint) {
+export function humanizeBigInteger(value: bigint): string {
 	let [sign, whole] = value >= 0n ? ["", value] : ["-", -value];
-
-	if (whole < BigInt(1e6)) return value.toLocaleString("en-US");
 
 	let index = -2;
 	let remainder = 0n;
@@ -90,6 +86,7 @@ export function humanizeBigInteger(value: bigint) {
 		index++;
 	}
 
+	if (index < 0) return value.toLocaleString("en-US");
 	if (index >= numberNames.length) return `${sign}∞`;
 	if (!remainder) return `${sign}${whole} ${numberNames[index]}`;
 
@@ -98,4 +95,4 @@ export function humanizeBigInteger(value: bigint) {
 	return `${sign}${whole}.${decimals} ${numberNames[index]}`;
 }
 
-type NumberComponent = [name: string, chars: string];
+type NumberComponent = readonly [name: string, chars: string];

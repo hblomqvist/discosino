@@ -1,4 +1,4 @@
-import type { MemberIdentifier } from "#util/types";
+import type { MemberIdentifier } from "#util/discord";
 import type { Guild, User } from "@prisma/client";
 import { container } from "@sapphire/framework";
 

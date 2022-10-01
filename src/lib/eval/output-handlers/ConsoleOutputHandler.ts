@@ -1,4 +1,3 @@
-import { indent } from "#util/formatters";
 import { container } from "@sapphire/framework";
 import type { EvalPayload } from "../types";
 import { EvalOutputHandler } from "./EvalOutputHandler";
@@ -16,14 +15,18 @@ export class ConsoleOutputHandler extends EvalOutputHandler {
 	private createOutput({ prettyInput, result }: EvalPayload) {
 		return [
 			"[EVAL]",
-			indent("Input:", 2),
-			indent(prettyInput, 4),
+			this.indent("Input:", 2),
+			this.indent(prettyInput, 4),
 			"",
-			indent("Output:", 2),
-			indent(result.output, 4),
+			this.indent("Output:", 2),
+			this.indent(result.output, 4),
 			"",
-			indent("Type:", 2),
-			indent(result.type, 4)
+			this.indent("Type:", 2),
+			this.indent(result.type, 4)
 		].join("\n");
+	}
+
+	private indent(text: string, width = 2) {
+		return text.replace(/^/gm, " ".repeat(width));
 	}
 }
