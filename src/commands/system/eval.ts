@@ -10,7 +10,7 @@ import {
 	PastebinOutputHandler
 } from "#lib/eval";
 import { ZERO_WIDTH_SPACE } from "#util/constants";
-import { failureEmbed } from "#util/discord";
+import { createEmbed } from "#util/discord";
 import { sanitize } from "#util/sanitizer";
 import { HandlerChain } from "#util/structures";
 import { formatDurationShort } from "#util/time";
@@ -126,7 +126,7 @@ export class UserCommand extends Command {
 			});
 		} catch (error) {
 			if ((error as NodeError).code !== "INTERACTION_COLLECTOR_ERROR") throw error;
-			const embed = failureEmbed("The session has expired, please try again.");
+			const embed = createEmbed("Failure", "The session has expired, please try again.");
 
 			return interaction.followUp({ ephemeral: true, embeds: [embed] });
 		}

@@ -1,7 +1,7 @@
-import { DiscosinoColor } from "#config";
+import { createEmbed } from "#util/discord";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
-import { Message, MessageEmbed } from "discord.js";
+import type { Message } from "discord.js";
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: "Measures bot latency."
@@ -26,8 +26,7 @@ export class UserCommand extends Command {
 		const messageDiff = message.createdTimestamp - interaction.createdTimestamp;
 		const { ping } = this.container.client.ws;
 
-		const embed = new MessageEmbed() //
-			.setColor(DiscosinoColor.Primary)
+		const embed = createEmbed("Default") //
 			.addFields([
 				{ name: "Round Trip", value: this.formatPing(messageDiff) },
 				{ name: "Heartbeat", value: this.formatPing(ping) }

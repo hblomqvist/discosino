@@ -1,4 +1,4 @@
-import { failureEmbed } from "#util/discord";
+import { createEmbed } from "#util/discord";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommandDeniedPayload, Events, Listener, UserError } from "@sapphire/framework";
 
@@ -7,7 +7,7 @@ import { ChatInputCommandDeniedPayload, Events, Listener, UserError } from "@sap
 })
 export class UserListener extends Listener<typeof Events.ChatInputCommandDenied> {
 	public override run({ message }: UserError, { interaction }: ChatInputCommandDeniedPayload) {
-		const embed = failureEmbed(message);
+		const embed = createEmbed("Failure", message);
 
 		return interaction.reply({ embeds: [embed], ephemeral: true });
 	}

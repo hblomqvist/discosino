@@ -3,16 +3,13 @@ import type { ActivityType } from "discord.js";
 import { MessageEmbed } from "discord.js";
 import { ZERO_WIDTH_SPACE } from "./constants";
 
-export function failureEmbed(message: string) {
-	return new MessageEmbed() //
-		.setColor(DiscosinoColor.Failure)
-		.setDescription(`${DiscosinoEmoji.Failure} ${message}`);
-}
+export function createEmbed(type: EmbedType, description?: string): MessageEmbed {
+	const [color, emoji] =
+		type === "Default" ? [DiscosinoColor.Primary, ""] : [DiscosinoColor[type], `${DiscosinoEmoji[type]} `];
 
-export function successEmbed(message: string) {
 	return new MessageEmbed() //
-		.setColor(DiscosinoColor.Success)
-		.setDescription(`${DiscosinoEmoji.Success} ${message}`);
+		.setColor(color)
+		.setDescription(emoji + description ?? "");
 }
 
 export function codeBlock(code: string, language = ""): string {
@@ -29,3 +26,5 @@ export interface MemberIdentifier {
 }
 
 export type BotActivityType = Exclude<ActivityType, "CUSTOM">;
+
+type EmbedType = "Default" | "Failure" | "Success";

@@ -38,13 +38,13 @@ export const CLIENT_OPTIONS: ClientOptions = {
 
 export const SANITIZER_SUFFIXES = ["DATABASE_URL", "TOKEN"] as const;
 
-export const enum DiscosinoColor {
+export enum DiscosinoColor {
 	Primary = 0x5865f2,
 	Failure = 0xed4245,
 	Success = 0x57f287
 }
 
-export const enum DiscosinoEmoji {
+export enum DiscosinoEmoji {
 	Failure = "<:failure:936345719030288424>",
 	Success = "<:success:936345740349939806>",
 	MoneySymbol = "<:money:967883821926187038>",

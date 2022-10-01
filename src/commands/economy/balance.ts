@@ -1,8 +1,7 @@
-import { DiscosinoColor } from "#config";
 import { formatFunds, getBalance } from "#lib/economy";
+import { createEmbed } from "#util/discord";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
-import { MessageEmbed } from "discord.js";
 
 @ApplyOptions<ChatInputCommand.Options>({
 	description: "Displays account balance.",
@@ -37,8 +36,7 @@ export class UserCommand extends Command {
 
 		const totalAmount = moneyAmount + tokenAmount;
 
-		const embed = new MessageEmbed() //
-			.setColor(DiscosinoColor.Primary)
+		const embed = createEmbed("Default") //
 			.setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
 			.addFields([
 				{ name: "Money", value: formatFunds("money", moneyAmount) },
