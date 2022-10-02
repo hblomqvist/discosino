@@ -17,27 +17,25 @@ const styles: Readonly<StyleList> = {
 	long: ['year', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond']
 };
 
+const durationValues = numericObjectValues(Duration);
+
 export function humanizeDuration(ms: number, options: HumanizeOptions): string {
-	const durationValues = numericObjectValues(Duration);
-
 	for (const [index, durationValue] of durationValues.entries()) {
-		const convertedValue = ms / durationValue;
-		if (convertedValue < 1) continue;
+		if (Math.abs(ms) / durationValue < 1) continue;
 
-		return formatDurationString(convertedValue, index, options);
+		return formatDurationString(ms, index, options);
 	}
 
-	const lastIndex = durationValues.length - 1;
-
-	return formatDurationString(ms / durationValues[lastIndex], lastIndex, options);
+	return formatDurationString(ms, durationValues.length - 1, options);
 }
 
-function formatDurationString(value: number, index: number, { style, maxDecimals }: HumanizeOptions): string {
-	const roundedValue = Number(value.toFixed(maxDecimals));
-	const char = style === 'long' && roundedValue > 1 ? 's' : '';
+function formatDurationString(ms: number, index: number, { style, maxDecimals }: HumanizeOptions): string {
+	const sign = ms >= 0 ? '' : '-';
+	const convertedAbsValue = Number((Math.abs(ms) / durationValues[index]).toFixed(maxDecimals));
+	const char = style === 'long' && convertedAbsValue !== 1 ? 's' : '';
 	const notation = styles[style][index] + char;
 
-	return `${roundedValue} ${notation}`;
+	return `${sign}${convertedAbsValue} ${notation}`;
 }
 
 interface HumanizeOptions {
