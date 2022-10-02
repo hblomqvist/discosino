@@ -241,6 +241,7 @@ export class UserCommand extends Command {
 		try {
 			const prettyCode = format(code, {
 				parser: 'babel',
+				printWidth: 60,
 				singleQuote: true,
 				trailingComma: 'none',
 				semi: true
