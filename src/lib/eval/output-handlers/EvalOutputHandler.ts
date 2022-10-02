@@ -1,6 +1,6 @@
-import { ChainableHandler } from "#util/structures";
-import { format, Options } from "prettier";
-import type { EvalOutput, EvalPayload } from "../types";
+import { ChainableHandler } from '#util/structures';
+import { format, Options } from 'prettier';
+import type { EvalOutput, EvalPayload } from '../types';
 
 export abstract class EvalOutputHandler extends ChainableHandler<EvalPayload, EvalOutput> {
 	protected buildContent(body: string, message: string | undefined) {
@@ -10,11 +10,11 @@ export abstract class EvalOutputHandler extends ChainableHandler<EvalPayload, Ev
 	protected formatCode(code: string, options?: Options) {
 		try {
 			const formattedCode = format(code, {
-				parser: "babel",
+				parser: 'babel',
 				singleQuote: true,
-				trailingComma: "none",
+				trailingComma: 'none',
 				...options
-			}).replace(/\n$/, "");
+			}).replace(/\n$/, '');
 
 			return formattedCode || code;
 		} catch {

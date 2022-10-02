@@ -1,4 +1,4 @@
-import type { FileOptions } from "discord.js";
+import type { FileOptions } from 'discord.js';
 
 export interface EvalResult {
 	success: boolean;

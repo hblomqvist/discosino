@@ -1,4 +1,4 @@
-import { numericObjectValues } from "./misc";
+import { numericObjectValues } from './misc';
 
 export enum Duration {
 	Year = 31_557_600_000,
@@ -13,8 +13,8 @@ export enum Duration {
 }
 
 const styles: Readonly<StyleList> = {
-	compact: ["y", "mo", "w", "d", "h", "min", "s", "ms", "μs"],
-	long: ["year", "month", "week", "day", "hour", "minute", "second", "millisecond", "microsecond"]
+	compact: ['y', 'mo', 'w', 'd', 'h', 'min', 's', 'ms', 'μs'],
+	long: ['year', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond']
 };
 
 export function humanizeDuration(ms: number, options: HumanizeOptions): string {
@@ -34,7 +34,7 @@ export function humanizeDuration(ms: number, options: HumanizeOptions): string {
 
 function formatDurationString(value: number, index: number, { style, maxDecimals }: HumanizeOptions): string {
 	const roundedValue = Number(value.toFixed(maxDecimals));
-	const char = style === "long" && roundedValue > 1 ? "s" : "";
+	const char = style === 'long' && roundedValue > 1 ? 's' : '';
 	const notation = styles[style][index] + char;
 
 	return `${roundedValue} ${notation}`;
@@ -45,5 +45,5 @@ interface HumanizeOptions {
 	maxDecimals: number;
 }
 
-type Style = "compact" | "long";
+type Style = 'compact' | 'long';
 type StyleList = Record<Style, readonly string[]>;

@@ -1,6 +1,6 @@
-import type { MemberIdentifier } from "#util/discord";
-import type { Guild, User } from "@prisma/client";
-import { container } from "@sapphire/framework";
+import type { MemberIdentifier } from '#util/discord';
+import type { Guild, User } from '@prisma/client';
+import { container } from '@sapphire/framework';
 
 export async function ensureAccount(identifier: MemberIdentifier) {
 	const { id } = await ensureMember(identifier);

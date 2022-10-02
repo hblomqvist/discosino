@@ -1,4 +1,4 @@
-import type { ChainableHandler } from "./ChainableHandler";
+import type { ChainableHandler } from './ChainableHandler';
 
 export class HandlerChain<TRequest, TResponse> {
 	private readonly handlers: ChainableHandler<TRequest, TResponse>[];

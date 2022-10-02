@@ -1,1 +1,1 @@
-export * from "./DiscosinoClient";
+export * from './DiscosinoClient';

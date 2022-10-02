@@ -1,5 +1,5 @@
-import { SANITIZER_SUFFIXES } from "#config";
-import { initSanitizer } from ".";
+import { SANITIZER_SUFFIXES } from '#config';
+import { initSanitizer } from '.';
 
 const secrets = new Set<string>();
 

@@ -1,8 +1,8 @@
-import { DiscosinoEmoji } from "#config";
-import type { MemberIdentifier } from "#util/discord";
-import { humanizeBigInteger } from "#util/large-numbers";
-import { container } from "@sapphire/framework";
-import { ensureAccount } from "./database";
+import { DiscosinoEmoji } from '#config';
+import type { MemberIdentifier } from '#util/discord';
+import { humanizeBigInteger } from '#util/large-numbers';
+import { container } from '@sapphire/framework';
+import { ensureAccount } from './database';
 
 export async function getBalance(identifier: MemberIdentifier): Promise<AccountBalance> {
 	const account = await container.database.member
@@ -14,8 +14,8 @@ export async function getBalance(identifier: MemberIdentifier): Promise<AccountB
 		.account();
 
 	return {
-		moneyAmount: BigInt(account?.moneyString ?? "0"),
-		tokenAmount: BigInt(account?.tokenString ?? "0")
+		moneyAmount: BigInt(account?.moneyString ?? '0'),
+		tokenAmount: BigInt(account?.tokenString ?? '0')
 	};
 }
 
@@ -46,13 +46,13 @@ export function formatFunds(type: FundsType, amount: bigint) {
 	let symbol: string;
 
 	switch (type) {
-		case "money":
+		case 'money':
 			symbol = DiscosinoEmoji.MoneySymbol;
 			break;
-		case "tokens":
+		case 'tokens':
 			symbol = DiscosinoEmoji.TokenSymbol;
 			break;
-		case "total":
+		case 'total':
 			symbol = DiscosinoEmoji.MixedSymbol;
 			break;
 	}
@@ -65,4 +65,4 @@ interface AccountBalance {
 	tokenAmount: bigint;
 }
 
-type FundsType = "money" | "tokens" | "total";
+type FundsType = 'money' | 'tokens' | 'total';

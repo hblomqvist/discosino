@@ -1,10 +1,10 @@
-import { createEmbed } from "#util/discord";
-import { ApplyOptions } from "@sapphire/decorators";
-import { ChatInputCommand, Command } from "@sapphire/framework";
-import type { Message } from "discord.js";
+import { createEmbed } from '#util/discord';
+import { ApplyOptions } from '@sapphire/decorators';
+import { ChatInputCommand, Command } from '@sapphire/framework';
+import type { Message } from 'discord.js';
 
 @ApplyOptions<ChatInputCommand.Options>({
-	description: "Measures bot latency."
+	description: 'Measures bot latency.'
 })
 export class UserCommand extends Command {
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
@@ -13,7 +13,7 @@ export class UserCommand extends Command {
 				builder //
 					.setName(this.name)
 					.setDescription(this.description),
-			{ idHints: ["1000113998609530980", "1000212136871604245"] }
+			{ idHints: ['1000113998609530980', '1000212136871604245'] }
 		);
 	}
 
@@ -26,10 +26,10 @@ export class UserCommand extends Command {
 		const messageDiff = message.createdTimestamp - interaction.createdTimestamp;
 		const { ping } = this.container.client.ws;
 
-		const embed = createEmbed("Default") //
+		const embed = createEmbed('Default') //
 			.addFields([
-				{ name: "Round Trip", value: this.formatPing(messageDiff) },
-				{ name: "Heartbeat", value: this.formatPing(ping) }
+				{ name: 'Round Trip', value: this.formatPing(messageDiff) },
+				{ name: 'Heartbeat', value: this.formatPing(ping) }
 			]);
 
 		return interaction.editReply({ embeds: [embed] });

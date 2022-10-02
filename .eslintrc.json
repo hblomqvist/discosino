@@ -11,6 +11,14 @@
 				"allowNamedExports": false
 			}
 		],
-		"@typescript-eslint/prefer-readonly": "error"
+		"@typescript-eslint/prefer-readonly": "error",
+		"@typescript-eslint/quotes": [
+			"error",
+			"single",
+			{
+				"avoidEscape": false,
+				"allowTemplateLiterals": true
+			}
+		]
 	}
 }

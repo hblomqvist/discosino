@@ -32,6 +32,6 @@
 		"**/prisma/migrations": true
 	},
 	"typescript.preferences.importModuleSpecifier": "shortest",
-	"typescript.preferences.quoteStyle": "double",
+	"typescript.preferences.quoteStyle": "single",
 	"typescript.tsdk": "node_modules/typescript/lib"
 }

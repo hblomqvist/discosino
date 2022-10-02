@@ -1,54 +1,54 @@
 const units: readonly NumberComponent[] = [
-	["", ""],
-	["un", ""],
-	["duo", ""],
-	["tre", "s"],
-	["quattor", ""],
-	["quinqua", ""],
-	["se", "sx"],
-	["septe", "mn"],
-	["octo", ""],
-	["nove", "mn"]
+	['', ''],
+	['un', ''],
+	['duo', ''],
+	['tre', 's'],
+	['quattor', ''],
+	['quinqua', ''],
+	['se', 'sx'],
+	['septe', 'mn'],
+	['octo', ''],
+	['nove', 'mn']
 ];
 
 const tens: readonly NumberComponent[] = [
-	["", ""],
-	["deci", "n"],
-	["viginti", "ms"],
-	["triginta", "ns"],
-	["quadraginta", "ns"],
-	["quinquaginta", "ns"],
-	["sexaginta", "n"],
-	["septuaginta", "n"],
-	["octoginta", "mx"],
-	["nonaginta", ""]
+	['', ''],
+	['deci', 'n'],
+	['viginti', 'ms'],
+	['triginta', 'ns'],
+	['quadraginta', 'ns'],
+	['quinquaginta', 'ns'],
+	['sexaginta', 'n'],
+	['septuaginta', 'n'],
+	['octoginta', 'mx'],
+	['nonaginta', '']
 ];
 
 const hundreds: NumberComponent[] = [
-	["", ""],
-	["centi", "nx"],
-	["ducenti", "n"],
-	["trecenti", "ns"],
-	["quadringenti", "ns"],
-	["quingenti", "ns"],
-	["sescenti", "n"],
-	["septingenti", "n"],
-	["octingenti", "mx"],
-	["nongenti", ""]
+	['', ''],
+	['centi', 'nx'],
+	['ducenti', 'n'],
+	['trecenti', 'ns'],
+	['quadringenti', 'ns'],
+	['quingenti', 'ns'],
+	['sescenti', 'n'],
+	['septingenti', 'n'],
+	['octingenti', 'mx'],
+	['nongenti', '']
 ];
 
 const numberNames: readonly string[] = [
-	"million",
-	"billion",
-	"trillion",
-	"quadrillion",
-	"quintillion",
-	"sextillion",
-	"septillion",
-	"octillion",
-	"nonillion",
+	'million',
+	'billion',
+	'trillion',
+	'quadrillion',
+	'quintillion',
+	'sextillion',
+	'septillion',
+	'octillion',
+	'nonillion',
 	...extendNumberNames(),
-	"millinillion"
+	'millinillion'
 ];
 
 function extendNumberNames(): readonly string[] {
@@ -65,17 +65,17 @@ function concatenateEveryUnit(
 	[hundredName, hundredChars]: NumberComponent
 ): readonly string[] {
 	const compareChars = tenChars.length ? tenChars : hundredChars;
-	const correctedTenName = !hundredName && tenName.endsWith("a") ? tenName.replace(/.$/, "i") : tenName;
+	const correctedTenName = !hundredName && tenName.endsWith('a') ? tenName.replace(/.$/, 'i') : tenName;
 
 	return units.map(([unitName, unitChars]) => {
-		const matchedChar = [...unitChars].find((char) => [...compareChars].includes(char)) ?? "";
+		const matchedChar = [...unitChars].find((char) => [...compareChars].includes(char)) ?? '';
 
 		return `${unitName}${matchedChar}${correctedTenName}${hundredName}llion`;
 	});
 }
 
 export function humanizeBigInteger(value: bigint): string {
-	let [sign, whole] = value >= 0n ? ["", value] : ["-", -value];
+	let [sign, whole] = value >= 0n ? ['', value] : ['-', -value];
 
 	let index = -2;
 	let remainder = 0n;
@@ -86,7 +86,7 @@ export function humanizeBigInteger(value: bigint): string {
 		index++;
 	}
 
-	if (index < 0) return value.toLocaleString("en-US");
+	if (index < 0) return value.toLocaleString('en-US');
 	if (index >= numberNames.length) return `${sign}∞`;
 	if (!remainder) return `${sign}${whole} ${numberNames[index]}`;
 

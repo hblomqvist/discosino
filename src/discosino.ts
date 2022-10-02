@@ -1,9 +1,9 @@
 // organize-imports-ignore
-import "dotenv/config";
-import "@sapphire/plugin-logger/register";
-import "#util/sanitizer/init";
+import 'dotenv/config';
+import '@sapphire/plugin-logger/register';
+import '#util/sanitizer/init';
 
-import { DiscosinoClient } from "#lib/framework";
+import { DiscosinoClient } from '#lib/framework';
 
 const client = new DiscosinoClient();
 

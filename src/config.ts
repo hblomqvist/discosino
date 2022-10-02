@@ -1,23 +1,23 @@
-import type { BotActivityType } from "#util/discord";
-import { strArray, strNotEmpty } from "#util/env";
-import { LogLevel } from "@sapphire/framework";
-import { ClientOptions, Intents } from "discord.js";
-import { cleanEnv, str, url } from "envalid";
+import type { BotActivityType } from '#util/discord';
+import { strArray, strNotEmpty } from '#util/env';
+import { LogLevel } from '@sapphire/framework';
+import { ClientOptions, Intents } from 'discord.js';
+import { cleanEnv, str, url } from 'envalid';
 
 export const ENV = cleanEnv(process.env, {
 	NODE_ENV: str({
-		choices: ["development", "production"],
-		default: "development"
+		choices: ['development', 'production'],
+		default: 'development'
 	}),
-	ACTIVITY_NAME: str({ default: "" }),
+	ACTIVITY_NAME: str({ default: '' }),
 	ACTIVITY_TYPE: str({
-		choices: ["PLAYING", "STREAMING", "LISTENING", "WATCHING", "COMPETING"],
-		default: "PLAYING"
+		choices: ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING'],
+		default: 'PLAYING'
 	}),
 	DEVELOPER_IDS: strArray({ default: [] }),
 	DATABASE_URL: url(),
 	DISCORD_TOKEN: strNotEmpty(),
-	PASTE_GG_TOKEN: str({ default: "" })
+	PASTE_GG_TOKEN: str({ default: '' })
 });
 
 export const CLIENT_OPTIONS: ClientOptions = {
@@ -25,7 +25,7 @@ export const CLIENT_OPTIONS: ClientOptions = {
 	logger: {
 		level: ENV.isProd ? LogLevel.Info : LogLevel.Debug
 	},
-	partials: ["CHANNEL"],
+	partials: ['CHANNEL'],
 	presence: {
 		activities: [
 			{
@@ -36,7 +36,7 @@ export const CLIENT_OPTIONS: ClientOptions = {
 	}
 };
 
-export const SANITIZER_SUFFIXES = ["DATABASE_URL", "TOKEN"] as const;
+export const SANITIZER_SUFFIXES = ['DATABASE_URL', 'TOKEN'] as const;
 
 export enum DiscosinoColor {
 	Primary = 0x5865f2,
@@ -45,9 +45,9 @@ export enum DiscosinoColor {
 }
 
 export enum DiscosinoEmoji {
-	Failure = "<:failure:936345719030288424>",
-	Success = "<:success:936345740349939806>",
-	MoneySymbol = "<:money:967883821926187038>",
-	TokenSymbol = "<:chips:967883373689339926>",
-	MixedSymbol = "<:chip_coin:967883068591456256>"
+	Failure = '<:failure:936345719030288424>',
+	Success = '<:success:936345740349939806>',
+	MoneySymbol = '<:money:967883821926187038>',
+	TokenSymbol = '<:chips:967883373689339926>',
+	MixedSymbol = '<:chip_coin:967883068591456256>'
 }

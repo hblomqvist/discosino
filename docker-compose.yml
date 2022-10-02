@@ -22,7 +22,7 @@ services:
       POSTGRES_PASSWORD: postgres
     image: postgres:14-alpine
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - discosino-data:/var/lib/postgresql/data
 

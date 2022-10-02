@@ -1,6 +1,6 @@
-import { CLIENT_OPTIONS } from "#config";
-import { PrismaClient } from "@prisma/client";
-import { container, SapphireClient } from "@sapphire/framework";
+import { CLIENT_OPTIONS } from '#config';
+import { PrismaClient } from '@prisma/client';
+import { container, SapphireClient } from '@sapphire/framework';
 
 export class DiscosinoClient extends SapphireClient {
 	public constructor() {
@@ -11,7 +11,7 @@ export class DiscosinoClient extends SapphireClient {
 	}
 
 	public override login(token?: string) {
-		this.logger.info("Logging in to discord...");
+		this.logger.info('Logging in to discord...');
 
 		return super.login(token);
 	}
@@ -25,13 +25,13 @@ export class DiscosinoClient extends SapphireClient {
 	}
 }
 
-declare module "@sapphire/framework" {
+declare module '@sapphire/framework' {
 	interface SapphireClient {
 		database: PrismaClient;
 	}
 }
 
-declare module "@sapphire/pieces" {
+declare module '@sapphire/pieces' {
 	interface Container {
 		database: PrismaClient;
 	}
