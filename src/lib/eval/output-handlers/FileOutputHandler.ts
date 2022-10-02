@@ -7,7 +7,7 @@ export class FileOutputHandler extends EvalOutputHandler {
 		const files = this.createFiles(payload);
 
 		for (const { attachment } of files) {
-			if (attachment.length > 8e6) {
+			if (attachment.length > 8_000_000) {
 				payload.message ??= "One or more files exceeded the 8 MB size limit.";
 
 				return super.handle(payload);
