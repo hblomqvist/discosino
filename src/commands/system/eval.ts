@@ -11,14 +11,13 @@ import {
 } from "#lib/eval";
 import { ZERO_WIDTH_SPACE } from "#util/constants";
 import { createEmbed } from "#util/discord";
+import { Duration, humanizeDuration } from "#util/duration";
+import type { NodeError } from "#util/misc";
 import { sanitize } from "#util/sanitizer";
 import { HandlerChain } from "#util/structures";
-import { formatDurationShort } from "#util/time";
-import type { NodeError } from "#util/types";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ChatInputCommand, Command } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
-import { Time } from "@sapphire/time-utilities";
 import { Type } from "@sapphire/type";
 import { isThenable } from "@sapphire/utilities";
 import {
@@ -43,7 +42,7 @@ export class UserCommand extends Command {
 		depth: 0,
 		showHidden: false,
 		wrapAsync: false,
-		timeout: Time.Minute,
+		timeout: Duration.Minute,
 		outputTo: "chat",
 		ephemeral: true
 	};
@@ -122,7 +121,7 @@ export class UserCommand extends Command {
 		try {
 			modalInteraction = await interaction.awaitModalSubmit({
 				filter: (interaction) => interaction.customId === modalCustomId,
-				time: 30 * Time.Minute
+				time: 30 * Duration.Minute
 			});
 		} catch (error) {
 			if ((error as NodeError).code !== "INTERACTION_COLLECTOR_ERROR") throw error;
@@ -147,7 +146,7 @@ export class UserCommand extends Command {
 		};
 
 		if (options.depth <= -1) options.depth = Infinity;
-		if (options.timeout <= -1) options.timeout = 10 * Time.Minute;
+		if (options.timeout <= -1) options.timeout = 10 * Duration.Minute;
 
 		return options;
 	}
@@ -174,11 +173,13 @@ export class UserCommand extends Command {
 	}
 
 	private timeoutEval(code: string, options: EvalOptions, util: EvalUtil): Promise<EvalResult> {
+		const humanizedDuration = humanizeDuration(options.timeout, { style: "long", maxDecimals: 2 });
+
 		return Promise.race<EvalResult>([
 			sleep(options.timeout).then(() => ({
 				success: false,
 				isError: true,
-				output: `EvalTimeoutError: Evaluation took longer than ${formatDurationShort(options.timeout)}.`,
+				output: `EvalTimeoutError: Evaluation took longer than ${humanizedDuration}.`,
 				type: "EvalTimeoutError",
 				time: options.timeout
 			})),
@@ -265,10 +266,12 @@ export class UserCommand extends Command {
 	}
 
 	private buildEmbed(content: string, { result }: EvalPayload) {
+		const humanizedDuration = humanizeDuration(result.time, { style: "compact", maxDecimals: 2 });
+
 		return new MessageEmbed() //
 			.setColor(result.success ? DiscosinoColor.Primary : DiscosinoColor.Failure)
 			.setDescription(content)
-			.setFooter({ text: `⏱️ ${formatDurationShort(result.time)}` });
+			.setFooter({ text: `⏱️ ${humanizedDuration}` });
 	}
 }
 
