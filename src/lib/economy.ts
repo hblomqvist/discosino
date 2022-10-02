@@ -1,8 +1,8 @@
 import { DiscosinoEmoji } from '#config';
+import { ensureAccount } from '#util/database';
 import type { MemberIdentifier } from '#util/discord';
 import { humanizeBigInteger } from '#util/large-numbers';
 import { container } from '@sapphire/framework';
-import { ensureAccount } from './database';
 
 export async function getBalance(identifier: MemberIdentifier): Promise<AccountBalance> {
 	const account = await container.database.member
