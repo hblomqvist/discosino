@@ -9,7 +9,7 @@ export function createEmbed(type: EmbedType, description?: string): MessageEmbed
 
 	return new MessageEmbed() //
 		.setColor(color)
-		.setDescription(emoji + description ?? "");
+		.setDescription(emoji + (description ?? ""));
 }
 
 export function codeBlock(code: string, language = ""): string {
