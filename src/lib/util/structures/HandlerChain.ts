@@ -1,9 +1,9 @@
 import type { ChainableHandler } from './ChainableHandler';
 
-export class HandlerChain<TRequest, TResponse> {
-	private readonly handlers: ChainableHandler<TRequest, TResponse>[];
+export class HandlerChain<TPayload, TResponse> {
+	private readonly handlers: ChainableHandler<TPayload, TResponse>[];
 
-	public constructor(handlers: Iterable<ChainableHandler<TRequest, TResponse>>) {
+	public constructor(handlers: Iterable<ChainableHandler<TPayload, TResponse>>) {
 		this.handlers = [...handlers];
 
 		for (const [index, handler] of this.handlers.entries()) {
@@ -12,7 +12,7 @@ export class HandlerChain<TRequest, TResponse> {
 		}
 	}
 
-	public handle(request: TRequest): TResponse | Promise<TResponse> {
+	public handle(request: TPayload): TResponse | Promise<TResponse> {
 		return this.handlers[0].handle(request);
 	}
 }

@@ -2,9 +2,9 @@ import { DiscosinoColor } from '#config';
 import {
 	ChatOutputHandler,
 	ConsoleOutputHandler,
-	EvalOutput,
 	EvalOutputHandler,
 	EvalPayload,
+	EvalResponse,
 	EvalResult,
 	FileOutputHandler,
 	PastebinOutputHandler
@@ -135,7 +135,7 @@ export class UserCommand extends Command {
 		return this.modalSubmitRun(modalInteraction, options);
 	}
 
-	private getOptions(interaction: ChatInputCommand.Interaction) {
+	private getOptions(interaction: ChatInputCommand.Interaction): EvalOptions {
 		const options: EvalOptions = {
 			depth: interaction.options.getInteger('depth') ?? this.defaultOptions.depth,
 			showHidden: interaction.options.getBoolean('show_hidden') ?? this.defaultOptions.showHidden,
@@ -237,7 +237,7 @@ export class UserCommand extends Command {
 		};
 	}
 
-	private formatCode(code: string) {
+	private formatCode(code: string): string {
 		try {
 			const prettyCode = format(code, {
 				parser: 'babel',
@@ -253,7 +253,7 @@ export class UserCommand extends Command {
 		}
 	}
 
-	private buildOutputChain(outputTo: string) {
+	private buildOutputChain(outputTo: string): HandlerChain<EvalPayload, EvalResponse> {
 		const outputs: Record<string, EvalOutputHandler> = {
 			chat: new ChatOutputHandler(),
 			pastebin: new PastebinOutputHandler(),
@@ -263,10 +263,10 @@ export class UserCommand extends Command {
 
 		const outputSet = new Set([outputs[outputTo], outputs.chat, outputs.pastebin, outputs.file, outputs.console]);
 
-		return new HandlerChain<EvalPayload, EvalOutput>(outputSet);
+		return new HandlerChain(outputSet);
 	}
 
-	private buildEmbed(content: string, { result }: EvalPayload) {
+	private buildEmbed(content: string, { result }: EvalPayload): MessageEmbed {
 		const humanizedDuration = humanizeDuration(result.time, { style: 'compact', maxDecimals: 2 });
 
 		return new MessageEmbed() //
