@@ -1,4 +1,4 @@
-import { CLIENT_OPTIONS } from '#config';
+import { CLIENT_OPTIONS, ENV } from '#config';
 import { PrismaClient } from '@prisma/client';
 import { container, SapphireClient } from '@sapphire/framework';
 
@@ -10,10 +10,10 @@ export class DiscosinoClient extends SapphireClient {
 		container.database = this.database;
 	}
 
-	public override login(token?: string) {
+	public override login() {
 		this.logger.info('Logging in to discord...');
 
-		return super.login(token);
+		return super.login(ENV.DISCORD_TOKEN);
 	}
 
 	public override async destroy() {
