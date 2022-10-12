@@ -2,11 +2,11 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "pwa-node",
+			"type": "node",
 			"request": "launch",
-			"name": "Watch",
+			"name": "Debug Bot",
 			"runtimeExecutable": "yarn",
-			"runtimeArgs": ["watch"],
+			"runtimeArgs": ["dev"],
 			"skipFiles": ["<node_internals>/**"],
 			"outFiles": ["${workspaceFolder}/dist/**/*.js"],
 			"outputCapture": "std",
