@@ -10,7 +10,6 @@
 	"main": "./dist/discosino.js",
 	"imports": {
 		"#util/*": "./dist/lib/util/*.js",
-		"#util/sanitizer": "./dist/lib/util/sanitizer/index.js",
 		"#util/structures": "./dist/lib/util/structures/index.js",
 		"#lib/*": "./dist/lib/*.js",
 		"#lib/eval": "./dist/lib/eval/index.js",

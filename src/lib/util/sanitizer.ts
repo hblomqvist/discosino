@@ -22,18 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import { SANITIZER_SUFFIXES } from '#config';
 import { regExpEsc } from '@sapphire/utilities';
 
 let sensitivePattern: RegExp;
 
-export function sanitize(text: string) {
-	if (!sensitivePattern) throw new Error('The sanitizer must be initialized before it can be used.');
+const secrets = new Set<string>();
 
-	return text.replace(sensitivePattern, '[REDACTED]');
+for (const [key, value] of Object.entries(process.env)) {
+	if (!value) continue;
+	if (SANITIZER_SUFFIXES.some((suffix) => key.endsWith(suffix))) secrets.add(value);
 }
 
-export function initSanitizer(secrets: readonly string[]) {
-	if (!secrets.length) return;
+if (secrets.size) sensitivePattern = new RegExp([...secrets].map(regExpEsc).join('|'), 'gi');
 
-	sensitivePattern = new RegExp(secrets.map(regExpEsc).join('|'), 'gi');
+export function sanitize(text: string) {
+	if (!sensitivePattern) return text;
+
+	return text.replace(sensitivePattern, '[REDACTED]');
 }
