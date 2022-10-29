@@ -1,6 +1,9 @@
-import { CLIENT_OPTIONS, ENV } from '#config';
+import { CLIENT_OPTIONS, ENV, VERSION } from '#config';
 import { PrismaClient } from '@prisma/client';
 import { container, SapphireClient } from '@sapphire/framework';
+import boxen from 'boxen';
+import figlet from 'figlet';
+import gradient from 'gradient-string';
 
 export class DiscosinoClient extends SapphireClient {
 	public constructor() {
@@ -8,10 +11,12 @@ export class DiscosinoClient extends SapphireClient {
 
 		this.database = new PrismaClient();
 		container.database = this.database;
+
+		this.printBanner();
 	}
 
 	public override login() {
-		this.logger.info('Logging in to discord...');
+		this.logger.info('Client: Logging in to discord...');
 
 		return super.login(ENV.DISCORD_TOKEN);
 	}
@@ -22,6 +27,26 @@ export class DiscosinoClient extends SapphireClient {
 		} catch {}
 
 		return super.destroy();
+	}
+
+	private printBanner() {
+		const titleAscii = figlet.textSync('Discosino', { font: 'Georgia11' });
+		const prettyTitle = gradient.retro.multiline(titleAscii.trimEnd());
+
+		const banner = boxen(prettyTitle, {
+			padding: {
+				left: 3,
+				right: 3,
+				top: 0,
+				bottom: 1
+			},
+			margin: 1,
+			borderStyle: 'round',
+			title: VERSION,
+			titleAlignment: 'right'
+		});
+
+		this.logger.info(banner);
 	}
 }
 

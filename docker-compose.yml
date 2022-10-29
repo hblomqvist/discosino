@@ -8,6 +8,10 @@ services:
     container_name: discosino
     depends_on:
       - database
+    environment:
+      TERM: xterm-256color
+      COLORTERM: truecolor
+      COLUMNS: 200
     network_mode: host
     tty: true
     volumes:
