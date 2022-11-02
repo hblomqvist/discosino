@@ -1,4 +1,5 @@
-import { CLIENT_OPTIONS, ENV, VERSION } from '#config';
+import { CLIENT_OPTIONS } from '#config';
+import { ENV } from '#lib/env';
 import { PrismaClient } from '@prisma/client';
 import { container, SapphireClient } from '@sapphire/framework';
 import boxen from 'boxen';

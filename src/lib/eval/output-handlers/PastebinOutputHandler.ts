@@ -1,4 +1,4 @@
-import { ENV } from '#config';
+import { ENV } from '#lib/env';
 import { fetch, FetchMethods, FetchResultTypes, QueryError } from '@sapphire/fetch';
 import { container } from '@sapphire/framework';
 import type { EvalPayload } from '../types';

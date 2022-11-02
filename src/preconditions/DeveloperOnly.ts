@@ -1,4 +1,4 @@
-import { ENV } from '#config';
+import { ENV } from '#lib/env';
 import { ChatInputCommand, ContextMenuCommand, Precondition } from '@sapphire/framework';
 import type { Snowflake } from 'discord.js';
 
