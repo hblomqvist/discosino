@@ -7,6 +7,8 @@ import figlet from 'figlet';
 import gradient from 'gradient-string';
 
 export class DiscosinoClient extends SapphireClient {
+	public readonly version = process.env.npm_package_version ?? '0.0.0';
+
 	public constructor() {
 		super(CLIENT_OPTIONS);
 
@@ -43,7 +45,7 @@ export class DiscosinoClient extends SapphireClient {
 			},
 			margin: 1,
 			borderStyle: 'round',
-			title: VERSION,
+			title: this.version,
 			titleAlignment: 'right'
 		});
 
