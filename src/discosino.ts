@@ -1,6 +1,4 @@
-// organize-imports-ignore
-import 'dotenv/config';
-import '@sapphire/plugin-logger/register';
+import '#lib/setup';
 
 import { DiscosinoClient } from '#lib/framework';
 

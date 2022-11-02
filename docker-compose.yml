@@ -9,9 +9,8 @@ services:
     depends_on:
       - database
     environment:
-      TERM: xterm-256color
-      COLORTERM: truecolor
-      COLUMNS: 200
+      TERM: ${TERM}
+      COLORTERM: ${COLORTERM}
     network_mode: host
     tty: true
     volumes:
