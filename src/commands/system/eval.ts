@@ -186,12 +186,11 @@ export class UserCommand extends Command {
 		]);
 	}
 
-	private async eval(code: string, { depth, showHidden }: EvalOptions, util: EvalUtil): Promise<EvalResult> {
+	private async eval(code: string, options: EvalOptions, util: EvalUtil): Promise<EvalResult> {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { interaction, message } = util;
 
 		let success = true;
-		let isError = false;
 		let result: unknown;
 		let type: Type;
 
@@ -214,26 +213,23 @@ export class UserCommand extends Command {
 			timer.stop();
 			success = false;
 			result = error;
-		}
-
-		type ??= new Type(result);
-
-		if (typeof result === 'string') {
-			result = `'${result}'`;
-		} else if (result instanceof Error) {
-			isError = true;
-			result = result.stack;
-		} else {
-			result = inspect(result, { depth, showHidden });
+			type = new Type(result);
 		}
 
 		return {
 			success,
-			isError,
-			output: sanitize(result as string) || ZWS,
+			isError: result instanceof Error,
+			output: sanitize(this.inspectResult(result, options)) || ZWS,
 			type: type.toString() || ZWS,
 			time: timer.duration
 		};
+	}
+
+	private inspectResult(result: unknown, { depth, showHidden }: EvalOptions): string {
+		if (typeof result === 'string') return `'${result}'`;
+		if (result instanceof Error) return result.stack!;
+
+		return inspect(result, { depth, showHidden });
 	}
 
 	private formatCode(code: string): string {
