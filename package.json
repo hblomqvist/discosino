@@ -17,7 +17,7 @@
 		"#config": "./dist/config.js"
 	},
 	"scripts": {
-		"start": "node --enable-source-maps --experimental-specifier-resolution=node .",
+		"start": "node --enable-source-maps --experimental-specifier-resolution=node . --color=16m",
 		"start:migrate": "prisma migrate deploy && yarn start",
 		"dev": "tsup --onSuccess \"yarn start\"",
 		"watch": "tsup --watch --onSuccess \"yarn start\"",

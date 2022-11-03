@@ -8,9 +8,6 @@ services:
     container_name: discosino
     depends_on:
       - database
-    environment:
-      TERM: ${TERM}
-      COLORTERM: ${COLORTERM}
     network_mode: host
     tty: true
     volumes:
