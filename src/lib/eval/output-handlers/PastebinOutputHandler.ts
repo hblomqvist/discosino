@@ -20,7 +20,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 			response = await this.uploadPaste(payload);
 		} catch (error) {
 			container.logger.warn(error);
-			payload.message ??= `Failed to upload to **paste.gg**. Code: ${(error as QueryError).code}`;
+			payload.message ??= `Failed to upload to **paste.gg**. Error: ${(error as QueryError).code}`;
 
 			return super.handle(payload);
 		}
