@@ -1,4 +1,5 @@
 import { DiscosinoColor } from '#config';
+import { ErrorIdentifier } from '#core/errors';
 import {
 	ChatOutputHandler,
 	ConsoleOutputHandler,
@@ -9,13 +10,12 @@ import {
 	FileOutputHandler,
 	PastebinOutputHandler
 } from '#feat/eval';
-import { createEmbed } from '#util/discord';
 import { Duration, humanizeDuration } from '#util/duration';
 import { sanitize } from '#util/sanitizer';
 import { HandlerChain } from '#util/structures';
 import { ZWS } from '#util/text';
 import { ApplyOptions } from '@sapphire/decorators';
-import { ChatInputCommand, Command } from '@sapphire/framework';
+import { ChatInputCommand, Command, UserError } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
 import { Type } from '@sapphire/type';
 import { isThenable } from '@sapphire/utilities';
@@ -124,9 +124,7 @@ export class UserCommand extends Command {
 			});
 		} catch (error) {
 			if ((error as NodeJS.ErrnoException).code !== 'INTERACTION_COLLECTOR_ERROR') throw error;
-			const embed = createEmbed('Failure', 'The session has expired, please try again.');
-
-			return interaction.followUp({ ephemeral: true, embeds: [embed] });
+			throw new UserError({ identifier: ErrorIdentifier.ModalSesssionExpired });
 		}
 
 		const options = this.getOptions(interaction);

@@ -25,8 +25,6 @@ export class UserCommand extends Command {
 	}
 
 	public override async chatInputRun(interaction: ChatInputCommand.Interaction) {
-		await interaction.deferReply();
-
 		const user = interaction.options.getUser('user') ?? interaction.user;
 
 		const { moneyAmount, tokenAmount } = await getBalance({
@@ -44,6 +42,6 @@ export class UserCommand extends Command {
 				{ name: 'Net Worth', value: formatFunds('total', totalAmount) }
 			]);
 
-		return interaction.editReply({ embeds: [embed] });
+		return interaction.reply({ embeds: [embed] });
 	}
 }

@@ -1,4 +1,5 @@
 import { ENV } from '#config';
+import { ErrorIdentifier } from '#core/errors';
 import { ChatInputCommand, ContextMenuCommand, Precondition } from '@sapphire/framework';
 import type { Snowflake } from 'discord.js';
 
@@ -12,9 +13,7 @@ export class UserPrecondition extends Precondition {
 	}
 
 	private verify(userId: Snowflake) {
-		return ENV.DEVELOPER_IDS.includes(userId)
-			? this.ok()
-			: this.error({ message: 'This command can only be used by developers.' });
+		return ENV.DEVELOPER_IDS.includes(userId) ? this.ok() : this.error({ identifier: ErrorIdentifier.DeveloperOnly });
 	}
 }
 
