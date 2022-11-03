@@ -14,8 +14,9 @@
 		"rootDir": "src",
 		"baseUrl": "src",
 		"paths": {
+			"#core/*": ["lib/core/*"],
+			"#feat/*": ["lib/feat/*"],
 			"#util/*": ["lib/util/*"],
-			"#lib/*": ["lib/*"],
 			"#config": ["config.ts"]
 		}
 	},

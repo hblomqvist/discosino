@@ -9,11 +9,12 @@
 	"type": "module",
 	"main": "./dist/discosino.js",
 	"imports": {
+		"#core/*": "./dist/lib/core/*.js",
+		"#core/framework": "./dist/lib/core/framework/index.js",
+		"#feat/*": "./dist/lib/feat/*.js",
+		"#feat/eval": "./dist/lib/feat/eval/index.js",
 		"#util/*": "./dist/lib/util/*.js",
 		"#util/structures": "./dist/lib/util/structures/index.js",
-		"#lib/*": "./dist/lib/*.js",
-		"#lib/eval": "./dist/lib/eval/index.js",
-		"#lib/framework": "./dist/lib/framework/index.js",
 		"#config": "./dist/config.js"
 	},
 	"scripts": {

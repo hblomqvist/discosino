@@ -1,4 +1,4 @@
-import { formatFunds, getBalance } from '#lib/economy';
+import { formatFunds, getBalance } from '#feat/economy';
 import { createEmbed } from '#util/discord';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';

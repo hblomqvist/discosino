@@ -8,7 +8,7 @@ import {
 	EvalResult,
 	FileOutputHandler,
 	PastebinOutputHandler
-} from '#lib/eval';
+} from '#feat/eval';
 import { createEmbed } from '#util/discord';
 import { Duration, humanizeDuration } from '#util/duration';
 import { sanitize } from '#util/sanitizer';

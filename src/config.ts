@@ -1,4 +1,4 @@
-import { strArray, strNotEmpty } from '#lib/env';
+import { strArray, strNotEmpty } from '#core/env';
 import type { BotActivityType } from '#util/discord';
 import { LogLevel } from '@sapphire/framework';
 import { ClientOptions, Intents } from 'discord.js';

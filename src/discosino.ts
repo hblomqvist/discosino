@@ -1,6 +1,6 @@
-import '#lib/setup';
+import '#core/setup';
 
-import { DiscosinoClient } from '#lib/framework';
+import { DiscosinoClient } from '#core/framework';
 
 const client = new DiscosinoClient();
 
