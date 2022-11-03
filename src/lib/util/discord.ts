@@ -1,7 +1,7 @@
 import { DiscosinoColor, DiscosinoEmoji } from '#config';
 import type { ActivityType } from 'discord.js';
 import { MessageEmbed } from 'discord.js';
-import { ZERO_WIDTH_SPACE } from './constants';
+import { ZWS } from './text';
 
 export function createEmbed(type: EmbedType, description?: string): MessageEmbed {
 	const [color, emoji] =
@@ -13,9 +13,9 @@ export function createEmbed(type: EmbedType, description?: string): MessageEmbed
 }
 
 export function codeBlock(code: string, language = ''): string {
-	if (!code || /^\n*$/.test(code)) return codeBlock(ZERO_WIDTH_SPACE);
+	if (!code || /^\n*$/.test(code)) return codeBlock(ZWS);
 
-	const escaped = code.replaceAll('`', `\`${ZERO_WIDTH_SPACE}`);
+	const escaped = code.replaceAll('`', `\`${ZWS}`);
 
 	return `\`\`\`${language}\n${escaped}\n\`\`\``;
 }

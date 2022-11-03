@@ -9,12 +9,11 @@ import {
 	FileOutputHandler,
 	PastebinOutputHandler
 } from '#lib/eval';
-import { ZERO_WIDTH_SPACE } from '#util/constants';
 import { createEmbed } from '#util/discord';
 import { Duration, humanizeDuration } from '#util/duration';
-import type { NodeError } from '#util/misc';
 import { sanitize } from '#util/sanitizer';
 import { HandlerChain } from '#util/structures';
+import { ZWS } from '#util/text';
 import { ApplyOptions } from '@sapphire/decorators';
 import { ChatInputCommand, Command } from '@sapphire/framework';
 import { Stopwatch } from '@sapphire/stopwatch';
@@ -124,7 +123,7 @@ export class UserCommand extends Command {
 				time: 30 * Duration.Minute
 			});
 		} catch (error) {
-			if ((error as NodeError).code !== 'INTERACTION_COLLECTOR_ERROR') throw error;
+			if ((error as NodeJS.ErrnoException).code !== 'INTERACTION_COLLECTOR_ERROR') throw error;
 			const embed = createEmbed('Failure', 'The session has expired, please try again.');
 
 			return interaction.followUp({ ephemeral: true, embeds: [embed] });
@@ -231,8 +230,8 @@ export class UserCommand extends Command {
 		return {
 			success,
 			isError,
-			output: sanitize(result as string) || ZERO_WIDTH_SPACE,
-			type: type.toString() || ZERO_WIDTH_SPACE,
+			output: sanitize(result as string) || ZWS,
+			type: type.toString() || ZWS,
 			time: timer.duration
 		};
 	}

@@ -1,4 +1,4 @@
-import { numericObjectValues } from './misc';
+import { numericObjectValues } from './objects';
 
 export enum Duration {
 	Year = 31_557_600_000,
