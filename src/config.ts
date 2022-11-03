@@ -1,7 +1,24 @@
-import { ENV } from '#lib/env';
+import { strArray, strNotEmpty } from '#lib/env';
 import type { BotActivityType } from '#util/discord';
 import { LogLevel } from '@sapphire/framework';
 import { ClientOptions, Intents } from 'discord.js';
+import { cleanEnv, str, url } from 'envalid';
+
+export const ENV = cleanEnv(process.env, {
+	NODE_ENV: str({
+		choices: ['development', 'production'],
+		default: 'development'
+	}),
+	ACTIVITY_NAME: str({ default: '' }),
+	ACTIVITY_TYPE: str({
+		choices: ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING'],
+		default: ''
+	}),
+	DEVELOPER_IDS: strArray({ default: [] }),
+	DATABASE_URL: url(),
+	DISCORD_TOKEN: strNotEmpty(),
+	PASTE_GG_TOKEN: str({ default: '' })
+});
 
 export const CLIENT_OPTIONS: ClientOptions = {
 	intents: [Intents.FLAGS.GUILDS],
