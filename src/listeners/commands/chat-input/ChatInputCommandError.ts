@@ -21,9 +21,7 @@ export class UserListener extends Listener<typeof Events.ChatInputCommandError> 
 		const { name, location } = command;
 		this.container.logger.error(`Encountered error on chat input command "${name}" at path "${location.full}"`, error);
 
-		const identifier = this.getIdentifier(error);
-
-		return this.sendError(interaction, new UserError({ identifier }));
+		return this.sendError(interaction, new UserError({ identifier: this.getIdentifier(error) }));
 	}
 
 	private getIdentifier(error: Error): ErrorIdentifier {
