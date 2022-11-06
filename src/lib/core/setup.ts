@@ -2,4 +2,4 @@
 import 'dotenv/config';
 import '@sapphire/plugin-logger/register';
 
-process.env.COLUMNS = '150';
+process.env.COLUMNS = '200';
