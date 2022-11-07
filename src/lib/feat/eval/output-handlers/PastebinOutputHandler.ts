@@ -59,7 +59,7 @@ export class PastebinOutputHandler extends EvalOutputHandler {
 								format: 'text',
 								value: result.output
 							},
-							highlight_language: 'typescript'
+							highlight_language: result.isError ? null : 'typescript'
 						},
 						{
 							name: 'Type',

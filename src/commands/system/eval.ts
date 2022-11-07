@@ -41,7 +41,7 @@ export class UserCommand extends Command {
 		depth: 0,
 		showHidden: false,
 		wrapAsync: false,
-		timeout: Duration.Minute,
+		timeout: 1,
 		outputTo: 'chat',
 		ephemeral: true
 	};
@@ -74,8 +74,9 @@ export class UserCommand extends Command {
 					.addIntegerOption((option) =>
 						option //
 							.setName('timeout')
-							.setDescription(`How long to wait for a result in milliseconds. Default: ${this.defaultOptions.timeout}`)
-							.setMinValue(-1)
+							.setDescription(`How long to wait for a result in seconds. Default: ${this.defaultOptions.timeout}`)
+							.setMinValue(0)
+							.setMaxValue(800)
 					)
 					.addStringOption((option) =>
 						option //
@@ -120,11 +121,11 @@ export class UserCommand extends Command {
 		try {
 			modalInteraction = await interaction.awaitModalSubmit({
 				filter: (interaction) => interaction.customId === modalCustomId,
-				time: 30 * Duration.Minute
+				time: 10 * Duration.Minute
 			});
 		} catch (error) {
 			if ((error as NodeJS.ErrnoException).code !== 'INTERACTION_COLLECTOR_ERROR') throw error;
-			throw new UserError({ identifier: ErrorIdentifier.ModalSesssionExpired });
+			throw new UserError({ identifier: ErrorIdentifier.ModalSessionExpired });
 		}
 
 		const options = this.getOptions(interaction);
@@ -143,7 +144,7 @@ export class UserCommand extends Command {
 		};
 
 		if (options.depth <= -1) options.depth = Infinity;
-		if (options.timeout <= -1) options.timeout = 10 * Duration.Minute;
+		options.timeout *= 1000;
 
 		return options;
 	}

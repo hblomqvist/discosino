@@ -4,7 +4,7 @@ const errorMessages: Record<ErrorIdentifier, string> = {
 	developerOnly: 'This command can only be used by developers.',
 	modalSessionExpired: 'The session has expired, please try again.',
 	noDatabaseConnection: 'The database could not be reached, please try again later.',
-	unexpected: 'An unexpected error occured.'
+	unexpected: 'An unexpected error occurred.'
 };
 
 export function getErrorMessage({ message, identifier }: UserError): string {
@@ -15,7 +15,7 @@ export function getErrorMessage({ message, identifier }: UserError): string {
 
 export enum ErrorIdentifier {
 	DeveloperOnly = 'developerOnly',
-	ModalSesssionExpired = 'modalSessionExpired',
+	ModalSessionExpired = 'modalSessionExpired',
 	NoDatabaseConnection = 'noDatabaseConnection',
 	Unexpected = 'unexpected'
 }

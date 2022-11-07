@@ -22,15 +22,15 @@ export class FileOutputHandler extends EvalOutputHandler {
 	private createFiles({ prettyInput, result }: EvalPayload): File[] {
 		return [
 			{
-				name: 'input.js',
+				name: 'input.txt',
 				attachment: Buffer.from(prettyInput)
 			},
 			{
-				name: 'output.js',
+				name: 'output.txt',
 				attachment: Buffer.from(result.output)
 			},
 			{
-				name: 'type.ts',
+				name: 'type.txt',
 				attachment: Buffer.from(result.type)
 			}
 		];

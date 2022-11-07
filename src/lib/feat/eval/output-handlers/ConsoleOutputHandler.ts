@@ -1,32 +1,34 @@
 import { container } from '@sapphire/framework';
+import treeify, { TreeObject } from 'treeify';
 import type { EvalPayload } from '../types';
 import { EvalOutputHandler } from './EvalOutputHandler';
 
 export class ConsoleOutputHandler extends EvalOutputHandler {
 	public override handle(payload: EvalPayload) {
-		const output = this.createOutput(payload);
+		container.logger.info('[Eval]');
+		container.logger.info(this.buildOutputTree(payload));
 
-		container.logger.info(output);
-		const body = `I've logged the output to the console.`;
-
-		return { content: this.buildContent(body, payload.message) };
+		return { content: this.buildContent(`I've logged the output to the console.`, payload.message) };
 	}
 
-	private createOutput({ prettyInput, result }: EvalPayload) {
-		return [
-			'[EVAL]',
-			this.indent('Input:', 2),
-			this.indent(prettyInput, 4),
-			'',
-			this.indent('Output:', 2),
-			this.indent(result.output, 4),
-			'',
-			this.indent('Type:', 2),
-			this.indent(result.type, 4)
-		].join('\n');
+	private buildOutputTree({ prettyInput, result }: EvalPayload): string {
+		const outputTree: TreeObject = {
+			Input: this.formatMultiline(prettyInput),
+			Output: this.formatMultiline(result.output),
+			Type: result.type
+		};
+
+		return treeify.asTree(outputTree, true, true).trimEnd();
 	}
 
-	private indent(text: string, width = 2) {
-		return text.replace(/^/gm, ' '.repeat(width));
+	private formatMultiline(input: string) {
+		const lines = input.split(/\r?\n/);
+
+		const firstLine = lines.shift();
+		const remainingLines = lines.map((line) => `│${' '.repeat(5)}${line}`);
+
+		const value = [firstLine, ...remainingLines].join('\n');
+
+		return { [value]: null } as unknown as TreeObject;
 	}
 }
