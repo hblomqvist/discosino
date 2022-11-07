@@ -41,7 +41,7 @@ export class UserCommand extends Command {
 		depth: 0,
 		showHidden: false,
 		wrapAsync: false,
-		timeout: 1,
+		timeout: 60,
 		outputTo: 'chat',
 		ephemeral: true
 	};
