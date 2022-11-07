@@ -40,14 +40,14 @@ export const SANITIZER_SUFFIXES = ['DATABASE_URL', 'TOKEN'];
 
 export enum DiscosinoColor {
 	Primary = 0x5865f2,
-	Failure = 0xed4245,
-	Success = 0x57f287
+	Failure = 0xe74c3c,
+	Success = 0x2ecc71
 }
 
 export enum DiscosinoEmoji {
-	Failure = '<:failure:936345719030288424>',
-	Success = '<:success:936345740349939806>',
-	MoneySymbol = '<:money:967883821926187038>',
-	TokenSymbol = '<:chips:967883373689339926>',
-	MixedSymbol = '<:chip_coin:967883068591456256>'
+	Failure = '<:cross_box:1033100663611211837>',
+	Success = '<:check_box:1033100664588484739>',
+	MoneySymbol = '<:cash:1033095296223293470>',
+	TokenSymbol = '<:chips:1033095298865713193>',
+	MixedSymbol = '<:chip_coin:1033095297385115758>'
 }
