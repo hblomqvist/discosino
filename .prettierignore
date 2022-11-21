@@ -4,3 +4,4 @@ dist/
 prisma/migrations/
 LICENSE
 yarn.lock
+CHANGELOG.md
