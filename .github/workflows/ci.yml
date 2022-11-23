@@ -54,15 +54,3 @@ jobs:
 
       - name: Build source
         run: yarn build
-
-  semver:
-    name: Versioning
-    runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
-    needs: [code-quality, build]
-
-    steps:
-      - name: Bump version and tag
-        uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: node
