@@ -2,18 +2,15 @@ name: Docker
 
 on:
   push:
-    branches:
-      - main
-    tags:
-      - v*.*.*
+    tags: [v*.*.*]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  image:
-    name: Image
+  publish-image:
+    name: Publish image
     runs-on: ubuntu-latest
 
     steps:
@@ -57,6 +54,7 @@ jobs:
           push: true
           builder: ${{ steps.buildx.outputs.name }}
           tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
