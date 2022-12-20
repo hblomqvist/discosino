@@ -54,27 +54,17 @@ jobs:
         run: yarn build
 
   release:
-    - name: Release
-      runs-on: ubuntu-latest
-      needs: [code-quality, build]
-      if: ${{ github.event_name != 'pull_request' }}
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [code-quality, build]
+    if: ${{ github.event_name != 'pull_request' }}
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-
-        - name: Setup Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '18'
-            cache: yarn
-
-        - name: Install dependencies
-          run: yarn install --immutable
-
-        - name: Release
-          env:
-            GH_TOKEN: ${{ secrets.CI_TOKEN }}
-          run: yarn semantic-release
+    steps:
+      - name: Release Please
+        uses: google-github-actions/release-please-action@v3
+        with:
+          token: ${{ secrets.FULL_REPO_PAT }}
+          release-type: node
+          package-name: discosino
+          changelog-types: '[{"type":"feat","section":"Features","hidden":false},{"type":"fix","section":"Bug fixes","hidden":false},{"type":"perf","section":"Performance","hidden":false},{"type":"docs","section":"Documentation","hidden":false},{"type":"chore","section":"Miscellaneous","hidden":false},{"type":"build","section":"Miscellaneous","hidden":false},{"type":"ci","section":"Miscellaneous","hidden":false},{"type":"refactor","section":"Miscellaneous","hidden":false},{"type":"style","section":"Miscellaneous","hidden":false},{"type":"test","section":"Miscellaneous","hidden":false}]'
+          pull-request-title-pattern: 'chore: release ${version}'
