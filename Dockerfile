@@ -7,6 +7,7 @@ RUN apk add --no-cache \
 	build-base \
 	dumb-init \
 	python3 \
+	openssl1.1-compat \
 	&& chown node:node /bot
 
 USER node
