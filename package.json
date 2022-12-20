@@ -60,7 +60,6 @@
 		"@commitlint/config-conventional": "^17.2.0",
 		"@sapphire/eslint-config": "^4.3.8",
 		"@sapphire/ts-config": "^3.3.4",
-		"@semantic-release/changelog": "^6.0.2",
 		"@types/figlet": "^1.5.5",
 		"@types/gradient-string": "^1.1.2",
 		"@types/node": "^18.11.9",
@@ -79,7 +78,6 @@
 		"prettier-plugin-sh": "^0.12.8",
 		"pretty-quick": "^3.1.3",
 		"rimraf": "^3.0.2",
-		"semantic-release": "^19.0.5",
 		"tsup": "^6.4.0",
 		"typescript": "^4.8.4"
 	},
@@ -99,18 +97,6 @@
 		"commitizen": {
 			"path": "./node_modules/cz-conventional-changelog"
 		}
-	},
-	"release": {
-		"branches": [
-			"main"
-		],
-		"plugins": [
-			"@semantic-release/commit-analyzer",
-			"@semantic-release/release-notes-generator",
-			"@semantic-release/changelog",
-			"@semantic-release/npm",
-			"@semantic-release/git"
-		]
 	},
 	"packageManager": "yarn@3.2.4"
 }
