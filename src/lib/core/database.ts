@@ -6,7 +6,7 @@ export async function initDatabase() {
 		await container.database.$connect();
 		container.logger.info('Database: Connection successfully established');
 	} catch (error) {
-		if (ENV.isProd) return container.logger.error(error);
+		if (ENV.isProd) throw error;
 		container.logger.warn('Database: Not connected');
 	}
 }
